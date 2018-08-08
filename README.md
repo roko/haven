@@ -1,6 +1,6 @@
 # Project Name
 
-> Respected-Magician
+> Haven
 
 ```sh
 Placeholder
@@ -8,9 +8,9 @@ Placeholder
 
 ## Team
 
-- **Product Owner**: 
-- **Scrum Master**: 
-- **Development Team Members**: 
+- **Product Owner**: James McCurley
+- **Scrum Master**: Christopher Amurao
+- **Development Team Members**: Ro Ko, Anthony King
 
 ## Table of Contents
 
@@ -36,8 +36,8 @@ Placeholder
 - for heroku:
   - NODE_ENV = 'production'
   - NPM_CONFIG_PRODUCTION = true
-  - whatever mysql database you want to use (we used ClearDB MySQL :: Database):
-    - DATABASE_URL = the url given to you via CLEARDB_DATABASE_URL upon setting up ClearDB or whatever else you use
+  - (we used ClearDB MySQL :: Database):
+  - DATABASE_URL 
   - 
   - 
 
