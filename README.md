@@ -2,10 +2,6 @@
 
 > Haven
 
-```sh
-Placeholder
-```
-
 ## Team
 
 - **Product Owner**: James McCurley
