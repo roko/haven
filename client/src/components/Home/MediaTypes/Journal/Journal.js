@@ -1,15 +1,15 @@
 import React from "react";
 import { AsyncStorage, Button, StyleSheet, View, StatusBar , Text, TextInput,  FlatList} from "react-native";
-import { List, ListItem } from "react-native-elements";
-import JournalEntry from "./JournalEntryEntry";
-import AddAnEntry from "../AddAnEntry";
-import dummyData from "../../../../../../dummyData/journalData";
+import JournalEntry from "./JournalEntry";
+import AddAnEntry from "./AddAnEntry";
+import dummyData from "./dummyData/journalData.js";
+// import { List, ListItem } from "react-native-elements";
 
 export default class Journal extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      data: fakeData,
+      data: dummyData,
       view: 'default'
     }
   }
