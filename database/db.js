@@ -1,6 +1,7 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('havendata.db');
 
+//db will throw errors if columns are not formatted as one line, do not separate into neat to read rows
 db.serialize(function() {
     db.run("DROP TABLE IF EXISTS user");
     db.run("CREATE TABLE user (id INTEGER PRIMARY KEY, mediaTypes TEXT, interests TEXT, discoverable BOOLEAN)");
@@ -10,50 +11,55 @@ db.serialize(function() {
     
     db.run("DROP TABLE IF EXISTS photoVid");
     db.run("CREATE TABLE photoVid (id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
-
+    
     db.run("DROP TABLE IF EXISTS music");
     db.run("CREATE TABLE music (id INTEGER PRIMARY KEY, title TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
-
+    
     db.run("DROP TABLE IF EXISTS journal");
     db.run("CREATE TABLE journal(id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
-
+    
     db.run("DROP TABLE IF EXISTS contacts");
     db.run("CREATE TABLE contacts(id INTEGER PRIMARY KEY, name TEXT, phone INTEGER, email TEXT, emergencyContact BOOLEAN)");
-    // db.run("CREATE TABLE photoVid (
+});
+
+db.close();
+    
+    //media columns
+    //       id integer primary key not null,
+    //       photoVidId integer NOT NULL,
+    //         FOREIGN KEY (photoVidId) REFERENCES photoVid(id),
+    //       musicId integer NOT NULL,
+    //         FOREIGN KEY (musicId) REFERENCES music(id),
+    //       journalId integer NOT NULL,
+    //         FOREIGN KEY (journalId) REFERENCES journal(id),
+    //photoVid columns
     //     id integer primary key not null,
     //     title TEXT,
     //     description TEXT,
     //     file TEXT,
     //     userId integer NOT NULL,
     //     FOREIGN KEY (userId) REFERENCES user(id),
-    // )");
-
-    // db.run("CREATE TABLE music (
+    // music columns
     //     id integer primary key not null,
     //     title TEXT,
     //     file TEXT,
     //     userId integer NOT NULL,
     //     FOREIGN KEY (userId) REFERENCES user(id),
-    // )");
-
-    // db.run("CREATE TABLE photoVid (
+    //journal columns
     //     id integer primary key not null,
     //     title TEXT,
     //     description TEXT,
     //     file TEXT,
     //     userId integer NOT NULL,
     //     FOREIGN KEY (userId) REFERENCES user(id),
-    // )");
-
-
-    // db.run("CREATE TABLE contacts (
+    // contact columns 
     //     id integer primary key not null,
     //     name TEXT,
     //     phone INTEGER,
     //     email TEXT,
     //     emergencyFlag BOOLEAN
-    // )");
 
+//test helper function to make sure db is being properly populated
 //   var stmt = db.prepare("INSERT INTO testAgain VALUES (?)");
 //   for (var i = 0; i < 10; i++) {
 //       stmt.run("Ipsum " + i);
@@ -63,9 +69,10 @@ db.serialize(function() {
 //   db.each("SELECT rowid AS id, info FROM testAgain", function(err, row) {
 //       console.log(row.id + ": " + row.info);
 //   });
-});
 
-db.close();
+////////////////////////////////////////
+//old code for using expo's sqlite3
+
 // const expo = require('expo');
 
 // const db = expo.SQLite.openDatabase('havendata.db');
