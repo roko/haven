@@ -10,7 +10,7 @@ import { createStackNavigator, createSwitchNavigator } from "react-navigation";
 import LoginScreen from "./client/src/components/Login/Login";
 import HomeScreen from "./client/src/components/Home/HomeScreen.js";
 import Music from './client/src/components/Home/MediaTypes/Music';
-import Journal from './client/src/components/Home/MediaTypes/Journal';
+import Journal from './client/src/components/Home/MediaTypes/Journal/Journal';
 import PhotoVideo from './client/src/components/Home/MediaTypes/PhotoVideo';
 import AuthLoadingScreen from './client/src/components/Login/AuthLoadingScreen';
 
