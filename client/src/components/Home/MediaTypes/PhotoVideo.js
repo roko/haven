@@ -1,6 +1,6 @@
 
 import React from "react";
-import { AsyncStorage, Button, StyleSheet, View, StatusBar, ScrollView, CameraRoll } from "react-native";
+import { AsyncStorage, Button, StyleSheet, View, StatusBar, ScrollView, CameraRoll, Image } from "react-native";
 
 
 export default class PhotoVideo extends React.Component {
