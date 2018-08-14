@@ -26,7 +26,7 @@ export default class AddAnEntry extends React.Component {
             onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
             //   maxLength = {40}
           />
-          <Button title="Save Entry" onPress={()=>{}} />
+          <Button title="Save Entry" onPress={()=>{this.props.saveEntry(this.state.text)}} />
           <Button title="Nevermind" onPress={()=>{this.props.changeView('default')}} />
        </View>
       );
