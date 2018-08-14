@@ -10,7 +10,8 @@ export default class Journal extends React.Component {
     super(props);
     this.state={
       data: dummyData,
-      view: 'default'
+      view: 'default',
+      viewingEntry: ''
     }
   }
 
@@ -29,17 +30,24 @@ export default class Journal extends React.Component {
     this.setState({
       view: newView
     })
+    console.log('currentview', this.state.view)
   }
 
   saveEntry (content) {
-    //refactor later to use generic axios post req passed down from main app
-  }
+    //refactor later to use generic post req method passed down from main app?
+    fetch("http://localhost:3000/journal", {method: "POST", body: JSON.stringify({content: content})})
+    .then((response) => response.json())
+    .then((responseData) => {
+        AlertIOS.alert(
+            "POST Response",
+            "Response Body -> " + JSON.stringify(responseData.body)
+        )
+    })
+    .done();
+}
 
   render() { 
     console.log('journal component is totally rendering', this.state.data);
-    //clickable button to open up modal for making a new entry
-    //input field for user to make journal entry
-    //button to save that entry
 
     //previous journal entries for user to go back to view/edit/delete?
     //make scrollable/change to grid view etc? stretch goal for user settings - user can customize if they want to switch to grid view instead of default list scrollable view?
@@ -54,7 +62,7 @@ export default class Journal extends React.Component {
             style={styles.flatList}
             data={this.state.data}
             keyExtractor={(item, index) => item.id}
-            renderItem={({ item, index }) => (<JournalEntry data={item} onPressItem={() => this.props.onPressItem(item, index)} />)}
+            renderItem={({ item, index }) => (<JournalEntry data={item} onPressItem={() => this.changeView.bind(this, item)} />)}
             />
         </View>
       );
@@ -64,10 +72,15 @@ export default class Journal extends React.Component {
       return(
         <View>
           <AddAnEntry 
-          changeView={this.changeView.bind(this)}/>
+          changeView={this.changeView.bind(this)}
+          saveEntry={this.saveEntry.bind(this)}/>
         </View>
       )
     }
+
+    return (
+      <JournalEntry text={this.state.viewingEntry} />
+    )
   }
 }
 
