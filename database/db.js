@@ -2,26 +2,32 @@ var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('havendata.db');
 
 //db will throw errors if columns are not formatted as one line, do not separate into neat to read rows
-db.serialize(function() {
-    db.run("DROP TABLE IF EXISTS user");
-    db.run("CREATE TABLE user (id INTEGER PRIMARY KEY, mediaTypes TEXT, interests TEXT, discoverable BOOLEAN)");
 
-    db.run("DROP TABLE IF EXISTS media");
-    db.run("CREATE TABLE media (id INTEGER PRIMARY KEY, photoVidId INTEGER, musicId INTEGER,journalId INTEGER, FOREIGN KEY (photoVidId) REFERENCES photoVid(id), FOREIGN KEY (musicId) REFERENCES music(id),FOREIGN KEY (journalId) REFERENCES journal(id))");
+// Entire db setup is wrapped in a function which is exported to database test file so that any changes here will
+// be reflected in database that is built for tests
+var runSchema = function(database) {
+  database.serialize(function() {
+    database.run("DROP TABLE IF EXISTS user");
+    database.run("CREATE TABLE user (id INTEGER PRIMARY KEY, mediaTypes TEXT, interests TEXT, discoverable BOOLEAN)");
     
-    db.run("DROP TABLE IF EXISTS photoVid");
-    db.run("CREATE TABLE photoVid (id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
+    database.run("DROP TABLE IF EXISTS media");
+    database.run("CREATE TABLE media (id INTEGER PRIMARY KEY, photoVidId INTEGER, musicId INTEGER,journalId INTEGER, FOREIGN KEY (photoVidId) REFERENCES photoVid(id), FOREIGN KEY (musicId) REFERENCES music(id),FOREIGN KEY (journalId) REFERENCES journal(id))");
     
-    db.run("DROP TABLE IF EXISTS music");
-    db.run("CREATE TABLE music (id INTEGER PRIMARY KEY, title TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
+    database.run("DROP TABLE IF EXISTS photoVid");
+    database.run("CREATE TABLE photoVid (id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
     
-    db.run("DROP TABLE IF EXISTS journal");
-    db.run("CREATE TABLE journal(id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
+    database.run("DROP TABLE IF EXISTS music");
+    database.run("CREATE TABLE music (id INTEGER PRIMARY KEY, title TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
     
-    db.run("DROP TABLE IF EXISTS contacts");
-    db.run("CREATE TABLE contacts(id INTEGER PRIMARY KEY, name TEXT, phone INTEGER, email TEXT, emergencyContact BOOLEAN)");
-});
+    database.run("DROP TABLE IF EXISTS journal");
+    database.run("CREATE TABLE journal(id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
+    
+    database.run("DROP TABLE IF EXISTS contacts");
+    database.run("CREATE TABLE contacts(id INTEGER PRIMARY KEY, name TEXT, phone INTEGER, email TEXT, emergencyContact BOOLEAN)");
+  });
+}
 
+runSchema(db);
 db.close();
     
     //media columns
@@ -108,4 +114,5 @@ db.close();
 //     });
 //   }
 
-// module.exports.db = db;
+module.exports.db = db;
+module.exports.runSchema = runSchema;
