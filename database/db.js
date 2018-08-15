@@ -1,5 +1,7 @@
 var sqlite3 = require('sqlite3').verbose();
-var database = new sqlite3.Database('havendata.db');
+var database = new sqlite3.Database('./havendata.db');
+
+//check for db changes in the havendata.db folder in the ROOT folder, not the database folder
 
 //db will throw errors if columns are not formatted as one line, do not separate into neat to read rows
 
@@ -7,37 +9,38 @@ var database = new sqlite3.Database('havendata.db');
 // be reflected in database that is built for tests
 var runSchema = function(database) {
   database.serialize(function() {
-    database.run("DROP TABLE IF EXISTS user");
-    database.run("CREATE TABLE user (id INTEGER PRIMARY KEY, mediaTypes TEXT, interests TEXT, discoverable BOOLEAN)");
+    // database.run("DROP TABLE IF EXISTS user");
+    database.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY, mediaTypes TEXT, interests TEXT, discoverable BOOLEAN)");
     
-    database.run("DROP TABLE IF EXISTS media");
-    database.run("CREATE TABLE media (id INTEGER PRIMARY KEY, photoVidId INTEGER, musicId INTEGER,journalId INTEGER, FOREIGN KEY (photoVidId) REFERENCES photoVid(id), FOREIGN KEY (musicId) REFERENCES music(id),FOREIGN KEY (journalId) REFERENCES journal(id))");
+    // database.run("DROP TABLE IF EXISTS media");
+    database.run("CREATE TABLE IF NOT EXISTS media (id INTEGER PRIMARY KEY, photoVidId INTEGER, musicId INTEGER,journalId INTEGER, FOREIGN KEY (photoVidId) REFERENCES photoVid(id), FOREIGN KEY (musicId) REFERENCES music(id),FOREIGN KEY (journalId) REFERENCES journal(id))");
     
-    database.run("DROP TABLE IF EXISTS photoVid");
-    database.run("CREATE TABLE photoVid (id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
+    // database.run("DROP TABLE IF EXISTS photoVid");
+    database.run("CREATE TABLE IF NOT EXISTS photoVid (id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
     
-    database.run("DROP TABLE IF EXISTS music");
-    database.run("CREATE TABLE music (id INTEGER PRIMARY KEY, title TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
+    // database.run("DROP TABLE IF EXISTS music");
+    database.run("CREATE TABLE IF NOT EXISTS music (id INTEGER PRIMARY KEY, title TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
     
-    database.run("DROP TABLE IF EXISTS journal");
-    database.run("CREATE TABLE journal(id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
+    // database.run("DROP TABLE IF EXISTS journal");
+    database.run("CREATE TABLE IF NOT EXISTS journal(id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
     
-    database.run("DROP TABLE IF EXISTS contacts");
-    database.run("CREATE TABLE contacts(id INTEGER PRIMARY KEY, name TEXT, phone INTEGER, email TEXT, emergencyContact BOOLEAN)");
+    // database.run("DROP TABLE IF EXISTS contacts");
+    database.run("CREATE TABLE IF NOT EXISTS contacts(id INTEGER PRIMARY KEY, name TEXT, phone INTEGER, email TEXT, emergencyContact BOOLEAN)");
   });
 }
 
 runSchema(database);
 
 var addJournalEntry = function (req) {
+  console.log('CALLING THIS NOW')
 	database.serialize(function(){
         var sqliteCommand = `INSERT INTO journal VALUES (${req.body.id}, '${req.body.title}' , '${req.body.description}', '${req.body.file}', ${req.body.userId})`;
         database.run(sqliteCommand, (err)=> {
-      if (err) {
-        console.log('i hate sqlite')
-      }
-      console.log('is this even saving??')
-    });
+          if (err) {
+            console.log(err)
+          }
+          console.log('is this even saving??')
+        });
   });
 }
 
@@ -48,13 +51,13 @@ var addJournalEntry = function (req) {
 module.exports.database = database;
 module.exports.runSchema = runSchema;
 module.exports.addJournalEntry = addJournalEntry;
-addJournalEntry({body:
- { "id": "55",
-  "userId": "7",
-  "title": "title",
-   "description": "summary",
-   "file": "what my thoughts are"}
- })
+// addJournalEntry({body:
+//  { "id": "55",
+//   "userId": "7",
+//   "title": "title",
+//    "description": "summary",
+//    "file": "what my thoughts are"}
+//  })
     //media columns
     //       id integer primary key not null,
     //       photoVidId integer NOT NULL,
@@ -111,13 +114,13 @@ addJournalEntry({body:
 // const initializedb = () => {
 //     db.transaction(tx => {
 //       tx.executeSql(
-//         `create table if not exists testAgain (
+//         `CREATE TABLE IF NOT EXISTS if not exists testAgain (
 //           id integer primary key not null,
 //           message text
 //         );`, [], null, (t, err) => {console.log(err)}
 //       );
 //     //   tx.executeSql(
-//     //     `create table if not exists user (
+//     //     `CREATE TABLE IF NOT EXISTS if not exists user (
 //     //       id integer primary key not null,
 //     //       mediaTypes text,
 //     //       interests text,
@@ -125,7 +128,7 @@ addJournalEntry({body:
 //     //     );`, [], null, (t, err) => {console.log(err)}
 //     //   );
 //     //   tx.executeSql(
-//     //     `create table if not exists media (
+//     //     `CREATE TABLE IF NOT EXISTS if not exists media (
 //     //       id integer primary key not null,
 //     //       photoVidId integer NOT NULL,
 //     //         FOREIGN KEY (photoVidId) REFERENCES photoVid(id),

@@ -19,9 +19,8 @@ app.get("*", (req, res) => {
 //make server create an entry in journal table
 app.post('/journal', (req, res) => {
   console.log('is this posting', req.body);
-  db.runSchema('havendata.db');
   db.addJournalEntry(req);
-      res.sendStatus(200);
+  res.sendStatus(200);
 });
 
 const server = app.listen(PORT);
