@@ -24,4 +24,4 @@ app.post('/journal', (req, res) => {
 });
 
 const server = app.listen(PORT);
-console.log(`Node server listening at http://localhost:${PORT}`);
+console.log(`HOO  server listening at http://localhost:${PORT}`);

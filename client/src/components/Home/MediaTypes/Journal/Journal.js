@@ -1,5 +1,5 @@
 import React from "react";
-import { AsyncStorage, Button, StyleSheet, View, StatusBar , Text, TextInput,  FlatList} from "react-native";
+import { AlertIOS, AsyncStorage, Button, StyleSheet, View, StatusBar , Text, TextInput,  FlatList} from "react-native";
 import JournalEntry from "./JournalEntry";
 import AddAnEntry from "./AddAnEntry";
 import dummyData from "./dummyData/journalData.js";
@@ -34,16 +34,17 @@ export default class Journal extends React.Component {
   }
 
   saveEntry (content) {
+    console.log('what is passed in', content)
     //refactor later to use generic post req method passed down from main app?
-    fetch("http://localhost:3000/journal", {method: "POST", body: JSON.stringify({content: content})})
-    .then((response) => response.json())
-    .then((responseData) => {
+    
+    fetch("http://192.168.0.103:3000/journal", {method: "POST", body: JSON.stringify({file: content})})
+      .then((responseData) => {
         AlertIOS.alert(
             "POST Response",
-            "Response Body -> " + JSON.stringify(responseData.body)
-        )
-    })
-    .done();
+            "Response Body -> "
+          )
+       })
+      .done();
 }
 
   render() { 
