@@ -1,5 +1,5 @@
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('havendata.db');
+var database = new sqlite3.Database('havendata.db');
 
 //db will throw errors if columns are not formatted as one line, do not separate into neat to read rows
 
@@ -27,9 +27,34 @@ var runSchema = function(database) {
   });
 }
 
-runSchema(db);
-db.close();
-    
+runSchema(database);
+
+var addJournalEntry = function (req) {
+	database.serialize(function(){
+        var sqliteCommand = `INSERT INTO journal VALUES (${req.body.id}, '${req.body.title}' , '${req.body.description}', '${req.body.file}', ${req.body.userId})`;
+        database.run(sqliteCommand, (err)=> {
+      if (err) {
+        console.log('i hate sqlite')
+      }
+      console.log('is this even saving??')
+    });
+  });
+}
+
+
+//if db connection is closed it won't let us make more entries so I have commented this out for the time being
+// db.close();
+
+module.exports.database = database;
+module.exports.runSchema = runSchema;
+module.exports.addJournalEntry = addJournalEntry;
+addJournalEntry({body:
+ { "id": "55",
+  "userId": "7",
+  "title": "title",
+   "description": "summary",
+   "file": "what my thoughts are"}
+ })
     //media columns
     //       id integer primary key not null,
     //       photoVidId integer NOT NULL,
@@ -113,6 +138,3 @@ db.close();
 //       console.log('initialized haven db')
 //     });
 //   }
-
-module.exports.db = db;
-module.exports.runSchema = runSchema;
