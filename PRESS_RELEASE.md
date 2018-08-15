@@ -20,7 +20,7 @@ Once the project moves into development, the press release can be used as a touc
   > Haven
 
 ## Sub-Heading ##
-  > Mind over Media.
+  > It's Mindfulness over Media.
 
 ## Summary ##
   > A selection of personal, comforting and inspiring tokens tailored to your state of mind.
