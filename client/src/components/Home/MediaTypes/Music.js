@@ -2,6 +2,7 @@ import React from "react";
 import { AsyncStorage, Audio, Button, Text, StyleSheet, View, StatusBar } from "react-native";
 Expo.Audio.setIsEnabledAsync(true); // audio is enabled by default so we shouldn't need this
 import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 // to-dos
 // import npm module that will be used to play and store music
@@ -22,23 +23,60 @@ export default class Music extends React.Component {
   }
 
   static navigationOptions = {
-    title: "Music Title"
+    title: "Your Audio Haven"
   };
 
-  componentDidMount() {
-    // this.playSomething();
+  playTibetan = async () => {
+    const soundObject = new Expo.Audio.Sound(); 
+    try {
+      await soundObject.loadAsync(require('../../../../assets/sounds/tibetan-singing-bowl.wav'));
+      await soundObject.playAsync();
+      console.log('song load success');
+    } catch (error) {
+      console.log('song load error');
+    }
   }
 
-  playSomething = async () => {
-    // console.log('pressed');
+  playWater = async () => {
     const soundObject = new Expo.Audio.Sound(); 
     try {
       await soundObject.loadAsync(require('../../../../assets/sounds/rowing-a-boat.mp3'));
       await soundObject.playAsync();
-      // Your sound is playing!
       console.log('song load success');
     } catch (error) {
-      // An error occurred!
+      console.log('song load error');
+    }
+  }
+
+  playFire = async () => {
+    const soundObject = new Expo.Audio.Sound(); 
+    try {
+      await soundObject.loadAsync(require('../../../../assets/sounds/campfire.mp3'));
+      await soundObject.playAsync();
+      console.log('song load success');
+    } catch (error) {
+      console.log('song load error');
+    }
+  }
+
+  playBodyScanMeditation = async () => {
+    const soundObject = new Expo.Audio.Sound(); 
+    try {
+      await soundObject.loadAsync(require('../../../../assets/sounds/body-scan-meditation-four-min.mp3'));
+      await soundObject.playAsync();
+      console.log('song load success');
+    } catch (error) {
+      console.log('song load error');
+    }
+  }
+
+  playBreathingMeditation = async () => {
+    const soundObject = new Expo.Audio.Sound(); 
+    try {
+      await soundObject.loadAsync(require('../../../../assets/sounds/breathing-meditation-three-min.mp3'));
+      await soundObject.playAsync();
+      console.log('song load success');
+    } catch (error) {
       console.log('song load error');
     }
   }
@@ -46,7 +84,16 @@ export default class Music extends React.Component {
   render() {
     return ( 
       <View style={styles.container}>
-        <Button title="Play Audio of Water Flowing" onPress={this.playSomething} />
+        <MaterialIcons name="play-circle-outline" size={48} color="red" onPress={this.playTibetan} />
+        <Text>Tibetan Singing Bowl</Text>
+        <MaterialIcons name="play-circle-outline" size={48} color="red" onPress={this.playWater} />
+        <Text>Water Flowing</Text>
+        <MaterialIcons name="play-circle-outline" size={48} color="red" onPress={this.playFire} />
+        <Text>Campfire</Text>
+        <MaterialIcons name="play-circle-outline" size={48} color="red" onPress={this.playBreathingMeditation} />
+        <Text>Breathing Meditation (3m)</Text>
+        <MaterialIcons name="play-circle-outline" size={48} color="red" onPress={this.playBodyScanMeditation} />
+        <Text>Body Scan Meditation (4m)</Text>
         <Button title="I'm done, sign me out" onPress={this._signOutAsync} />
         <StatusBar barStyle="default" />
       </View>
@@ -67,6 +114,4 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
-
-////
 
