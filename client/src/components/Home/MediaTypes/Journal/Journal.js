@@ -86,7 +86,7 @@ export default class Journal extends React.Component {
             style={styles.flatList}
             data={this.state.data}
             keyExtractor={(item, index) => item.id}
-            renderItem={({ item, index }) => (<JournalEntry data={item} onPressItem={() => this.changeView.bind(this, item)} />)}
+            renderItem={({ item, index }) => (<JournalEntry data={item} id={index} onPressItem={() => this.changeView.bind(this, item)} />)}
             />
         </View>
       );
