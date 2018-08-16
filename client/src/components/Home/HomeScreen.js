@@ -5,6 +5,10 @@ import {
   StyleSheet,
   View
 } from "react-native";
+import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+
+//ios-musical-notes-outline
 
 
 export default class HomeScreen extends React.Component {
@@ -32,6 +36,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Ionicons name="ios-musical-notes-outline" size={64} color="black" onPress={this._switchToMusic} />
         <Button title="Music Button" onPress={this._switchToMusic} />
         <Button title="Journal Button" onPress={this._switchToJournal} />
         <Button title="Photo / Video Button" onPress={this._switchToPhotoVideo} />
