@@ -13,6 +13,7 @@ import Music from './client/src/components/Home/MediaTypes/Music';
 import Journal from './client/src/components/Home/MediaTypes/Journal/Journal';
 import PhotoVideo from './client/src/components/Home/MediaTypes/PhotoVideo';
 import AuthLoadingScreen from './client/src/components/Login/AuthLoadingScreen';
+import Contacts from './client/src/components/Home/Contacts/Contacts';
 
 
 /**
@@ -23,7 +24,8 @@ import AuthLoadingScreen from './client/src/components/Login/AuthLoadingScreen';
 const AppStack = createStackNavigator({ Home: HomeScreen,
    Music,
    Journal,
-   PhotoVideo
+   PhotoVideo,
+   Contacts
    });
 
 /**

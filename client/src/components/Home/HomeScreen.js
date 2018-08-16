@@ -24,6 +24,10 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate("PhotoVideo");
   };
 
+  _switchToContacts = () => {
+    this.props.navigation.navigate("Contacts");
+  };
+
   _signOutAsync = async () => {
     await AsyncStorage.clear();
     this.props.navigation.navigate("Auth");
@@ -35,6 +39,7 @@ export default class HomeScreen extends React.Component {
         <Button title="Music Button" onPress={this._switchToMusic} />
         <Button title="Journal Button" onPress={this._switchToJournal} />
         <Button title="Photo / Video Button" onPress={this._switchToPhotoVideo} />
+        <Button title="Contacts Feature" onPress={this._switchToContacts} />
         <Button title="Sign Out" onPress={this._signOutAsync} />
       </View>
     );
