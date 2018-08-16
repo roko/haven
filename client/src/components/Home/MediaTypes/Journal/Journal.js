@@ -9,23 +9,20 @@ export default class Journal extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      data: dummyData,
+      data: [],
       view: 'default',
-      viewingEntry: ''
+      viewingEntry: '',
+      userId: 5
     }
+    this.getEntries = this.getEntries.bind(this);
+    this.changeView = this.changeView.bind(this);
+  }
+  //userId is set to 5 as a default, update this when we get some info from the login?
+
+  componentDidMount() {
+    this.getEntries();
   }
 
-  //also update the list of entries whenever there is a change
-  //should this check for change or autosend get request when page loads?
-
-  musicPlaceholder = () => {
-     
-  };
-  // musicPlaceholderAsync = async () => {
-    // await AsyncStorage.clear();
-    // this.props.navigation.navigate("");
-  // };
-   
   changeView (newView) {
     this.setState({
       view: newView
@@ -33,27 +30,53 @@ export default class Journal extends React.Component {
     console.log('currentview', this.state.view)
   }
 
+  getEntries () {
+    console.log('retrieving entries from db', this.state.userId)
+
+    fetch('http://192.168.0.103:3000/journal/' + this.state.userId)
+    .then((response) => response.json())
+    .then((response) => {
+      console.log('heres data', response)
+      this.setState({
+        data: response
+      })
+    })
+    .catch((error) => {
+      console.log(error, 'could not get data from server')
+    })
+  }
+
   saveEntry (content) {
     console.log('what is passed in', content)
-    //refactor later to use generic post req method passed down from main app?
-    
-    fetch("http://192.168.0.103:3000/journal", {method: "POST", body: JSON.stringify({file: content})})
-      .then((responseData) => {
-        AlertIOS.alert(
-            "POST Response",
-            "Response Body -> "
-          )
-       })
-      .done();
-}
 
-  render() { 
+    //make sure url is not set to https and set to your ip address instead of localhost or it will give that red error in simulator
+
+    //get id to autogenerate as db currently requires it to be unique, until then - manually change the id value each time this is tested
+    fetch("http://192.168.0.103:3000/journal", {method: "POST", headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify({id: this.state.data[this.state.data.length-1].id+1, userId: this.state.userId, title: content.title, description: content.description, file: content.file})})
+    .then((responseData) => {
+      AlertIOS.alert(
+        "Entry saved!",
+        "Go back to my Journal -> "
+      )
+    })
+    .done(() => {this.getEntries(); this.changeView('default')});
+  }
+
+    // musicPlaceholder = () => {
+
+    // };
+    // musicPlaceholderAsync = async () => {
+      // await AsyncStorage.clear();
+      // this.props.navigation.navigate("");
+    // };
+
+  render() {
     console.log('journal component is totally rendering', this.state.data);
 
     //previous journal entries for user to go back to view/edit/delete?
     //make scrollable/change to grid view etc? stretch goal for user settings - user can customize if they want to switch to grid view instead of default list scrollable view?
     //stretch goal for user settings - let user customize journal colors?
-    
+
       if (this.state.view === 'default') {
         return (
           <View>
@@ -72,8 +95,9 @@ export default class Journal extends React.Component {
     if (this.state.view === 'makeEntry') {
       return(
         <View>
-          <AddAnEntry 
+          <AddAnEntry
           changeView={this.changeView.bind(this)}
+          getEntries={this.getEntries}
           saveEntry={this.saveEntry.bind(this)}/>
         </View>
       )

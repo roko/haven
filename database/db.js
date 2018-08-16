@@ -32,18 +32,31 @@ var runSchema = function(database) {
 runSchema(database);
 
 var addJournalEntry = function (req) {
-  console.log('CALLING THIS NOW')
 	database.serialize(function(){
-        var sqliteCommand = `INSERT INTO journal VALUES (${req.body.id}, '${req.body.title}' , '${req.body.description}', '${req.body.file}', ${req.body.userId})`;
-        database.run(sqliteCommand, (err)=> {
-          if (err) {
-            console.log(err)
-          }
-          console.log('is this even saving??')
-        });
+    var sqliteCommand = `INSERT INTO journal VALUES (${req.body.id}, '${req.body.title}' , '${req.body.description}', '${req.body.file}', ${req.body.userId})`;
+    database.run(sqliteCommand, (err)=> {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('entry saved yay');
+      }
+    });
   });
 }
 
+var getJournalEntries = function (userId, callback) {
+  console.log('now we are in the db trying to get the person\' private entries');
+  database.serialize(function () {
+    var sqliteCommand = `SELECT * FROM journal WHERE userId = ${userId};`;
+     database.all(sqliteCommand, function(err, rows) {
+      if (err) {
+        console.log(err, 'cannot retrieve journal entries from db')
+      } else {
+        callback(rows);
+      }
+    });
+  })
+}
 
 //if db connection is closed it won't let us make more entries so I have commented this out for the time being
 // db.close();
@@ -51,6 +64,7 @@ var addJournalEntry = function (req) {
 module.exports.database = database;
 module.exports.runSchema = runSchema;
 module.exports.addJournalEntry = addJournalEntry;
+module.exports.getJournalEntries = getJournalEntries;
 // addJournalEntry({body:
 //  { "id": "55",
 //   "userId": "7",
