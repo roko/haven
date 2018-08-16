@@ -12,7 +12,9 @@
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
+    "android-logs": "react-native log-android",
     "ios": "react-native-scripts ios",
+    "ios-logs": "react-native log-ios",
     "test": "jest",
     "node-dev": "nodemon ./server/server.js"
   },
