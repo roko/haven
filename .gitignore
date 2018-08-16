@@ -2,6 +2,7 @@
 package-lock.json
 .expo/packager-info.json
 config.js
+havendata.db
 
 # Logs
 logs
@@ -67,3 +68,6 @@ typings/
 
 # in memory database for testing
 :memory
+
+#.DS_Store
+.DS_Store
