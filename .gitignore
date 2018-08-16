@@ -2,6 +2,7 @@
 package-lock.json
 .expo/packager-info.json
 config.js
+havendata.db
 
 # Logs
 logs
