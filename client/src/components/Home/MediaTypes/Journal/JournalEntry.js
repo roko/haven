@@ -4,7 +4,7 @@ import { TouchableOpacity, Text } from 'react-native';
 const JournalEntry = (props) => {
     console.log('is this even rendering')
   return (
-    <TouchableOpacity onPress={props.onPressItem}>
+    <TouchableOpacity onPress={props.onPressItem.bind(this)}>
       <Text>{props.data.title}</Text>
       <Text>{props.data.description}</Text>
     </TouchableOpacity>
