@@ -26,10 +26,11 @@ export default class Music extends React.Component {
   };
 
   componentDidMount() {
-    this.playSomething();
+    // this.playSomething();
   }
 
   playSomething = async () => {
+    // console.log('pressed');
     const soundObject = new Expo.Audio.Sound(); 
     try {
       await soundObject.loadAsync(require('../../../../assets/sounds/rowing-a-boat.mp3'));
@@ -45,7 +46,7 @@ export default class Music extends React.Component {
   render() {
     return ( 
       <View style={styles.container}>
-        <Text>Testing hot loader one two</Text>
+        <Button title="Play Audio of Water Flowing" onPress={this.playSomething} />
         <Button title="I'm done, sign me out" onPress={this._signOutAsync} />
         <StatusBar barStyle="default" />
       </View>
@@ -66,3 +67,6 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
+////
+
