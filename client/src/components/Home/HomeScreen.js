@@ -44,6 +44,7 @@ export default class HomeScreen extends React.Component {
         <Ionicons name="ios-musical-notes-outline" size={70} color="black" onPress={this._switchToMusic} />
         <Ionicons name="ios-image-outline" size={70} color="black" onPress={this._switchToPhotoVideo} />
         <FontAwesome name="book" size={70} color="black" onPress={this._switchToJournal} />
+        <Button title="Contacts" onPress={this._switchToContacts} />
         <Button title="Sign Out" onPress={this._signOutAsync} />
       </View>
     );
