@@ -8,13 +8,20 @@ export const facebook = {
 // export const google = {
 //   clientID: '219416284006-thi989k9nfehnre80kcpgfs59gbs361s.apps.googleusercontent.com',
 //   clientSecret: 'uNtBCcD47CP05FeNjLL8igep',
-//   callbackURL: 'http://localhost:3000/auth/google', 
+//   callbackURL: 'http://localhost:3000/auth/google',
 // }
 
 
 
-export const google = { 
+export const google = {
   clientID: "219416284006-qkusha6eacbqh6eksqqng2o94vc6uagd.apps.googleusercontent.com",
   clientSecret: "uNtBCcD47CP05FeNjLL8igep",
-  callbackURL: "http://localhost:3000/auth/google" 
+  callbackURL: "http://localhost:3000/auth/google"
 };
+
+//change this to your ip/localhost so the Journal feature works properly
+const journalEndpoint = {
+  fetch: "http://192.168.0.103:3000/"
+}
+
+module.exports.journalEndpoint = journalEndpoint;
