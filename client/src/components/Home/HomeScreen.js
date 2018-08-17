@@ -32,6 +32,10 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate("Contacts");
   };
 
+  _switchToSettings = () => {
+    this.props.navigation.navigate("Settings");
+  };
+
   _signOutAsync = async () => {
     await AsyncStorage.clear();
     this.props.navigation.navigate("Auth");
@@ -43,9 +47,10 @@ export default class HomeScreen extends React.Component {
 
         <Ionicons name="ios-musical-notes-outline" size={70} color="black" onPress={this._switchToMusic} />
         <Ionicons name="ios-image-outline" size={70} color="black" onPress={this._switchToPhotoVideo} />
-        <FontAwesome name="book" size={70} color="black" onPress={this._switchToJournal} />
-        <Button title="Contacts" onPress={this._switchToContacts} />
-        <Button title="Sign Out" onPress={this._signOutAsync} />
+        <FontAwesome name="pencil-square-o" size={70} color="black" onPress={this._switchToJournal} />
+        <Ionicons name="ios-mail" size={70} color="black" onPress={this._switchToContacts} />
+        <FontAwesome name="gears" size={70} color="black" onPress={this._switchToSettings} />
+        <Ionicons name="md-return-left" size={70} color="black" onPress={this._signOutAsync} />
       </View>
     );
   }
