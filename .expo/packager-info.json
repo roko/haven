@@ -1,5 +1,10 @@
 {
   "expoServerPort": 19000,
+<<<<<<< HEAD
   "packagerPort": 19003,
   "packagerPid": 645
+=======
+  "packagerPort": 19001,
+  "packagerPid": 96217
+>>>>>>> added more functionality to Journal feature
 }

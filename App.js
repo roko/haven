@@ -14,30 +14,32 @@ import Journal from './client/src/components/Home/MediaTypes/Journal/Journal';
 import PhotoVideo from './client/src/components/Home/MediaTypes/PhotoVideo';
 import AuthLoadingScreen from './client/src/components/Login/AuthLoadingScreen';
 import Contacts from './client/src/components/Home/Contacts/Contacts';
+import Settings from './client/src/components/Home/Preferences/Settings'
 
 
 /**
  * Creates a "Stack Navigator" for the main functionality of the app, starting at the home screen
- * 
+ *
  */
 
 const AppStack = createStackNavigator({ Home: HomeScreen,
    Music,
    Journal,
    PhotoVideo,
-   Contacts
+   Contacts,
+   Settings
    });
 
 /**
  * Creates a "Stack Navigator" pertaining to signup and authorization
- * 
+ *
  */
 
 const AuthStack = createStackNavigator({ SignIn: LoginScreen });
 
 /**
  * The entry point into the app, creates a "Switch Navigator"
- * 
+ *
  */
 
 const AppNavigator = createSwitchNavigator(
