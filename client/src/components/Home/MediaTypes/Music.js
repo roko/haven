@@ -1,117 +1,29 @@
-import React from "react";
-import { AsyncStorage, Audio, Button, Text, StyleSheet, View, StatusBar } from "react-native";
-Expo.Audio.setIsEnabledAsync(true); // audio is enabled by default so we shouldn't need this
-import { MaterialIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import React, { Component } from 'react';
+import MusicPlayer from './MusicPlayer';
 
-// to-dos
-// import npm module that will be used to play and store music
-// add a way for the user to select music to store
-// add the api necessary to store song in database and/or state
-// persist this data so that the same songs are available if user logs out/ closes app
+export const TRACKS = [
+  {
+    title: 'Stressed Out',
+    artist: 'Twenty One Pilots',
+    albumArtUrl: "http://36.media.tumblr.com/14e9a12cd4dca7a3c3c4fe178b607d27/tumblr_nlott6SmIh1ta3rfmo1_1280.jpg",
+    audioUrl: "http://dl.fazmusics.in/Ali/music/aban/hot%20100%20.7%20nov%202015(128)/Twenty%20One%20Pilots%20-%20Stressed%20Out.mp3",
+  },
+  {
+    title: 'Love Yourself',
+    artist: 'Justin Bieber',
+    albumArtUrl: "http://arrestedmotion.com/wp-content/uploads/2015/10/JB_Purpose-digital-deluxe-album-cover_lr.jpg",
+    audioUrl: 'http://srv2.dnupload.com/Music/Album/Justin%20Bieber%20-%20Purpose%20(Deluxe%20Version)%20(320)/Justin%20Bieber%20-%20Purpose%20(Deluxe%20Version)%20128/05%20Love%20Yourself.mp3',
+  },
+  {
+    title: 'Hotline Bling',
+    artist: 'Drake',
+    albumArtUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Drake_-_Hotline_Bling.png',
+    audioUrl: 'http://dl2.shirazsong.org/dl/music/94-10/CD%201%20-%20Best%20of%202015%20-%20Top%20Downloads/03.%20Drake%20-%20Hotline%20Bling%20.mp3',
+  },
+];
 
-
-export default class Music extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      orientationShown: false,
-      // for later use, upon first visit user is given an orientation
-      // so they know how to adds songs to this view
-      song: []
-    };
-  }
-
-  static navigationOptions = {
-    title: "Your Audio Haven"
-  };
-
-  playTibetan = async () => {
-    const soundObject = new Expo.Audio.Sound(); 
-    try {
-      await soundObject.loadAsync(require('../../../../assets/sounds/tibetan-singing-bowl.wav'));
-      await soundObject.playAsync();
-      console.log('song load success');
-    } catch (error) {
-      console.log('song load error');
-    }
-  }
-
-  playWater = async () => {
-    const soundObject = new Expo.Audio.Sound(); 
-    try {
-      await soundObject.loadAsync(require('../../../../assets/sounds/rowing-a-boat.mp3'));
-      await soundObject.playAsync();
-      console.log('song load success');
-    } catch (error) {
-      console.log('song load error');
-    }
-  }
-
-  playFire = async () => {
-    const soundObject = new Expo.Audio.Sound(); 
-    try {
-      await soundObject.loadAsync(require('../../../../assets/sounds/campfire.mp3'));
-      await soundObject.playAsync();
-      console.log('song load success');
-    } catch (error) {
-      console.log('song load error');
-    }
-  }
-
-  playBodyScanMeditation = async () => {
-    const soundObject = new Expo.Audio.Sound(); 
-    try {
-      await soundObject.loadAsync(require('../../../../assets/sounds/body-scan-meditation-four-min.mp3'));
-      await soundObject.playAsync();
-      console.log('song load success');
-    } catch (error) {
-      console.log('song load error');
-    }
-  }
-
-  playBreathingMeditation = async () => {
-    const soundObject = new Expo.Audio.Sound(); 
-    try {
-      await soundObject.loadAsync(require('../../../../assets/sounds/breathing-meditation-three-min.mp3'));
-      await soundObject.playAsync();
-      console.log('song load success');
-    } catch (error) {
-      console.log('song load error');
-    }
-  }
-
+export default class Music extends Component {
   render() {
-    return ( 
-      <View style={styles.container}>
-        <MaterialIcons name="play-circle-outline" size={48} color="red" onPress={this.playTibetan} />
-        <Text>Tibetan Singing Bowl</Text>
-        <MaterialIcons name="play-circle-outline" size={48} color="red" onPress={this.playWater} />
-        <Text>Water Flowing</Text>
-        <MaterialIcons name="play-circle-outline" size={48} color="red" onPress={this.playFire} />
-        <Text>Campfire</Text>
-        <MaterialIcons name="play-circle-outline" size={48} color="red" onPress={this.playBreathingMeditation} />
-        <Text>Breathing Meditation (3m)</Text>
-        <MaterialIcons name="play-circle-outline" size={48} color="red" onPress={this.playBodyScanMeditation} />
-        <Text>Body Scan Meditation (4m)</Text>
-        <Button title="I'm done, sign me out" onPress={this._signOutAsync} />
-        <StatusBar barStyle="default" />
-      </View>
-    );
+    return <MusicPlayer tracks={TRACKS} />
   }
-
-  _signOutAsync = async () => {
-    await AsyncStorage.clear();
-    this.props.navigation.navigate("Auth");
-  };
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
-
