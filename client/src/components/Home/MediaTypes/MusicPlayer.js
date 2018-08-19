@@ -200,6 +200,7 @@ export default class MusicPlayer extends Component {
 
 
   render() {
+    console.log('Music Player renders')
     const track = this.props.tracks[this.state.selectedTrack];
     // const video = this.state.isChanging ? null : (
     //   <Video source={{uri: track.audioUrl}} // Can be a URL or a local file.
