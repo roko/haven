@@ -42,6 +42,8 @@ export default class LoginScreen extends Component {
           'Logged in!',
           `Hi ${(await response.json()).name}!`,
       );
+      this.setState({fb: response, signedIn: true})
+      //console.log(this.state)
       this.props.navigation.navigate("App", this.state);
     }
   }

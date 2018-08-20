@@ -42,6 +42,8 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
+    const { params } = this.props.navigation.state;
+    console.log(params)
     return (
       <View style={styles.container}>
 
