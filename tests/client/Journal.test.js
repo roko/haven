@@ -1,12 +1,23 @@
 import React from 'react';
 import Journal from '../../client/src/components/Home/MediaTypes/Journal/Journal';
-import JournalEntry from '../../client/src/components/Home/MediaTypes/Journal/JournalEntry';
+import AddAnEntry from '../../client/src/components/Home/MediaTypes/Journal/AddAnEntry';
 
 import renderer from 'react-test-renderer';
 
 it('renders the Journal view with no issues', () => {
-  const rendered = renderer.create(<Journal />).toJSON();
-  expect(rendered).toBeTruthy();
+  const rendered = renderer.create(<Journal />);
+
+  expect(rendered.length).toBeTruthy();
+});
+
+it('should toggle to AddJournalEntry view when button is clicked', () => {
+  const rendered = renderer.create(<Journal />);
+  const renderInstance = rendered.root;
+
+  const createButton = renderInstance.find('button').at(0);
+
+  createButton.simulate('press');
+  expect(renderInstance.find(AddAnEntry).length).toBeTruthy();
 });
 
 //test if user taps on an entry from the list the entry file data is rendered

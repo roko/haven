@@ -4,19 +4,19 @@ import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 const JournalEntry = (props) => {
     if (props.id % 2) {
         return (
-          <View style={{ backgroundColor: 'aquamarine' }} >
+          <View style={{ backgroundColor: 'aquamarine', borderRadius: 45, textAlign: 'center' }} >
           <TouchableOpacity onPress={props.changeView.bind(props.id)}>
-            <Text>{props.data.title}</Text>
-            <Text>{props.data.description}</Text>
+              <Text style={{ width: '100%', textAlign: 'center' }} >{props.data.title}</Text>
+              <Text style={{ width: '100%', textAlign: 'center' }} >{props.data.description}</Text>
           </TouchableOpacity>
           </View>
         );
     } else {
       return (
-        <View style={{ backgroundColor: 'lightcyan' }} >
+        <View style={{ backgroundColor: 'lightcyan', borderRadius: 45, textAlign: 'center' }} >
           <TouchableOpacity onPress={props.changeView.bind(props.id)}>
-          <Text>{props.data.title}</Text>
-          <Text>{props.data.description}</Text>
+            <Text style={{ width: '100%', textAlign: 'center' }} >{props.data.title}</Text>
+            <Text style={{ width: '100%', textAlign: 'center' }} >{props.data.description}</Text>
         </TouchableOpacity>
         </View>
         );

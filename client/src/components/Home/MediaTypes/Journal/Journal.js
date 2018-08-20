@@ -121,5 +121,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  flatList: {
+    padding: 10,
+    textAlignVertical: "center",
+    textAlign: "center"
   }
 });
