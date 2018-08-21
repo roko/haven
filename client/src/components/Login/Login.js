@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {AsyncStorage, Button, View, StyleSheet, Text} from 'react-native';
+import {AsyncStorage, Button, View, StyleSheet, Text, ImageBackground} from 'react-native';
 import Expo from "expo";
 
 export default class LoginScreen extends Component {
@@ -7,6 +7,10 @@ export default class LoginScreen extends Component {
   constructor(props) {
     super(props)
     this.state = { signedIn: false, name: "", photoUrl: "" }
+  }
+  static navigationOptions = {
+    title: "todo: get rid of this bar"
+
   }
 
   login = () => {
@@ -85,20 +89,31 @@ export default class LoginScreen extends Component {
   }
 
   render() {
-    return <View style={styles.container}>
-        <Text> This will have a splash page, maybe a signin button?</Text>
-        <Button title="This is the Google login button" onPress={this.signInWithGoogle} />
-        <Button title="This is the regular login button" onPress={this.login} />
-        <Button title="This is the AsyncStorage login button" onPress={this.loginAsync} />
-        <Button title="This is the Facebook login button" onPress={this.signInWithFaceBook} />
-      </View>;
+    return (
+      <ImageBackground source={require('./assets/splash.png')} style={{ width: '100%', height: '100%' }}>
+
+
+        <View style={styles.buttons}>
+          <Button title="Google" onPress={this.signInWithGoogle} />
+          <Button title="Shortcut login" onPress={this.login} />
+          <Button title="AsyncStorage login" onPress={this.loginAsync} />
+          <Button title="Facebook" onPress={this.signInWithFaceBook} />
+        </View>
+      </ImageBackground>
+    )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+
+  //todo make this not crappy
+  buttons: {
+    flex: 3,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+    position: 'absolute',
+    bottom: 0,
+    left: 120
+  },
+
 });

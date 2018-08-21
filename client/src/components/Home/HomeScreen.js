@@ -51,7 +51,7 @@ export default class HomeScreen extends React.Component {
         <Ionicons name="ios-image-outline" size={70} color="black" onPress={this._switchToPhotoVideo} />
         <FontAwesome name="pencil-square-o" size={70} color="black" onPress={this._switchToJournal} />
         <Ionicons name="ios-mail" size={70} color="black" onPress={this._switchToContacts} />
-        <FontAwesome name="gears" size={70} color="black" onPress={this._switchToSettings} />
+        {/* <FontAwesome name="gears" size={70} color="black" onPress={this._switchToSettings} /> */}
         <Ionicons name="md-return-left" size={70} color="black" onPress={this._signOutAsync} />
       </View>
     );
