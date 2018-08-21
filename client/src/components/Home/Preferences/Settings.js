@@ -7,7 +7,7 @@ export default class Settings extends React.Component {
   constructor(props) {
     super(props);
   }
-
+//default user id is 5
   render() {
     return (
       <View>

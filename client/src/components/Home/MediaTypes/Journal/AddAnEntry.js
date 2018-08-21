@@ -1,10 +1,16 @@
 import React from 'react';
-import {View, Button, TouchableOpacity, Text, TextInput } from 'react-native';
+import { View, Button, TouchableOpacity, Text, TextInput, AlertIOS } from 'react-native';
 
 export default class AddAnEntry extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { title: '', description: '', file:'', height: 40 };
+      this.state = {
+        title: '',
+        description: '',
+        file:'',
+        height: 40,
+        characterCount: 0
+      };
     }
 
     updateSize = (height) => {
@@ -39,6 +45,8 @@ export default class AddAnEntry extends React.Component {
             //   maxLength = {40}
           />
           <Text> Some Thoughts </Text>
+          <Text style={{fontSize: 12}}> 5,000 character limit </Text>
+          <Text style={{ fontSize: 12 }}> {5000 - this.state.file.length} characters remaining </Text>
           <TextInput
             style={{flexWrap:'wrap', borderColor: 'gray', borderWidth: 1}}
             onChangeText={(file) => this.setState({
@@ -49,7 +57,18 @@ export default class AddAnEntry extends React.Component {
             onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
             //   maxLength = {40}
           />
-          <Button title="Save Entry" onPress={()=>{this.props.saveEntry({title: this.state.title, description: this.state.description, file: this.state.file})}} />
+          <Button title="Save Entry" onPress={
+            ()=>{
+              if (this.state.file.length <= 5000) {
+                this.props.analyzeEntry(this.state.file);
+                this.props.saveEntry({title: this.state.title, description: this.state.description, file: this.state.file})
+              } else {
+                  AlertIOS.alert(
+                    "Sorry, this entry is over 5,000 characters. Please shorten entry. Thank you!"
+                  )
+                }
+              }
+          } />
           <Button title="Nevermind" onPress={()=>{this.props.getEntries();this.props.changeView('default')}} />
        </View>
       );

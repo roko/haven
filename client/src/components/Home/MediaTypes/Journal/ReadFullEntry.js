@@ -6,11 +6,17 @@ const ReadFullEntry = (props) => {
   return (
     <View>
       <Button title="Return to Journal Entries" onPress={() => { props.changeView('default') }} />
-      <View>
-        <Text> {props.entry.title}
-        </Text>
-        <Text> {props.entry.description}
-        </Text>
+      <View style={{
+        backgroundColor: 'lightcyan', borderRadius: 45, padding: 10,
+        textAlignVertical: "center",
+        textAlign: "center"
+      }}>
+        <View style={{ backgroundColor: 'aquamarine', borderRadius: 45 }}>
+          <Text> {props.entry.title}
+          </Text>
+          <Text> {props.entry.description}
+          </Text>
+        </View>
         <Text> {props.entry.file}
         </Text>
       </View>
@@ -24,7 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-
   }
 });
 
