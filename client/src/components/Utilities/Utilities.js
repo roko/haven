@@ -14,8 +14,11 @@ export class UtilitiesMain extends Component {
   render() {
     return (
       <View>
-        <Text> Utilities Component </Text>
         <Button title="Onboarding Button" onPress={()=>{}}/>
+        <Button title="Tool 1 Button" onPress={()=>{}}/>
+        <Button title="Tool 2 Button" onPress={()=>{}}/>
+        <Button title="Tool 3 Button" onPress={()=>{}}/>
+        <Button title="Tool 4 Button" onPress={()=>{}}/>
       </View>
     )
   }
