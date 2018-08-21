@@ -60,6 +60,7 @@ export default class AddAnEntry extends React.Component {
           <Button title="Save Entry" onPress={
             ()=>{
               if (this.state.file.length <= 5000) {
+                this.props.analyzeEntry(this.state.file);
                 this.props.saveEntry({title: this.state.title, description: this.state.description, file: this.state.file})
               } else {
                   AlertIOS.alert(

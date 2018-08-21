@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 3000;
+const util = require('./serverUtils');
 const db = require('./../database/db');
 const app = express();
 app.use(bodyParser.json());
@@ -33,12 +34,11 @@ app.get('/journal/:userId', async (req, res) => {
   }));
 });
 
-// //get all the user's entries from journal table
-// app.get('/journal:userId', async (req, res) => {
-//   console.log('we are retrieving this user\' journal entries', req.params.userId);
-//   entries = await db.getJournalEntries(req.params.userId);
-//   res.send(entries);
-// });
+app.get('/journal/analyze/:content', async (req, res) => {
+  score = await util.getSentimentScore(req.params.content);
+  console.log('what is score', score);
+  res.send(JSON.stringify(score));
+});
 
 const server = app.listen(PORT);
 console.log(`Node server listening at http://localhost:${PORT}`);

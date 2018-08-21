@@ -17,6 +17,7 @@ export default class Journal extends React.Component {
     }
     this.getEntries = this.getEntries.bind(this);
     this.changeView = this.changeView.bind(this);
+    this.analyzeEntry = this.analyzeEntry.bind(this);
   }
   //userId is set to 5 as a default, update this when we get some info from the login?
 
@@ -62,6 +63,44 @@ export default class Journal extends React.Component {
       })
       .done(() => { this.getEntries(); this.changeView('default') });
   }
+
+  analyzeEntry (content) {
+    console.log('WE ARE SENDING DATA TO API')
+
+    fetch("http://192.168.0.103:3000/journal/analyze/" + content)
+      .then((response) => response.json())
+      .then((response) => {
+        if (Number(response) < 1/10) {
+          AlertIOS.alert(
+            "Sorry to hear! Hope you feel better!"
+          )
+        } else {
+          AlertIOS.alert(
+            "Woohoo!"
+          )
+        }
+      })
+    }
+
+  // analyzeEntry(content) {
+  //   console.log('WE ARE SENDING DATA TO API')
+  //   fetch("http://192.168.0.103:3000/journal/analyze/", {
+  //     method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ content: content })
+  //   })
+  //     // .then((response) => response.json())
+  //     .then((response) => {
+  //       console.log('what is the damn score', response)
+  //       if (response < 1 / 10) {
+  //         AlertIOS.alert(
+  //           "Sorry to hear! Hope you feel better!"
+  //         )
+  //       } else {
+  //         AlertIOS.alert(
+  //           "Woohoo!"
+  //         )
+  //       }
+  //     })
+  // }
   // musicPlaceholder = () => {
 
   // };
@@ -101,6 +140,7 @@ export default class Journal extends React.Component {
       return (
         <View>
           <AddAnEntry
+            analyzeEntry={this.analyzeEntry.bind(this)}
             changeView={this.changeView.bind(this)}
             getEntries={this.getEntries}
             saveEntry={this.saveEntry.bind(this)} />
