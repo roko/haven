@@ -36,14 +36,11 @@ export default class LoginScreen extends Component {
     });
     if (type === 'success') {
       // Get the user's name using Facebook's Graph API
-      const response = await fetch(
-        `https://graph.facebook.com/me?access_token=${token}`);
-        console.log(
-          'Logged in!',
-          `Hi ${(await response.json()).name}!`,
-      );
-      this.setState({fb: response, signedIn: true})
-      //console.log(this.state)
+      const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+      //console.log('Logged in!', `Hi ${(await response.json())}!`);
+      this.setState({fb: response.json(), signedIn: true},() =>{
+        console.log(this.state)
+      })
       this.props.navigation.navigate("App", this.state);
     }
   }
