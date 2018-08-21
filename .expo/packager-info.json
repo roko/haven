@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 22700,
-  "expoServerNgrokUrl": "https://a9-d7f.anthonycking.haven.exp.direct",
-  "packagerNgrokUrl": "https://packager.a9-d7f.anthonycking.haven.exp.direct",
-  "ngrokPid": 9119
+  "packagerPid": 8564,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
