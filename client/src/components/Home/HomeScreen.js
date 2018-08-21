@@ -13,7 +13,14 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "Home Screen Title"
+    title: "Haven",
+    // headerStyle: {
+    //   backgroundColor: '#f4511e',
+    // },
+    headerTintColor: 'green',
+    // headerTitleStyle: {
+    //   fontWeight: 'bold',
+    // },
   };
 
   _switchToMusic = () => {
