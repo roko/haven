@@ -34,10 +34,16 @@ app.get('/journal/:userId', async (req, res) => {
   }));
 });
 
-app.get('/journal/analyze/:content', async (req, res) => {
+app.get('/analyze/:content', async (req, res) => {
   score = await util.getSentimentScore(req.params.content);
   console.log('what is score', score);
   res.send(JSON.stringify(score));
+});
+
+app.get('/positive/', async (req, res) => {
+  quoteImage = await util.getPositiveQuote();
+  console.log('what did we get back', quoteImage);
+  res.send(JSON.stringify(quoteImage));
 });
 
 const server = app.listen(PORT);

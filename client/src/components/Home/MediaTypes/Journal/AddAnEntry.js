@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button, TouchableOpacity, Text, TextInput, AlertIOS } from 'react-native';
+import { View, Button, TouchableOpacity, Text, TextInput, AlertIOS} from 'react-native';
 
 export default class AddAnEntry extends React.Component {
     constructor(props) {
@@ -13,7 +13,7 @@ export default class AddAnEntry extends React.Component {
       };
     }
 
-    updateSize = (height) => {
+    updateSize (height) {
         this.setState({
           height
         });
