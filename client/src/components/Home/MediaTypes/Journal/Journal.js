@@ -4,8 +4,8 @@ import { AlertIOS, AsyncStorage, Button, StyleSheet, View, StatusBar, Text, Text
 import JournalEntry from "./JournalEntry";
 import AddAnEntry from "./AddAnEntry";
 import ReadFullEntry from "./ReadFullEntry";
-// import config from "./../../../../../../server/config";
-//UNCOMMENT LINE 7 TO USE JOURNAL- this is commented out because of the Travis check
+
+const config = require(' ./../../../../../../server/config') || require('./dummyData/dummyConfig');
 
 export default class Journal extends React.Component {
   constructor(props) {
@@ -41,7 +41,7 @@ export default class Journal extends React.Component {
     let endpoint = config.journalEndpoint.fetch + ':3000/journal/';
     console.log('whats the endpoint', endpoint)
 
-    fetch('http://192.168.0.103:3000/journal/' + this.state.userId)
+    fetch(endpoint + this.state.userId)
       .then((response) => response.json())
       .then((response) => {
         console.log('heres data', response)
@@ -90,7 +90,7 @@ export default class Journal extends React.Component {
   }
 
   obtainPositivity() {
-    let endpoint = '' + config.journalEndpoint.fetch + ':3000/positive/';
+    let endpoint = config.journalEndpoint.fetch + ':3000/positive/';
 
     fetch(endpoint)
       .then((response) => response.json())
