@@ -39,9 +39,10 @@ export default class Journal extends React.Component {
   }
 
   getEntries() {
-    let endpoint = '' + config.journalEndpoint.fetch + ':3000/journal/';
+    let endpoint = config.journalEndpoint.fetch + ':3000/journal/';
+    console.log('whats the endpoint', endpoint)
 
-    fetch(endpoint + this.state.userId)
+    fetch('http://192.168.0.103:3000/journal/' + this.state.userId)
       .then((response) => response.json())
       .then((response) => {
         console.log('heres data', response)

@@ -31,6 +31,7 @@ app.get('/journal/:userId', async (req, res) => {
     if (entries) {
       res.send(entries);
     }
+    console.log('did we get entries')
   }));
 });
 
