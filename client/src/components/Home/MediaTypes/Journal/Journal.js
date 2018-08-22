@@ -4,6 +4,7 @@ import { AlertIOS, AsyncStorage, Button, StyleSheet, View, StatusBar, Text, Text
 import JournalEntry from "./JournalEntry";
 import AddAnEntry from "./AddAnEntry";
 import ReadFullEntry from "./ReadFullEntry";
+import config from "./../../../../../../server/config";
 // import dummyData from "./dummyData/journalData.js";
 // import { List, ListItem } from "react-native-elements";
 
@@ -38,9 +39,9 @@ export default class Journal extends React.Component {
   }
 
   getEntries() {
-    console.log('retrieving entries from db', this.state.userId)
+    let endpoint = '' + config.journalEndpoint.fetch + ':3000/journal/';
 
-    fetch('http://192.168.0.103:3000/journal/' + this.state.userId)
+    fetch(endpoint + this.state.userId)
       .then((response) => response.json())
       .then((response) => {
         console.log('heres data', response)
@@ -54,12 +55,12 @@ export default class Journal extends React.Component {
   }
 
   saveEntry(content) {
-    console.log('what is passed in', content)
-
+    let endpoint = '' + config.journalEndpoint.fetch + ':3000/journal/';
+    let id = (this.state.data[this.state.data.length - 1].id + 1) || 1
     //make sure url is not set to https and set to your ip address instead of localhost or it will give that red error in simulator
 
     //get id to autogenerate as db currently requires it to be unique, until then - manually change the id value each time this is tested
-    fetch("http://192.168.0.103:3000/journal", { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ id: this.state.data[this.state.data.length - 1].id + 1, userId: this.state.userId, title: content.title, description: content.description, file: content.file }) })
+    fetch(endpoint, { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ id: id, userId: this.state.userId, title: content.title, description: content.description, file: content.file }) })
       .then((responseData) => {
         AlertIOS.alert(
           "Entry saved!",
@@ -71,9 +72,9 @@ export default class Journal extends React.Component {
 
 
   analyzeEntry(content) {
-    console.log('WE ARE SENDING DATA TO API')
+    let endpoint = '' + config.journalEndpoint.fetch + ':3000/analyze/';
 
-    fetch("http://192.168.0.103:3000/analyze/" + content)
+    fetch(endpoint + content)
       .then((response) => response.json())
       .then((response) => {
         console.log(response)
@@ -89,7 +90,9 @@ export default class Journal extends React.Component {
   }
 
   obtainPositivity() {
-    fetch("http://192.168.0.103:3000/positive/")
+    let endpoint = '' + config.journalEndpoint.fetch + ':3000/positive/';
+
+    fetch(endpoint)
       .then((response) => response.json())
       .then((response) => {
         this.setState({
