@@ -1,22 +1,10 @@
-import React from "react";
-import { StyleSheet, View, Text, TextInput, FlatList } from "react-native";
+import React, { Component } from 'react';
+import { createStackNavigator } from 'react-navigation';
+
+import { StyleSheet, View, Text, Button, TextInput, FlatList } from "react-native";
 // import dummyData from "./dummyData/journalData.js";
 // import { List, ListItem } from "react-native-elements";
 
-export default class Settings extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-//default user id is 5
-  render() {
-    return (
-      <View>
-        <Text>Settings go here
-          </Text>
-      </View>
-    )
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -25,3 +13,34 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
+
+class SettingsMain extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  static navigationOptions = {
+    title: "Settings"
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Settings go test
+          </Text>
+      </View>
+    )
+  }
+}
+
+
+
+export default Settings = createStackNavigator(
+  {
+    SettingsMain
+  },
+  {
+    initialRouteName: "SettingsMain"
+  }
+);
