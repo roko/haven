@@ -2,6 +2,7 @@
 package-lock.json
 config.js
 havendata.db
+!*.xcodeproj/project.pbxproj
 
 # Logs
 logs
