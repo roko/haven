@@ -19,17 +19,11 @@ class SettingsMain extends Component {
   constructor(props) {
     super(props);
   }
-<<<<<<< HEAD
-//default user id is 5
-||||||| merged common ancestors
-
-=======
 
   static navigationOptions = {
     title: "Settings"
   };
 
->>>>>>> redux skeleton, some interface adjustments
   render() {
     return (
       <View style={styles.container}>
