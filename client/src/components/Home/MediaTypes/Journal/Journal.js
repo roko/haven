@@ -3,7 +3,6 @@ import { AlertIOS, AsyncStorage, Button, StyleSheet, View, StatusBar, Text, Text
 import JournalEntry from "./JournalEntry";
 import AddAnEntry from "./AddAnEntry";
 import ReadFullEntry from "./ReadFullEntry";
-import config from "./../../../../../../server/config";
 // import dummyData from "./dummyData/journalData.js";
 // import { List, ListItem } from "react-native-elements";
 
