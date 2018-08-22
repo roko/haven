@@ -481,15 +481,15 @@ const styles = StyleSheet.create({
 		backgroundColor: BACKGROUND_COLOR,
 	},
 	portraitContainer: {
-		marginTop: 60,
+		marginTop: 30,
 	},
 	portrait: {
 		height: 240,
 		width: 240,
 	},
 	detailsContainer: {
-		height: 50,
-		marginTop: 35,
+		height: 40,
+		marginTop: 27,
     alignItems: 'center',
 
 	},
@@ -505,6 +505,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
 		marginLeft: 35,
     marginRight: 35,
+    marginTop: 10,
 	},
 	text: {
     color: '#ffffff',
@@ -518,7 +519,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 	buttonsContainerTopRow: {
-		maxHeight: 60,
+		maxHeight: 80,
 		minWidth: DEVICE_WIDTH / 2.0,
 		maxWidth: DEVICE_WIDTH / 2.0,
 	},
@@ -536,6 +537,7 @@ const styles = StyleSheet.create({
     maxWidth: DEVICE_WIDTH - 40,
     paddingRight: 25,
     paddingLeft: 25,
+    marginTop: 10,
 	},
 	volumeSlider: {
 		width: DEVICE_WIDTH - 110,
