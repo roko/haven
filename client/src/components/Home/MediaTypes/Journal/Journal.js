@@ -5,7 +5,8 @@ import JournalEntry from "./JournalEntry";
 import AddAnEntry from "./AddAnEntry";
 import ReadFullEntry from "./ReadFullEntry";
 
-const config = require(' ./../../../../../../server/config') || require('./dummyData/dummyConfig');
+const config = require('./dummyData/dummyConfig');
+
 
 export default class Journal extends React.Component {
   constructor(props) {
