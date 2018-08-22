@@ -4,9 +4,8 @@ import { AlertIOS, AsyncStorage, Button, StyleSheet, View, StatusBar, Text, Text
 import JournalEntry from "./JournalEntry";
 import AddAnEntry from "./AddAnEntry";
 import ReadFullEntry from "./ReadFullEntry";
-import config from "./../../../../../../server/config";
-// import dummyData from "./dummyData/journalData.js";
-// import { List, ListItem } from "react-native-elements";
+// import config from "./../../../../../../server/config";
+//UNCOMMENT LINE 7 TO USE JOURNAL- this is commented out because of the Travis check
 
 export default class Journal extends React.Component {
   constructor(props) {
