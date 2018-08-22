@@ -39,7 +39,7 @@ import {
 } from 'react-native';
 import Slider from 'react-native-slider';
 import { Asset, Audio, Font } from 'expo';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, Ionicons, Feather } from '@expo/vector-icons';
 
 class PlaylistItem {
 	constructor(name, uri, image) {
@@ -53,7 +53,7 @@ const PLAYLIST = [
 	new PlaylistItem(
 		'Comfort Fit - “Sorry”',
 		'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3',
-		'https://upload.wikimedia.org/wikipedia/commons/c/c9/Drake_-_Hotline_Bling.png'
+		'https://www.thestudentplaylist.com/wp-content/uploads/2018/06/public_enemy_it_takes_a_nation_of_millions_to_hold_us_back.jpg'
 	),
 	new PlaylistItem(
 		'Mildred Bailey – “All Of Me”',
@@ -348,8 +348,8 @@ export default class Music extends Component {
 						disabled={this.state.isLoading}
 					>
 						<View>
-							<MaterialIcons
-								name="fast-rewind"
+							<Feather
+								name="skip-back"
 								size={40}
 								color="#ffffff"
 							/>
@@ -363,34 +363,34 @@ export default class Music extends Component {
 					>
 						<View>
 							{this.state.isPlaying ? (
-								<MaterialIcons
+								<Feather
 									name="pause"
-									size={40}
+									size={60}
 									color="#ffffff"
 								/>
 							) : (
-								<MaterialIcons
-									name="play-arrow"
-									size={40}
+								<Feather
+									name="play"
+									size={60}
 									color="#ffffff"
 								/>
 							)}
 						</View>
 					</TouchableHighlight>
-					<TouchableHighlight
+					{/* <TouchableHighlight
 						underlayColor={BACKGROUND_COLOR}
 						style={styles.wrapper}
 						onPress={this._onStopPressed}
 						disabled={this.state.isLoading}
 					>
-						<View>
-							<MaterialIcons
-								name="stop"
+						<View> // DON'T THINK I WANT A STOP CIRCLE BUT KEEPING IT COMMENTED IN CASE REMOVING IT BREAKS SOMETHING I DONT' YET UNDERSTAND
+							<Feather
+								name="stop-circle"
 								size={40}
 								color="#ffffff"
 							/>
 						</View>
-					</TouchableHighlight>
+					</TouchableHighlight> */}
 					<TouchableHighlight
 						underlayColor={BACKGROUND_COLOR}
 						style={styles.wrapper}
@@ -398,8 +398,8 @@ export default class Music extends Component {
 						disabled={this.state.isLoading}
 					>
 						<View>
-							<MaterialIcons
-								name="fast-forward"
+							<Feather
+								name="skip-forward"
 								size={40}
 								color="#ffffff"
 							/>
@@ -434,8 +434,9 @@ export default class Music extends Component {
 				>
 					<View style={styles.volumeContainer}>
 						<View>
-							<MaterialIcons
-								name="volume-down"
+							<Ionicons
+                style={styles.volumeDownIcon}
+								name="ios-volume-down-outline"
 								size={40}
 								color="#ffffff"
 							/>
@@ -448,8 +449,9 @@ export default class Music extends Component {
 							minimumTrackTintColor="#ffffff"
 						/>
 						<View>
-							<MaterialIcons
-								name="volume-up"
+							<Ionicons
+                style={styles.volumeUpIcon}
+								name="ios-volume-up-outline"
 								size={40}
 								color="#ffffff"
 							/>
@@ -462,27 +464,7 @@ export default class Music extends Component {
 						styles.buttonsContainerBottomRow,
 					]}
 				>
-					<View>
-						<MaterialIcons
-							name="call-received"
-							size={40}
-							color="#ffffff"
-						/>
-					</View>
-					<Slider
-						style={styles.rateSlider}
-						value={this.state.rate / RATE_SCALE}
-						onSlidingComplete={this._onRateSliderSlidingComplete}
-						thumbTintColor="#000000"
-						minimumTrackTintColor="#4CCFF9"
-					/>
-					<View>
-						<MaterialIcons
-							name="call-made"
-							size={40}
-							color="#ffffff"
-						/>
-					</View>
+
 				</View>
 			</View>
 		);
@@ -499,30 +481,33 @@ const styles = StyleSheet.create({
 		backgroundColor: BACKGROUND_COLOR,
 	},
 	portraitContainer: {
-		marginTop: 80,
+		marginTop: 60,
 	},
 	portrait: {
-		height: 200,
-		width: 200,
+		height: 240,
+		width: 240,
 	},
 	detailsContainer: {
-		height: 40,
-		marginTop: 40,
-		alignItems: 'center',
+		height: 50,
+		marginTop: 35,
+    alignItems: 'center',
+
 	},
 	playbackContainer: {
 		flex: 1,
 		flexDirection: 'column',
-		justifyContent: 'space-between',
+    justifyContent: 'space-between',
+    marginTop: 15,
 		alignItems: 'center',
 		alignSelf: 'stretch',
 	},
 	playbackSlider: {
-		alignSelf: 'stretch',
-		marginLeft: 10,
-		marginRight: 10,
+    alignSelf: 'stretch',
+		marginLeft: 35,
+    marginRight: 35,
 	},
 	text: {
+    color: '#ffffff',
 		fontSize: FONT_SIZE,
 		minHeight: FONT_SIZE,
 	},
@@ -533,7 +518,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 	buttonsContainerTopRow: {
-		maxHeight: 40,
+		maxHeight: 60,
 		minWidth: DEVICE_WIDTH / 2.0,
 		maxWidth: DEVICE_WIDTH / 2.0,
 	},
@@ -548,15 +533,20 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		minWidth: DEVICE_WIDTH - 40,
-		maxWidth: DEVICE_WIDTH - 40,
+    maxWidth: DEVICE_WIDTH - 40,
+    paddingRight: 25,
+    paddingLeft: 25,
 	},
 	volumeSlider: {
-		width: DEVICE_WIDTH - 80,
-	},
+		width: DEVICE_WIDTH - 110,
+  },
+  volumeDownIcon: {
+    paddingRight: 10,
+  },
+  volumeUpIcon: {
+    paddingLeft: 10,
+  },
 	buttonsContainerBottomRow: {
 		alignSelf: 'stretch',
-	},
-	rateSlider: {
-		width: DEVICE_WIDTH - 80,
 	},
 });
