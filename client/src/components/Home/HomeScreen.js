@@ -3,6 +3,8 @@ import {
   AsyncStorage,
   Button,
   Dimensions,
+  Image,
+  TouchableOpacity,
   StyleSheet,
   View
 } from "react-native";
@@ -28,6 +30,7 @@ export default class HomeScreen extends React.Component {
   };
 
   _switchToJournal = () => {
+    console.log('journal icon clicked')
     this.props.navigation.navigate("Journal");
   };
 
@@ -58,7 +61,13 @@ export default class HomeScreen extends React.Component {
           <Ionicons name="ios-image-outline" size={130} color="white" onPress={this._switchToPhotoVideo} />
         </View>
         <View style={styles.iconsContainerBottomRow} >
-          <FontAwesome name="pencil-square-o" size={130} color="white" onPress={this._switchToJournal} />
+          <TouchableOpacity onPress={this._switchToJournal}>
+            <Image
+              style={{width: 130, height: 130}}
+              source={require('../../../assets/img/journal-icon.png')}
+            />
+          </TouchableOpacity>
+          {/* <FontAwesome name="pencil-square-o" size={130} color="white" onPress={this._switchToJournal} /> */}
           <Ionicons name="ios-contacts-outline" size={130} color="white" onPress={this._switchToContacts} />
           {/* <FontAwesome name="gears" size={70} color="black" onPress={this._switchToSettings} /> */}
           {/* <Ionicons name="md-return-left" size={70} color="black" onPress={this._signOutAsync} /> */}
