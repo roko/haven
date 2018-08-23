@@ -3,9 +3,10 @@ import { AsyncStorage, Button, StyleSheet, View, StatusBar, Animated, ScrollView
 import ImageOverlay from "react-native-image-overlay";
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';  
-// import photoData from './photoStock/PhotoLanding';
+import photoData from './photoStock/PhotoLanding';
 
 // import Gallery from "react-photo-gallery";
+
 const xOffset = new Animated.Value(0);
 
 _switchToPhotoVideo = () => {
@@ -49,13 +50,16 @@ const transitionAnimation = index => {
     ]
   };
 };
+
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
+
 export default class PhotoVideo extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      photos: [],
+      photos: photoData,
       touched: false
     };
   }
@@ -68,24 +72,10 @@ export default class PhotoVideo extends React.Component {
     this.setState({ touched: false })
   }
 
-  photoGet = () => {
-    CameraRoll.getPhotos({
-      first: 20,
-      assetType: 'Photos',
-    })
-    .then(r => {
-      this.setState({ photos: r.edges });
-    })
-    .catch((err) => {
-       console.log('No Images Found ', err)
-    });
-  }
-  offTouch = () => {
-    this.setState({ touched: false })
-  }
   static navigationOptions = {
     title: "Photos & Videos"
   };
+
   render() {
     console.log(this.state.photos)
     return (
@@ -108,9 +98,9 @@ export default class PhotoVideo extends React.Component {
            style={{
             width: SCREEN_WIDTH,
             height: SCREEN_HEIGHT,
-            // resizeMode: Image.resizeMode.contain
+
            }}
-           source={{ uri: p.node.image.uri }}
+           source={{ uri: p.image }}
          />
       </TouchableHighlight>
        );
@@ -125,18 +115,18 @@ export default class PhotoVideo extends React.Component {
            titleStyle={{ color: 'white', fontWeight: 'bold' }}
            key={i}
            height={ SCREEN_HEIGHT }
-          source={{ uri: p.node.image.uri }}
+          source={{ uri: p.image}}
           >
         <View style={{ justifyContent: "center", borderRadius: 25, }}>
         {/* <Ionicons style={{ justifyContent: 'flex-start' }} name="ios-close-circle-outline" size={20} onPress={() => this.offTouch()} color="#1ac98d"  /> */}
         <Ionicons name="ios-book" size={70} color="white"  />
-          <Text style={styles.storyText}>Best-Friend trip with Amelia!</Text>
-          <Text style={styles.locationText}>Skógafoss, Iceland</Text>
+          <Text style={styles.storyText}>{p.story}</Text>
+          <Text style={styles.locationText}>{p.location}</Text>
           <View style={{ flexDirection: 'row'}}>
-          {/* <Ionicons color="#1ac98d" size={37} name="md-arrow-dropleft" onPress={() => this.offTouch()} /> */}
           <Ionicons color="#1ac98d" size={45} name="md-arrow-dropleft" onPress={() => this.offTouch()} />
           <Text style={styles.locationText}>                             </Text>
           {/* <Ionicons color="#1ac98d" size={40} name="ios-arrow-dropright" onPress={() => this.offTouch()} /> */}
+          {/* <Ionicons color="#1ac98d" name="md-arrow-round-forward" onPress={() => this.offTouch()} /> */}
           </View>
         </View>
          </ImageOverlay>
@@ -152,12 +142,11 @@ export default class PhotoVideo extends React.Component {
    
   }
 
-  }
   _signOutAsync = async () => {
     await AsyncStorage.clear();
     this.props.navigation.navigate("Auth");
   };
-
+}
 
 const Screen = props => {
   return (
@@ -191,4 +180,3 @@ const styles = StyleSheet.create({
     color: "white"
   }
 });
-
