@@ -82,10 +82,6 @@ export default class Journal extends React.Component {
         if (Number(response) < 1 / 10) {
           this.setState({ needPositive: true });
           this.obtainPositivity();
-        } else {
-          AlertIOS.alert(
-            "Woohoo!"
-          )
         }
       })
   }
@@ -136,7 +132,14 @@ export default class Journal extends React.Component {
     if (this.state.view === 'default') {
       return (
         <View>
-          <Button title="Add some thoughts" onPress={() => { this.changeView('makeEntry') }} />
+          <View style={styles.container}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => { this.changeView('makeEntry') }}
+            >
+              <Text style={styles.text}>Add some thoughts</Text>
+            </TouchableOpacity>
+          </View>
           <Text> My thoughts </Text>
           <FlatList
             style={styles.flatList}
@@ -184,5 +187,13 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlignVertical: "center",
     textAlign: "center"
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: 'rgb(26,201,141)',
+    padding: 10
+  },
+  text: {
+    color: '#ffffff'
   }
 });
