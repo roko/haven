@@ -22,9 +22,10 @@ export default class AddAnEntry extends React.Component {
     render() {
       return (
         <View>
-          <Text> Title </Text>
+
+          <Text style={{padding:1}}> Title </Text>
           <TextInput
-            style={{flexWrap:'wrap', borderColor: 'gray', borderWidth: 1}}
+            style={{flexWrap:'wrap', borderColor: 'gray', borderWidth: 1, padding: 2}}
             onChangeText={(title) => this.setState({
               title})}
             value={this.state.title}
@@ -33,9 +34,12 @@ export default class AddAnEntry extends React.Component {
             onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
             //   maxLength = {40}
           />
-          <Text> Description </Text>
+          <View>
+         </View>
+
+          <Text style={{ padding: 2 }}> Description </Text>
           <TextInput
-            style={{flexWrap:'wrap', borderColor: 'gray', borderWidth: 1}}
+            style={{ flexWrap: 'wrap', borderColor: 'gray', borderWidth: 1, padding: 2}}
             onChangeText={(description) => this.setState({
               description})}
             value={this.state.description}
@@ -44,9 +48,13 @@ export default class AddAnEntry extends React.Component {
             onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
             //   maxLength = {40}
           />
-          <Text> Some Thoughts </Text>
+
+          <Text style={{ padding: 1 }}>
+          </Text>
+
+          <Text > Some Thoughts </Text>
           <Text style={{fontSize: 12}}> 5,000 character limit </Text>
-          <Text style={{ fontSize: 12 }}> {5000 - this.state.file.length} characters remaining </Text>
+          <Text style={{ fontSize: 12}}> {5000 - this.state.file.length} characters remaining </Text>
           <TextInput
             style={{flexWrap:'wrap', borderColor: 'gray', borderWidth: 1}}
             onChangeText={(file) => this.setState({
@@ -57,6 +65,8 @@ export default class AddAnEntry extends React.Component {
             onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
             //   maxLength = {40}
           />
+          <Text style={{ padding: 1 }}>
+          </Text>
           <Button title="Save Entry" onPress={
             ()=>{
               if (this.state.file.length <= 5000) {
@@ -69,7 +79,14 @@ export default class AddAnEntry extends React.Component {
                 }
               }
           } />
-          <Button title="Nevermind" onPress={()=>{this.props.getEntries();this.props.changeView('default')}} />
+
+          <Text style={{ padding: 2 }}>
+          </Text>
+
+          <Button
+          title="Nevermind"
+          color='rgb(26,201,141)'
+          onPress={()=>{this.props.getEntries();this.props.changeView('default')}} />
        </View>
       );
     }

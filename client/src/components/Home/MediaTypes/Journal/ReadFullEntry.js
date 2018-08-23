@@ -2,16 +2,19 @@ import React from 'react';
 import { TouchableOpacity, Button, Text, View, StyleSheet } from 'react-native';
 
 const ReadFullEntry = (props) => {
-  console.log('birds are noisy', props)
   return (
     <View>
-      <Button title="Return to Journal Entries" onPress={() => { props.changeView('default') }} />
+      <Button
+        color='rgb(26,201,141)'
+        title="Return to Journal Entries" onPress={() => { props.changeView('default') }}
+        />
+
       <View style={{
-        backgroundColor: 'lightcyan', borderRadius: 45, padding: 10,
+        backgroundColor: 'lightcyan', padding: 10,
         textAlignVertical: "center",
         textAlign: "center"
       }}>
-        <View style={{ backgroundColor: 'aquamarine', borderRadius: 45 }}>
+        <View style={{ backgroundColor: 'rgb(26,201,141)'}}>
           <Text> {props.entry.title}
           </Text>
           <Text> {props.entry.description}
@@ -20,7 +23,11 @@ const ReadFullEntry = (props) => {
         <Text> {props.entry.file}
         </Text>
       </View>
-      <Button title="Return to Journal Entries" onPress={() => { props.changeView('default') }} />
+
+      <Button
+        color='rgb(26,201,141)'
+        title="Return to Journal Entries" onPress={() => { props.changeView('default') }}
+      />
     </View>
   )
 }
@@ -30,6 +37,23 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  Button: {
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: 'rgb(26,201,141)',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff'
+  },
+  text: {
+    color: '#ffffff',
+    textAlign: 'center',
+    paddingLeft: 10,
+    paddingRight: 10
   }
 });
 
