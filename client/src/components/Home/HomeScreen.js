@@ -2,14 +2,14 @@ import React from "react";
 import {
   AsyncStorage,
   Button,
+  Dimensions,
   StyleSheet,
   View
 } from "react-native";
-import { FontAwesome } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo';
 
-//ios-musical-notes-outline
-
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -53,13 +53,16 @@ export default class HomeScreen extends React.Component {
     console.log(params)
     return (
       <View style={styles.container}>
-
-        <Ionicons name="ios-musical-notes-outline" size={70} color="black" onPress={this._switchToMusic} />
-        <Ionicons name="ios-image-outline" size={70} color="black" onPress={this._switchToPhotoVideo} />
-        <FontAwesome name="pencil-square-o" size={70} color="black" onPress={this._switchToJournal} />
-        <Ionicons name="ios-mail" size={70} color="black" onPress={this._switchToContacts} />
-        {/* <FontAwesome name="gears" size={70} color="black" onPress={this._switchToSettings} /> */}
-        <Ionicons name="md-return-left" size={70} color="black" onPress={this._signOutAsync} />
+        <View style={styles.iconsContainerTopRow} >
+          <Ionicons name="ios-musical-notes-outline" size={130} color="white" onPress={this._switchToMusic} />
+          <Ionicons name="ios-image-outline" size={130} color="white" onPress={this._switchToPhotoVideo} />
+        </View>
+        <View style={styles.iconsContainerBottomRow} >
+          <FontAwesome name="pencil-square-o" size={130} color="white" onPress={this._switchToJournal} />
+          <Ionicons name="ios-contacts-outline" size={130} color="white" onPress={this._switchToContacts} />
+          {/* <FontAwesome name="gears" size={70} color="black" onPress={this._switchToSettings} /> */}
+          {/* <Ionicons name="md-return-left" size={70} color="black" onPress={this._signOutAsync} /> */}
+        </View>
       </View>
     );
   }
@@ -70,7 +73,23 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: "rgb(26,201,141)",
+  },
+  iconsContainerTopRow: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    paddingLeft: 60,
+    paddingRight: 60,
+    paddingBottom: 25,
+  },
+  iconsContainerBottomRow: {
+    flex: 1,
+    flexDirection: "row",
+    paddingLeft: 55,
+    paddingRight: 55,
+    paddingTop: 25,
+    justifyContent: "space-between",
   }
 });
