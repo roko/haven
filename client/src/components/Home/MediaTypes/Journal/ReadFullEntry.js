@@ -15,9 +15,9 @@ const ReadFullEntry = (props) => {
         textAlign: "center"
       }}>
         <View style={{ backgroundColor: 'rgb(26,201,141)'}}>
-          <Text> {props.entry.title}
+          <Text style={{ textAlign: "center", color: '#ffffff'}}> {props.entry.title}
           </Text>
-          <Text> {props.entry.description}
+          <Text style={{ fontSize: 11, textAlign: "center" }}> {props.entry.description}
           </Text>
         </View>
         <Text> {props.entry.file}
