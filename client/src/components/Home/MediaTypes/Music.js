@@ -31,7 +31,8 @@
 import React, { Component } from 'react';
 import {
 	Dimensions,
-	Image,
+  Image,
+  ImageBackground,
 	StyleSheet,
 	Text,
 	TouchableHighlight,
@@ -68,7 +69,7 @@ const PLAYLIST = [
 ];
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
-const BACKGROUND_COLOR = 'rgb(26,201,141)';
+// const BACKGROUND_COLOR = 'rgb(26,201,141)';
 const DISABLED_OPACITY = 0.5;
 const FONT_SIZE = 14;
 const LOADING_STRING = 'Loading...';
@@ -309,6 +310,8 @@ export default class Music extends Component {
 		return !this.state.fontLoaded ? (
 			<View />
 		) : (
+      <ImageBackground source={require('../../../../assets/img/gradient-background-image.png')} style={{ width: '100%', height: '100%' }}>
+
 			<View style={styles.container}>
 				<View style={styles.portraitContainer}>
 					<Image
@@ -342,7 +345,7 @@ export default class Music extends Component {
 					]}
 				>
 					<TouchableHighlight
-						underlayColor={BACKGROUND_COLOR}
+						// underlayColor={BACKGROUND_COLOR}
 						style={styles.wrapper}
 						onPress={this._onBackPressed}
 						disabled={this.state.isLoading}
@@ -356,7 +359,7 @@ export default class Music extends Component {
 						</View>
 					</TouchableHighlight>
 					<TouchableHighlight
-						underlayColor={BACKGROUND_COLOR}
+						// underlayColor={BACKGROUND_COLOR}
 						style={styles.wrapper}
 						onPress={this._onPlayPausePressed}
 						disabled={this.state.isLoading}
@@ -392,7 +395,7 @@ export default class Music extends Component {
 						</View>
 					</TouchableHighlight> */}
 					<TouchableHighlight
-						underlayColor={BACKGROUND_COLOR}
+						// underlayColor={BACKGROUND_COLOR}
 						style={styles.wrapper}
 						onPress={this._onForwardPressed}
 						disabled={this.state.isLoading}
@@ -467,6 +470,7 @@ export default class Music extends Component {
 
 				</View>
 			</View>
+      </ImageBackground>
 		);
 	}
 }
@@ -478,7 +482,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		alignSelf: 'stretch',
-		backgroundColor: BACKGROUND_COLOR,
+		// backgroundColor: BACKGROUND_COLOR,
 	},
 	portraitContainer: {
 		marginTop: 30,
