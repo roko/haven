@@ -6,48 +6,10 @@ import { Ionicons } from '@expo/vector-icons';
 import photoData from './photoStock/PhotoLanding';
 
 // import Gallery from "react-photo-gallery";
-const xOffset = new Animated.Value(0);
+// const xOffset = new Animated.Value(0);
 
 _switchToPhotoVideo = () => {
   this.props.navigation.navigate("PhotoVideo");
-};
-
-const transitionAnimation = index => {
-  return {
-    transform: [
-      { perspective: 800 },
-      {
-        scale: xOffset.interpolate({
-          inputRange: [
-            (index - 1) * SCREEN_WIDTH,
-            index * SCREEN_WIDTH,
-            (index + 1) * SCREEN_WIDTH
-          ],
-          outputRange: [0.25, 1, 0.25]
-        })
-      },
-      {
-        rotateX: xOffset.interpolate({
-          inputRange: [
-            (index - 1) * SCREEN_WIDTH,
-            index * SCREEN_WIDTH,
-            (index + 1) * SCREEN_WIDTH
-          ],
-          outputRange: ["45deg", "0deg", "45deg"]
-        })
-      },
-      {
-        rotateY: xOffset.interpolate({
-          inputRange: [
-            (index - 1) * SCREEN_WIDTH,
-            index * SCREEN_WIDTH,
-            (index + 1) * SCREEN_WIDTH
-          ],
-          outputRange: ["-45deg", "0deg", "45deg"]
-        })
-      }
-    ]
-  };
 };
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
@@ -90,11 +52,7 @@ export default class PhotoVideo extends React.Component {
     console.log(this.state.photos)
     return (
       <View styles={styles.container}>
-           <Animated.ScrollView scrollEventThrottle={16}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: xOffset } } }],
-          { useNativeDriver: true } 
-        )}
+      <Animated.ScrollView scrollEventThrottle={16}
         horizontal
         pagingEnabled
         style={styles.scrollView}
