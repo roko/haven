@@ -9,8 +9,8 @@ export default class LoginScreen extends Component {
     this.state = { signedIn: false, name: "", photoUrl: "" }
   }
   static navigationOptions = {
-    title: "todo: get rid of this bar"
-
+    title: "todo: get rid of this bar",
+    header: null,
   }
 
   login = () => {
