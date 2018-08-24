@@ -179,7 +179,6 @@ export default class Journal extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -190,8 +189,15 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
     backgroundColor: 'rgb(26,201,141)',
-    padding: 10
+    borderRadius: 10,
+    borderWidth: 1
   },
   text: {
     color: '#ffffff'

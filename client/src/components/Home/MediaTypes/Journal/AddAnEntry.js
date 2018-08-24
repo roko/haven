@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button, TouchableOpacity, Text, TextInput, AlertIOS} from 'react-native';
+import { View, Button, TouchableOpacity, Text, TextInput, AlertIOS, StyleSheet} from 'react-native';
 
 export default class AddAnEntry extends React.Component {
     constructor(props) {
@@ -67,30 +67,87 @@ export default class AddAnEntry extends React.Component {
           />
           <Text style={{ padding: 1 }}>
           </Text>
-          <Button title="Save Entry" onPress={
-            ()=>{
-              if (this.state.file.length <= 5000) {
-                this.props.analyzeEntry(this.state.file);
-                this.props.saveEntry({title: this.state.title, description: this.state.description, file: this.state.file})
-              } else {
-                  AlertIOS.alert(
-                    "Sorry, this entry is over 5,000 characters. Please shorten entry. Thank you!"
-                  )
-                }
-              }
-          } />
 
-          <Text style={{ padding: 2 }}>
-          </Text>
+          <View style={styles.container}>
+            <View style={styles.buttonContainer}>
+              <View style={styles.container}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={
+                    () => {
+                      if (this.state.file.length <= 5000) {
+                        this.props.analyzeEntry(this.state.file);
+                        this.props.saveEntry({ title: this.state.title, description: this.state.description, file: this.state.file })
+                      } else {
+                        AlertIOS.alert(
+                          "Sorry, this entry is over 5,000 characters. Please shorten entry. Thank you!"
+                        )
+                      }
+                    }
+                  }
+                >
+                  <Text style={{ color: '#ffffff' }}>Save Entry</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.buttonContainer}>
+              <View style={styles.container}>
+                <TouchableOpacity
+                  style={styles.button2}
+                  onPress={() => { this.props.getEntries(); this.props.changeView('default') }}
+                >
+                  <Text>Nevermind</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
 
-          <Button
-          title="Nevermind"
-          color='rgb(26,201,141)'
-          onPress={()=>{this.props.getEntries();this.props.changeView('default')}} />
+
+
        </View>
       );
     }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    alignItems: 'center',
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: 'rgb(26,201,141)',
+    borderRadius: 10,
+    borderWidth: 1
+  },
+  button2: {
+    alignItems: 'center',
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: 'lightcyan',
+    borderRadius: 10,
+    borderWidth: 1
+  },
+  flatList: {
+    padding: 10,
+    textAlignVertical: "center",
+    textAlign: "center"
+  },
+  buttonContainer: {
+    flex: 1,
+  }
+});
 //passes state contents into prop method from parent Journal component
 // these contents get sent to server in post req to be saved to db
 //popup message to user to show entry was saved
