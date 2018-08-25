@@ -10,7 +10,7 @@ import {
   View
 } from "react-native";
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo';
+
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 
@@ -54,7 +54,7 @@ export default class HomeScreen extends React.Component {
 
   render() {
     const { params } = this.props.navigation.state;
-    console.log(params)
+    console.log('params from the home screen is:', params)
     return (
       <ImageBackground source={require('../../../assets/img/gradient-background-image.png')} style={{ width: '100%', height: '100%' }}>
         <View style={styles.container}>
