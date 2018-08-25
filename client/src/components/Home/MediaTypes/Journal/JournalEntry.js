@@ -11,7 +11,8 @@ const JournalEntry = (props) => {
             onPress={props.changeView.bind(props.id)}
           >
             <Text style={{ width: '100%', textAlign: 'center' }} >{props.data.title}</Text>
-            <Text style={{ width: '100%', textAlign: 'center' }} > A{props.data.description}</Text>
+            <Text style={{ width: '100%', textAlign: 'center'}}>
+            {props.data.description}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -25,7 +26,7 @@ const JournalEntry = (props) => {
             onPress={props.changeView.bind(props.id)}
           >
             <Text style={{ width: '100%', textAlign: 'center' }} >{props.data.title}</Text>
-            <Text style={{ width: '100%', textAlign: 'center' }} > A{props.data.description}</Text>
+            <Text style={{ width: '100%', textAlign: 'center' }} > {props.data.description}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -35,7 +36,6 @@ const JournalEntry = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
