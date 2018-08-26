@@ -8,7 +8,7 @@ import {
 	TouchableHighlight,
 	View,
 } from 'react-native';
-import Slider from 'react-native-slider';
+import Slider from 'react-native-slider'; 
 import { Asset, Audio, Font } from 'expo';
 import { MaterialIcons, Ionicons, Feather } from '@expo/vector-icons';
 
@@ -281,7 +281,20 @@ export default class MusicPlayer extends Component {
 			<View />
 		) : (
       <ImageBackground source={require('../../../../assets/img/gradient-background-image.png')} style={{ width: '100%', height: '100%' }}>
-
+        <View style={styles.navRow}>
+          {/* this and the associated style should be extracted to a component for reuse */}
+          <Ionicons 
+            name="ios-arrow-round-back-outline" 
+            size={30}
+            color="#ffffff"
+          />
+          <Ionicons 
+            name="ios-home-outline" 
+            size={26}
+            color="#ffffff"
+            onPress={this._switchToHome}
+          />
+        </View>
 			<View style={styles.container}>
 				<View style={styles.portraitContainer}>
 					<Image
@@ -523,7 +536,14 @@ const styles = StyleSheet.create({
   },
 	buttonsContainerBottomRow: {
 		alignSelf: 'stretch',
-	},
+  },
+  navRow: {
+    height: 40,
+    width: DEVICE_WIDTH - 15,
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    flexDirection: "row",
+  },
 });
 
 
