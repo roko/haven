@@ -17,13 +17,20 @@ export default class Journal extends React.Component {
       userId: 5,
       modalVisible: true,
       needPositive: false,
-      positiveImage: ''
+      positiveImage: '',
+      userFirstName: 'Miss Teek',
+      phoneNumbersOfTrustedConfidantes: ['4155181582', '4159854939'],
+      setMessageForSupport: 'has been feeling down lately. Hollaback!',
+      supportEntriesMinimumRequirement: 5,
+      currentLowSentiment: 3
     }
     this.getEntries = this.getEntries.bind(this);
     this.changeView = this.changeView.bind(this);
     this.analyzeEntry = this.analyzeEntry.bind(this);
     this.obtainPositivity = this.obtainPositivity.bind(this);
     this.closeQuoteModal = this.closeQuoteModal.bind(this);
+    this.checkIfSupportRequestShouldBeSent = this.checkIfSupportRequestShouldBeSent.bind(this);
+    this.requestSupport = this.requestSupport.bind(this);
   }
   //userId is set to 5 as a default, update this when we get some info from the login?
 
@@ -71,6 +78,32 @@ export default class Journal extends React.Component {
       .done(() => { this.getEntries(); this.changeView('default') });
   }
 
+  checkIfSupportRequestShouldBeSent () {
+    //update later so a patch request is sent to server to update the currentLowSentiment count of the logged in user
+    //if currentLowSentiment count has reached the set supportEntriesMinimumRequirement number that user has chosen in Settings then requestSupport gets called
+    //for now this is hardcoded so if user reaches 5 entries of low sentiment everyone on their contacts list marked as support will receive a text requesting some moral support for user - need to input user's name, pull contact's numbers for the request and use either default message or customized message that user had inputted in settings and also update the currentLowSentiment count in database
+
+    if (this.state.currentLowSentiment + 1 === this.state.supportEntriesMinimumRequirement) {
+      this.requestSupport();
+      this.setState({
+        currentLowSentiment: 0
+      })
+    } else {
+      this.setState({
+        currentLowSentiment: this.state.currentLowSentiment + 1
+      })
+    }
+  }
+
+  requestSupport () {
+    let endpoint = '' + config.journalEndpoint.fetch + ':3000/support/';
+
+    fetch(endpoint, { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ userFirstName: this.state.userFirstName, phoneNumbersOfTrustedConfidantes: this.state.phoneNumbersOfTrustedConfidantes, setMessageForSupport: this.state.setMessageForSupport}) })
+      .then((responseData) => {
+        console.log('some support has been requested!')
+      })
+  }
+
 
   analyzeEntry(content) {
     let endpoint = '' + config.journalEndpoint.fetch + ':3000/analyze/';
@@ -80,6 +113,7 @@ export default class Journal extends React.Component {
       .then((response) => {
         console.log(response)
         if (Number(response) < 1 / 10) {
+          this.checkIfSupportRequestShouldBeSent();
           this.setState({ needPositive: true });
           this.obtainPositivity();
         }

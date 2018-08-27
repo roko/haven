@@ -39,6 +39,7 @@
     "react-photo-gallery": "^6.2.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "sqlite3": "^4.0.2"
+    "sqlite3": "^4.0.2",
+    "twilio": "^3.19.2"
   }
 }

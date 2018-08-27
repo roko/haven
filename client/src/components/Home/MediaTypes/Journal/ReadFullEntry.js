@@ -28,6 +28,8 @@ const ReadFullEntry = (props) => {
           <Text style={{ fontSize: 11, textAlign: "center" }}> {props.entry.description}
           </Text>
         </View>
+        <Text style={{ padding: 2 }}>
+        </Text>
         <Text> {props.entry.file}
         </Text>
       </View>
