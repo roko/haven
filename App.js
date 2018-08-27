@@ -28,6 +28,7 @@ const AppStack = createStackNavigator({ Home: HomeScreen,
   Journal,
   PhotoVideo,
   Contacts,
+  Settings
 });
 
 /**
@@ -59,7 +60,7 @@ const Tabs = createBottomTabNavigator(
         } else if (routeName === 'Settings') {
           iconName = `ios-options${focused ? '' : '-outline'}`;
         } else if (routeName === 'Utilities') {
-          iconName = `ios-beer${focused ? "" : "-outline"}`;
+          iconName = `ios-options${focused ? "" : "-outline"}`;
         }
 
         // You can return any component that you like here! We usually use an
@@ -74,11 +75,6 @@ const Tabs = createBottomTabNavigator(
     initialRouteName: 'Home',
   }
 )
-
-
-
-
-
 
 
 const AppNavigator = createSwitchNavigator(
