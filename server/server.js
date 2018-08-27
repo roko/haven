@@ -47,5 +47,12 @@ app.get('/positive/', async (req, res) => {
   res.send(JSON.stringify(quoteImage));
 });
 
+app.post('/support/', async (req,res) => {
+  console.log('getting some support!', req.body);
+  await util.sendForSupport(req.body.userFirstName, req.body.phoneNumbersOfTrustedConfidantes, req.body.setMessageForSupport);
+  res.sendStatus(200);
+  console.log('req sent!')
+})
+
 const server = app.listen(PORT);
 console.log(`Node server listening at http://localhost:${PORT}`);
