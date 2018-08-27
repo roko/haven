@@ -53,7 +53,7 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
-    console.log('this.prop.navigation is:', this.props.navigation)
+    // console.log('this.prop.navigation is:', this.props.navigation)
     return (
       <ImageBackground source={require('../../../assets/img/gradient-background-image.png')} style={{ width: '100%', height: '100%' }}>
         <View style={styles.container}>

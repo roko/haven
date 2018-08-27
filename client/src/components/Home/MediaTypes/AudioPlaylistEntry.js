@@ -12,13 +12,16 @@ export default class AudioPlaylistEntry extends Component {
 		super(props);
   };
 
-  _switchToMusicPlayer = () => { //new
-    this.props.navigation.navigate("Music");
-  };
+
+  _switchToMusicPlayer = () => {
+    this.props.navigate("MusicPlayer")
+  }
+
 
   render() {
+    console.log(this.props.navigate, 'from audioPlaylistEntry');
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={this._switchToMusicPlayer}>
       <View style={styles.trackContainer}>
         <Feather
           name="play"

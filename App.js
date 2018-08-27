@@ -10,6 +10,7 @@ import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, 
 import LoginScreen from "./client/src/components/Login/Login";
 import HomeScreen from "./client/src/components/Home/HomeScreen.js";
 import Music from './client/src/components/Home/MediaTypes/Music';
+import MusicPlayer from './client/src/components/Home/MediaTypes/MusicPlayer';
 import Journal from './client/src/components/Home/MediaTypes/Journal/Journal';
 import PhotoVideo from './client/src/components/Home/MediaTypes/PhotoVideo';
 import AuthLoadingScreen from './client/src/components/Login/AuthLoadingScreen';
@@ -23,12 +24,26 @@ import Ionicons from "react-native-vector-icons/Ionicons";
  * Creates a "Stack Navigator" for the main functionality of the app, starting at the home screen
  *
  */
-const AppStack = createStackNavigator({ Home: HomeScreen,
-  Music,
-  Journal,
-  PhotoVideo,
-  Contacts,
-});
+const AppStack = createStackNavigator(
+  { 
+    Home: HomeScreen,
+    Journal,
+    PhotoVideo,
+    Contacts,
+    Music: { 
+      screen: Music, 
+      navigationOptions: { title: "Music" } 
+    },
+    AudioPlayerlistEntry: { 
+      screen: (navigation) => <AudioPlayerlistEntry {...navigation} text="AudioPlayerlistEntry" />, 
+      navigationOptions: { title: "AudioPlayerlistEntry" } 
+    },
+    MusicPlayer: { 
+      screen: MusicPlayer, 
+      navigationOptions: { title: "MusicPlayer" }
+    },
+  }
+);
 
 /**
  * Creates a "Stack Navigator" pertaining to signup and authorization
@@ -75,12 +90,6 @@ const Tabs = createBottomTabNavigator(
   }
 )
 
-
-
-
-
-
-
 const AppNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
@@ -91,6 +100,7 @@ const AppNavigator = createSwitchNavigator(
     initialRouteName: "AuthLoading"
   }
 );
+
 export default class App extends React.Component {
   render() {
     return (

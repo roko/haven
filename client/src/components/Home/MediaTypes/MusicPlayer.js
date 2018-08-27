@@ -277,22 +277,28 @@ export default class MusicPlayer extends Component {
 	}
 
 	render() {
+    const { navigate } = this.props.navigation;
+    console.log(navigate)
 		return !this.state.fontLoaded ? (
 			<View />
 		) : (
-      <ImageBackground source={require('../../../../assets/img/gradient-background-image.png')} style={{ width: '100%', height: '100%' }}>
+      <ImageBackground 
+        source={require('../../../../assets/img/gradient-background-image.png')} 
+        style={{ width: '100%', height: '100%' }}
+      >
         <View style={styles.navRow}>
           {/* this and the associated style should be extracted to a component for reuse */}
           <Ionicons 
             name="ios-arrow-round-back-outline" 
             size={30}
             color="#ffffff"
+            onPress={() => this.props.navigation.goBack()}
           />
           <Ionicons 
             name="ios-home-outline" 
             size={26}
             color="#ffffff"
-            onPress={this._switchToHome}
+            onPress={() => this.props.navigation.navigate("Home")}
           />
         </View>
 			<View style={styles.container}>

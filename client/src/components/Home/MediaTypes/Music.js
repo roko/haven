@@ -13,7 +13,7 @@ import AudioPlaylistEntry from './AudioPlaylistEntry';
 
 import Slider from 'react-native-slider';
 import { Asset, Audio, Font } from 'expo';
-import { Entypo, Ionicons } from '@expo/vector-icons';
+import { Feather, Ionicons } from '@expo/vector-icons';
 
 class PlaylistItem {
   constructor(name, uri, image) {
@@ -95,21 +95,21 @@ export default class Music extends Component {
   }
   
   _switchToHome = () => {
-    this.props.navigation.navigate("Home");
+    this.props.navigation.goBack();
   };
 
   render() {
-    return false ? (
-      <View />
-    ) : (
+    const { navigate } = this.props.navigation;
+    console.log(navigate)
+    return (
       <ImageBackground source={require('../../../../assets/img/gradient-background-image.png')} style={{ width: '100%', height: '100%' }}>
         <View style={styles.homeButtonRow}>
           <TouchableOpacity>
-            <Ionicons 
-              name="ios-home-outline" 
+            <Feather 
+              name="home" 
               size={26}
               color="#ffffff"
-              onPress={this._switchToHome}
+              onPress={this._switchToHome}  
             />
           </TouchableOpacity>
         </View>
@@ -119,7 +119,7 @@ export default class Music extends Component {
             <AudioPlaylistEntry
               key={i + Math.random()} 
               track={this.state.playlist[i]}
-              
+              navigate={navigate}
             />
           )}
         </View>
