@@ -28,7 +28,6 @@ const AppStack = createStackNavigator({ Home: HomeScreen,
   Journal,
   PhotoVideo,
   Contacts,
-  Settings
 });
 
 /**

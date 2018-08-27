@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 export const contains = ({ firstName, lastName }, query) => {
   
   if (firstName.toLowerCase().includes(query) || lastName.toLowerCase().includes(query)) {

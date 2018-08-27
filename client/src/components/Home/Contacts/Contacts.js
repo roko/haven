@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, Button, Modal, TouchableHighlight, StyleSheet, SafeAreaView } from 'react-native';
 import { SearchBar, List, ListItem } from "react-native-elements";
-import {Contacts, Permissions} from 'expo';
+import {Contacts, Permissions, SMS} from 'expo';
 import { contains } from './ContactsHelpers';
 import _ from 'lodash';
 
@@ -98,17 +98,18 @@ export default class ContactsScreen extends Component {
 
   handleContactsPress = async (id) => {
     console.log("pressed list item", id);
-    //const contactPhone = await Contacts.getContactByIdAsync({ id }, {fields : [Contacts.PHONE_NUMBERS]} );
+    const contactPhone = await Contacts.getContactByIdAsync({ id }, {fields : [Contacts.PHONE_NUMBERS]} );
     ////console.log(contactPhone)
   }
 
-  handleSendSMS = () => {
+  handleSendSMS = async () => {
     const { status } = await Permissions.askAsync(Permissions.SMS);
 
-    const isAvailable = await Expo.SMS.isAvailableAsync();
+    const isAvailable = await SMS.isAvailableAsync();
     if (isAvailable) {
       // do your SMS stuff here
-      // Expo.SMS.sendSMSAsync([addresses], message)
+      let addresses;
+      SMS.sendSMSAsync([addresses], message)
     } else {
       // misfortune... there's no SMS available on this device
     }
@@ -129,7 +130,7 @@ export default class ContactsScreen extends Component {
                 roundAvatar
                 button onPress={() => {this.handleContactsPress(item.id)}}
                 title={`${item.name}`}
-                //subtitle={item.email}
+                subtitle={item.phoneNumbers[0].digits}
                 //avatar={{ uri: item.picture.thumbnail }}
                 containerStyle={{ borderBottomWidth: 0 }}
               />
