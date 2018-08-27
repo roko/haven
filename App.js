@@ -76,11 +76,6 @@ const Tabs = createBottomTabNavigator(
 )
 
 
-
-
-
-
-
 const AppNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import {AsyncStorage, Button, View, StyleSheet, Text, ImageBackground} from 'react-native';
+import {AsyncStorage, View, StyleSheet, Text, ImageBackground} from 'react-native';
 import Expo from "expo";
+import {SocialIcon, Button} from "react-native-elements";
+
 
 export default class LoginScreen extends Component {
 
@@ -98,6 +100,11 @@ export default class LoginScreen extends Component {
           <Button title="Shortcut login" onPress={this.login} />
           <Button title="AsyncStorage login" onPress={this.loginAsync} />
           <Button title="Facebook" onPress={this.signInWithFaceBook} />
+          <SocialIcon
+            title='Sign In With Facebook'
+            button onPress={this.signInWithFaceBook}
+            type='facebook'
+          />
         </View>
       </ImageBackground>
     )
