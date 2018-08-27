@@ -474,7 +474,7 @@ const styles = StyleSheet.create({
 		// backgroundColor: BACKGROUND_COLOR,
 	},
 	portraitContainer: {
-		marginTop: 30,
+		marginTop: 10,
 	},
 	portrait: {
 		height: 240,
@@ -482,14 +482,14 @@ const styles = StyleSheet.create({
 	},
 	detailsContainer: {
 		height: 40,
-		marginTop: 27,
+		marginTop: 10,
     alignItems: 'center',
 	},
 	playbackContainer: {
 		flex: 1,
 		flexDirection: 'column',
     justifyContent: 'space-between',
-    marginTop: 15,
+    marginTop: 5,
 		alignItems: 'center',
 		alignSelf: 'stretch',
 	},
@@ -497,7 +497,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
 		marginLeft: 35,
     marginRight: 35,
-    marginTop: 10,
+    marginTop: 1,
 	},
 	text: {
     color: '#ffffff',
@@ -549,6 +549,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-end",
     flexDirection: "row",
+    paddingLeft: 15,
   },
 });
 

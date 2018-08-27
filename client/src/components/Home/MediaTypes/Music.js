@@ -105,8 +105,8 @@ export default class Music extends Component {
       <ImageBackground source={require('../../../../assets/img/gradient-background-image.png')} style={{ width: '100%', height: '100%' }}>
         <View style={styles.homeButtonRow}>
           <TouchableOpacity>
-            <Feather 
-              name="home" 
+            <Ionicons 
+              name="ios-home-outline" 
               size={26}
               color="#ffffff"
               onPress={this._switchToHome}  
