@@ -17,7 +17,28 @@ import AuthLoadingScreen from './client/src/components/Login/AuthLoadingScreen';
 import Contacts from './client/src/components/Home/Contacts/Contacts';
 import Settings from './client/src/components/Home/Preferences/Settings';
 import Utilities from './client/src/components/Utilities/Utilities';
+import ModalScreen from './client/src/components/Home/Contacts/ContactsAdd'
 import Ionicons from "react-native-vector-icons/Ionicons";
+
+const ContactsStack = createStackNavigator(
+  {
+    Contacts: {
+      screen: Contacts,
+      // navigationOptions: {
+      //   header: null
+      // }
+    },
+    AddContactModal: {
+      screen: ModalScreen,
+      navigationOptions: {
+        header: null
+      }
+    }
+  },
+  {
+    initialRouteName: "Contacts"
+  }
+);
 
 
 /**
@@ -29,7 +50,7 @@ const AppStack = createStackNavigator(
     Home: HomeScreen,
     Journal,
     PhotoVideo,
-    Contacts,
+    ContactsStack,
     Music: { 
       screen: Music, 
       navigationOptions: { title: "Music" } 
@@ -42,8 +63,13 @@ const AppStack = createStackNavigator(
       screen: MusicPlayer, 
       navigationOptions: { title: "MusicPlayer" }
     },
-  }
+  },
+
 );
+
+
+
+
 
 /**
  * Creates a "Stack Navigator" pertaining to signup and authorization

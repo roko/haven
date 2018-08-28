@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, Button, Modal, TouchableHighlight, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, View, FlatList, Button, Modal, TouchableHighlight, StyleSheet, SafeAreaView, AsyncStorage } from 'react-native';
 import { SearchBar, List, ListItem } from "react-native-elements";
 import {Contacts, Permissions, SMS} from 'expo';
 import { contains } from './ContactsHelpers';
@@ -16,54 +16,56 @@ export default class ContactsScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      modalVisible: false,
       filteredContacts: [],
     }
   }
   
   componentDidMount(){
-    this.contactsPermission();
+    this.getContactsFromStorage();
   }
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => {
+
+    const params = navigation.state.params || {};
+
+    return {
+    //header: null,
     headerTitle: "Contacts",
+    headerLeft: (
+      <Button
+        onPress={()=>{navigation.goBack()}}
+        title="back button"
+      />
+    ),
     headerRight: (
       <Button
-        onPress={()=>{}}
+        onPress={()=>{navigation.navigate("AddContactModal")}}
         title="add "
         color="green"
       />)
+    }
   };
 
-/**
- * Prompts the user for permission.
- * If permission is granted, it currently accesses all the contacts data and returns it.
- * One can pass a query to getContactsAsync to filter a contact
- * This function is currently coupled, might be wise to decouple once * * * functionality is implemented
- */
-  contactsPermission = async () => {
 
-    const { status } = await Permissions.askAsync(Permissions.CONTACTS);
-    
-    console.log(status)
-    if (status === 'granted') {
-      const {data} = await Contacts.getContactsAsync({
-        fields: [
-          Contacts.PHONE_NUMBERS,
-          Contacts.EMAILS,
-        ]
-      });
-      console.log(data)
-      this.setState({contacts: data})
-      return; 
-      // this data is what you get back from your contacts list, sort/ filter as you wish
-    } else {
-      throw new Error('Contacts permission not granted');
+
+
+  getContactsFromStorage = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      const havenContacts = [];
+      for (let key of keys) {
+        const value = await AsyncStorage.getItem(key);
+        const contact = await Contacts.getContactByIdAsync(value);
+        havenContacts.push(contact)
+      }
+      this.setState({havenContacts}, ()=> console.log("state",this.state.havenContacts))
+    } catch (error) {
+      console.log(error)
     }
   }
 
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
+  clearStorage = async () => {
+    await AsyncStorage.removeItem("@Haven:key")
   }
 
   renderHeader = () => (
@@ -98,42 +100,47 @@ export default class ContactsScreen extends Component {
 
   handleContactsPress = async (id) => {
     console.log("pressed list item", id);
-    const contactPhone = await Contacts.getContactByIdAsync({ id }, {fields : [Contacts.PHONE_NUMBERS]} );
-    ////console.log(contactPhone)
+    const contact = await Contacts.getContactByIdAsync(id);
+    console.log(contact.phoneNumbers[0].digits)
+    this.handleSendSMS(contact.phoneNumbers[0].digits)
   }
 
-  handleSendSMS = async () => {
+  handleSendSMS = async (number, message = 'hello') => {
     const { status } = await Permissions.askAsync(Permissions.SMS);
+    console.log(status)
 
     const isAvailable = await SMS.isAvailableAsync();
     if (isAvailable) {
-      // do your SMS stuff here
       let addresses;
-      SMS.sendSMSAsync([addresses], message)
+      SMS.sendSMSAsync([number], message)
     } else {
       // misfortune... there's no SMS available on this device
     }
   }
 
 
+
   render() {
-    console.log("contacts state", this.state.contacts)
+    console.log("contacts state", this.state)
     return (
       <SafeAreaView>
         <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, marginTop: 0 }}>
           <FlatList
-            data={this.state.filteredContacts}
-            //data = {this.state.contacts}
-            //renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
+            data={this.state.havenContacts}
             renderItem={({ item }) => (
-              <ListItem
-                roundAvatar
-                button onPress={() => {this.handleContactsPress(item.id)}}
-                title={`${item.name}`}
-                subtitle={item.phoneNumbers[0].digits}
-                //avatar={{ uri: item.picture.thumbnail }}
-                containerStyle={{ borderBottomWidth: 0 }}
-              />
+              <TouchableHighlight
+                underlaycolor={"green"}
+              >
+                <ListItem
+                  roundAvatar
+                  button onPress={() => {this.handleContactsPress(item.id)}}
+                  title={`${item.name}`}
+                  subtitle={item.phoneNumbers && item.phoneNumbers[0].digits}
+                  //avatar={{ uri: item.picture.thumbnail }}
+                  containerStyle={{ borderBottomWidth: 0 }}
+                  />
+
+              </TouchableHighlight>
             )}
             ItemSeparatorComponent={this.renderSeparator}
             ListHeaderComponent={this.renderHeader}
