@@ -43,7 +43,6 @@ app.get('/analyze/:content', async (req, res) => {
 
 app.get('/positive/', async (req, res) => {
   quoteImage = await util.getPositiveQuote();
-  console.log('what did we get back', quoteImage);
   res.send(JSON.stringify(quoteImage));
 });
 
