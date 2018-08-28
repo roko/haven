@@ -35,7 +35,6 @@ export default class AddAnEntry extends React.Component {
             multiline={true}
             editable = {true}
             onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
-            //   maxLength = {40}
           />
           <View>
          </View>
