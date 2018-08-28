@@ -35,6 +35,23 @@ app.get('/journal/:userId', async (req, res) => {
   }));
 });
 
+//*
+app.post('/savedPhotos', (req, res) => {
+  console.log('Photo Data: ', req.body);
+  db.savePhoto(req);
+  res.sendStatus(200);
+});
+
+//*
+app.get('/savedPhotos/:userId', async (req, res) => {
+  entries = await db.getSavedPhotos(req.params.userId, ((entries, rows) => {
+    if (entries) {
+      res.send(entries);
+    }
+    console.log('User Data Retrieved')
+  }));
+});
+
 app.get('/analyze/:content', async (req, res) => {
   score = await util.getSentimentScore(req.params.content);
   console.log('what is score', score);

@@ -22,7 +22,6 @@ export default class AddAnEntry extends React.Component {
     render() {
       return (
         <View>
-
           <Text style={{padding:1}}> Title </Text>
           <TextInput
             style={{flexWrap:'wrap', borderColor: 'gray', borderWidth: 1, padding: 2}}
