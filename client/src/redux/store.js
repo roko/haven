@@ -14,10 +14,15 @@
 // should be immutable
 // return a new object
 
-import { createStore } from 'redux'
-import { addContact } from './actions'
-import reducer from './reducer'
+import { createStore, applyMiddleware } from 'redux'
+import reducer from './reducer';
+
+const persistConfig = {
+  key: 'root',
+  //storage,
+}
 
 const store = createStore(reducer)
+console.log(store)
 
 export default store;

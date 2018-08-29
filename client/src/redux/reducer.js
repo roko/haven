@@ -1,11 +1,3 @@
-// takes the previous state and an update and applies teh update
-  // returns the new state
-
-// should be a pure function
-// no side effects
-// should be immutable
-  // return a new object
-
 import { combineReducers } from 'redux'
   
 import { UPDATE_USER, UPDATE_CONTACT } from './actions'

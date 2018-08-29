@@ -10,20 +10,20 @@ var database = new sqlite3.Database('./havendata.db');
 var runSchema = function(database) {
   database.serialize(function() {
     // database.run("DROP TABLE IF EXISTS user");
-    database.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY, mediaTypes TEXT, interests TEXT, discoverable BOOLEAN)");
-    
+    database.run("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY, mediaTypes TEXT, interests TEXT, discoverable BOOLEAN, supportEntries INTEGER)");
+
     // database.run("DROP TABLE IF EXISTS media");
     database.run("CREATE TABLE IF NOT EXISTS media (id INTEGER PRIMARY KEY, photoVidId INTEGER, musicId INTEGER,journalId INTEGER, FOREIGN KEY (photoVidId) REFERENCES photoVid(id), FOREIGN KEY (musicId) REFERENCES music(id),FOREIGN KEY (journalId) REFERENCES journal(id))");
-    
+
     // database.run("DROP TABLE IF EXISTS photoVid");
     database.run("CREATE TABLE IF NOT EXISTS photoVid (id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
-    
+
     // database.run("DROP TABLE IF EXISTS music");
     database.run("CREATE TABLE IF NOT EXISTS music (id INTEGER PRIMARY KEY, title TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
-    
+
     // database.run("DROP TABLE IF EXISTS journal");
     database.run("CREATE TABLE IF NOT EXISTS journal(id INTEGER PRIMARY KEY, title TEXT, description TEXT, file TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
-    
+
     // database.run("DROP TABLE IF EXISTS contacts");
     database.run("CREATE TABLE IF NOT EXISTS contacts(id INTEGER PRIMARY KEY, name TEXT, phone INTEGER, email TEXT, emergencyContact BOOLEAN)");
 
@@ -154,7 +154,7 @@ module.exports.getSavedPhotos =getSavedPhotos;
     //     file TEXT,
     //     userId integer NOT NULL,
     //     FOREIGN KEY (userId) REFERENCES user(id),
-    // contact columns 
+    // contact columns
     //     id integer primary key not null,
     //     name TEXT,
     //     phone INTEGER,

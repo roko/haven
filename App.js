@@ -4,31 +4,97 @@ import {
   AsyncStorage,
   StatusBar,
   StyleSheet,
-  View
+  View,
+  Button
 } from "react-native";
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, createTabNavigator } from "react-navigation";
+
 import LoginScreen from "./client/src/components/Login/Login";
 import HomeScreen from "./client/src/components/Home/HomeScreen.js";
 import Music from './client/src/components/Home/MediaTypes/Music';
+import MusicPlayer from './client/src/components/Home/MediaTypes/MusicPlayer';
 import Journal from './client/src/components/Home/MediaTypes/Journal/Journal';
 import PhotoVideo from './client/src/components/Home/MediaTypes/PhotoVideo';
 import AuthLoadingScreen from './client/src/components/Login/AuthLoadingScreen';
 import Contacts from './client/src/components/Home/Contacts/Contacts';
 import Settings from './client/src/components/Home/Preferences/Settings';
 import Utilities from './client/src/components/Utilities/Utilities';
+import ModalScreen from './client/src/components/Home/Contacts/ContactsAdd'
 import Ionicons from "react-native-vector-icons/Ionicons";
+import store from './client/src/redux/store';
+import {Provider} from 'react-redux';
+
+const ContactsStack = createStackNavigator(
+  {
+    Contacts: {
+      screen: Contacts,
+      navigationOptions: {
+         //title: "testing"
+      }
+    },
+    AddContactModal: {
+      screen: ModalScreen,
+      navigationOptions: {
+        //header: null
+        title: "Add to Your Haven"
+      }
+    }
+  },
+  {
+    initialRouteName: "Contacts",
+    //headerMode: "none"
+  }
+);
 
 
 /**
  * Creates a "Stack Navigator" for the main functionality of the app, starting at the home screen
  *
  */
-const AppStack = createStackNavigator({ Home: HomeScreen,
-  Music,
-  Journal,
-  PhotoVideo,
-  Contacts,
-});
+const AppStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Journal,
+    PhotoVideo,
+    ContactsStack: {
+      screen: ContactsStack,
+      navigationOptions: {
+        // title: "Contacts",
+        // headerRight: (
+        //   <Button
+        //     onPress={navigation => { navigation.navigate("AddContactModal") }}
+        //     title="Add Contact"
+        //     color="green"
+        //   />),
+          header:null
+        },
+
+    },
+    Music: {
+      screen: Music,
+      navigationOptions: { title: "Music" }
+    },
+    AudioPlayerlistEntry: {
+      screen: navigation => (
+        <AudioPlayerlistEntry {...navigation} text="AudioPlayerlistEntry" />
+      ),
+      navigationOptions: { title: "AudioPlayerlistEntry" }
+    },
+    MusicPlayer: {
+      screen: MusicPlayer,
+      navigationOptions: { title: "MusicPlayer" }
+    }
+  },
+  {
+    headerMode: "screen",
+    //headerMode: "none"
+
+  }
+);
+
+
+
+
 
 /**
  * Creates a "Stack Navigator" pertaining to signup and authorization
@@ -72,14 +138,9 @@ const Tabs = createBottomTabNavigator(
       inactiveTintColor: 'gray',
     },
     initialRouteName: 'Home',
+
   }
 )
-
-
-
-
-
-
 
 const AppNavigator = createSwitchNavigator(
   {
@@ -88,13 +149,16 @@ const AppNavigator = createSwitchNavigator(
     Auth: AuthStack
   },
   {
-    initialRouteName: "AuthLoading"
+    initialRouteName: "AuthLoading",
   }
 );
+
 export default class App extends React.Component {
   render() {
     return (
-      <AppNavigator />
+      //<Provider store={store}>
+        <AppNavigator />
+      //</Provider>
     )
   }
 }

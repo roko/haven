@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 
+//alternate coloring so the entries in list show as green, lightcyan, green, lightcyan to differentiate
 const JournalEntry = (props) => {
   if (props.id % 2) {
     return (
@@ -11,7 +12,8 @@ const JournalEntry = (props) => {
             onPress={props.changeView.bind(props.id)}
           >
             <Text style={{ width: '100%', textAlign: 'center' }} >{props.data.title}</Text>
-            <Text style={{ width: '100%', textAlign: 'center' }} > A{props.data.description}</Text>
+            <Text style={{ width: '100%', textAlign: 'center'}}>
+            {props.data.description}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -25,7 +27,7 @@ const JournalEntry = (props) => {
             onPress={props.changeView.bind(props.id)}
           >
             <Text style={{ width: '100%', textAlign: 'center' }} >{props.data.title}</Text>
-            <Text style={{ width: '100%', textAlign: 'center' }} > A{props.data.description}</Text>
+            <Text style={{ width: '100%', textAlign: 'center' }} > {props.data.description}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -35,7 +37,6 @@ const JournalEntry = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },

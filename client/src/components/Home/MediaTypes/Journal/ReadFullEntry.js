@@ -4,10 +4,18 @@ import { TouchableOpacity, Button, Text, View, StyleSheet } from 'react-native';
 const ReadFullEntry = (props) => {
   return (
     <View>
-      <Button
-        color='rgb(26,201,141)'
-        title="Return to Journal Entries" onPress={() => { props.changeView('default') }}
-        />
+
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => { props.changeView('default') }}
+        >
+          <Text>Return to Journal Entries</Text>
+        </TouchableOpacity>
+      </View>
+
+         <Text style={{ padding: 5 }}>
+          </Text>
 
       <View style={{
         backgroundColor: 'lightcyan', padding: 10,
@@ -20,34 +28,44 @@ const ReadFullEntry = (props) => {
           <Text style={{ fontSize: 11, textAlign: "center" }}> {props.entry.description}
           </Text>
         </View>
+        <Text style={{ padding: 2 }}>
+        </Text>
         <Text> {props.entry.file}
         </Text>
       </View>
 
-      <Button
-        color='rgb(26,201,141)'
-        title="Return to Journal Entries" onPress={() => { props.changeView('default') }}
-      />
+      <Text style={{ padding: 1}}>
+      </Text>
+
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => { props.changeView('default') }}
+        >
+          <Text>Return to Journal Entries</Text>
+        </TouchableOpacity>
+      </View>
+
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  Button: {
+  button: {
+    alignItems: 'center',
     marginRight: 40,
     marginLeft: 40,
     marginTop: 10,
+    padding: 10,
     paddingTop: 10,
     paddingBottom: 10,
     backgroundColor: 'rgb(26,201,141)',
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#fff'
+    borderWidth: 1
   },
   text: {
     color: '#ffffff',
