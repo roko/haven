@@ -26,6 +26,9 @@ var runSchema = function(database) {
 
     // database.run("DROP TABLE IF EXISTS contacts");
     database.run("CREATE TABLE IF NOT EXISTS contacts(id INTEGER PRIMARY KEY, name TEXT, phone INTEGER, email TEXT, emergencyContact BOOLEAN)");
+
+    // database.run("DROP TABLE IF EXISTS savedPhotos");
+    database.run("CREATE TABLE IF NOT EXISTS savedPhotos (id INTEGER PRIMARY KEY, filename TEXT, height INT, width INT, isSorted TEXT, playableDuration INT, uri TEXT, lat INT, long INT, type TEXT, story TEXT, userId INTEGER, FOREIGN KEY (userId) REFERENCES user(id))");
   });
 }
 
@@ -58,6 +61,32 @@ var getJournalEntries = function (userId, callback) {
   })
 }
 
+const savePhoto = function (req) {
+	database.serialize(function(){
+    var sqliteCommand = `INSERT INTO favPhotos VALUES (${req.body.id}, '${req.body.filename}', ${req.body.height}, ${req.body.width}, '${req.body.isSorted}', ${req.body.playableDuration}, '${req.body.uri}', ${req.body.lat}, ${req.body.long}, '${req.body.type}', '${req.body.story}', ${req.body.userId})`;
+    database.run(sqliteCommand, (err)=> {
+      if (err) {
+        console.log("could not save photo: ", err)
+      } else {
+        console.log('saved to savedPhotos');
+      }
+    });
+  });
+}
+
+const getSavedPhotos = function (userId, callback) {
+  database.serialize(function () {
+    var sqliteCommand = `SELECT * FROM savedPhotos WHERE userId = ${userId};`;
+     database.all(sqliteCommand, function(err, rows) {
+      if (err) {
+        console.log(err, 'Unable to serve media')
+      } else {
+        callback(rows);
+      }
+    });
+  })
+}
+
 //if db connection is closed it won't let us make more entries so I have commented this out for the time being
 // db.close();
 
@@ -65,6 +94,31 @@ module.exports.database = database;
 module.exports.runSchema = runSchema;
 module.exports.addJournalEntry = addJournalEntry;
 module.exports.getJournalEntries = getJournalEntries;
+module.exports.saveFavPhoto = savePhoto;
+module.exports.getSavedPhotos =getSavedPhotos;
+
+  //  Object {
+  //      "node": Object {
+  //        "group_name": "Camera Roll",
+  //        "image": Object {
+  //!         "filename": "IMG_0001.JPG",
+  //!          "height": 2848,
+  //!          "isStored": true,
+  //!          "playableDuration": 0,
+  //!          "uri": "assets-library://asset/asset.JPG?id=106E99A1-4F6A-45A2-B320-B0AD4A8E8473&ext=JPG",
+  //!          "width": 4288,
+  //        },
+  //        "location": Object {
+  //          "altitude": 0,
+  //          "heading": 0,
+  //!          "latitude": 38.0374445,
+  //!          "longitude": -122.80317833333334,
+  //          "speed": 0,
+  //        },
+  //        "timestamp": 1299975445,
+  //!        "type": "ALAssetTypePhoto",
+  //      },
+  //    }
 // addJournalEntry({body:
 //  { "id": "55",
 //   "userId": "7",
