@@ -22,15 +22,15 @@ export default class AudioPlaylistEntry extends Component {
     console.log(this.props.navigate, 'from audioPlaylistEntry');
     return (
       <TouchableOpacity onPress={this._switchToMusicPlayer}>
-      <View style={styles.trackContainer}>
-        <Feather
-          name="play"
-          size={16}
-          color="#ffffff"
-        />
-        <Text style={styles.trackText}>   {this.props.track.name}</Text>
-      </View>
-    </TouchableOpacity>
+        <View style={styles.trackContainer}>
+          <Feather
+            name="play"
+            size={16}
+            color="#ffffff"
+          />
+          <Text style={styles.trackText}>   {this.props.track.name}</Text>
+        </View>
+      </TouchableOpacity>
     )
   }
 }
