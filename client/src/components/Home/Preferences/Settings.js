@@ -10,7 +10,8 @@ class SettingsMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'default'
+      view: 'default',
+      color: 'rgb(26,201,141)'
     }
     this.changeView = this.changeView.bind(this);
   }
@@ -29,13 +30,31 @@ class SettingsMain extends Component {
     console.log('currentview', this.state.view)
   }
 
+  //update this later so the colorcode is also sent to usertable in db which the gets all the menu/other components to have the updated color
+  updateColor (newColor) {
+    this.setState({
+      color: newColor
+    })
+  }
+
   render() {
     if (this.state.view === 'default') {
       return (
         <View>
           <View style={styles.container}>
             <TouchableOpacity
-              style={styles.button}
+              style={{
+                alignItems: 'center',
+                marginRight: 40,
+                marginLeft: 40,
+                marginTop: 10,
+                padding: 10,
+                paddingTop: 10,
+                paddingBottom: 10,
+                backgroundColor: this.state.color,
+                borderRadius: 10,
+                borderWidth: 1
+              }}
               onPress={() => { this.changeView('edit') }}
               >
               <Text style={styles.text}>Update Haven Color</Text>
@@ -45,13 +64,29 @@ class SettingsMain extends Component {
           <View style={{ backgroundColor: 'white'}}>
             <Text style={{ fontWeight: 'bold' }}> Haven color
             </Text>
-            <Text> green
-            </Text>
+            <TouchableOpacity
+              style={[
+                styles.colorPreview,
+                { backgroundColor: this.state.color }
+              ]}
+            >
+            </TouchableOpacity>
           </View>
 
           <View style={styles.container}>
             <TouchableOpacity
-              style={styles.button}
+              style={{
+                alignItems: 'center',
+                marginRight: 40,
+                marginLeft: 40,
+                marginTop: 10,
+                padding: 10,
+                paddingTop: 10,
+                paddingBottom: 10,
+                backgroundColor: this.state.color,
+                borderRadius: 10,
+                borderWidth: 1
+              }}
               onPress={() => { this.changeView('edit') }}
               >
               <Text style={styles.text}>Change Settings</Text>
@@ -72,7 +107,6 @@ class SettingsMain extends Component {
                 { title: 'Interests', data: ['hiking', 'vintage cars', 'bowling'] },
                 { title: 'Discoverable', data: ['true'] },
                 { title: 'Journal Entries for Moral Support', data: '5' },
-                { title: 'Moral Support Message', data: ['feeling down, drop me a line'] }
               ]}
               keyExtractor={(item, index) => item + index}
               />
@@ -85,7 +119,7 @@ class SettingsMain extends Component {
 
     if (this.state.view === 'edit') {
       return (
-        <EditSettings changeView={this.changeView.bind(this)}/>
+        <EditSettings updateColor={this.updateColor.bind(this)} changeView={this.changeView.bind(this)}/>
       )
     }
   }
@@ -96,17 +130,31 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  button: {
-    alignItems: 'center',
-    marginRight: 40,
-    marginLeft: 40,
-    marginTop: 10,
-    padding: 10,
-    paddingTop: 10,
-    paddingBottom: 10,
-    backgroundColor: 'rgb(26,201,141)',
-    borderRadius: 10,
-    borderWidth: 1
+  // button: {
+  //   alignItems: 'center',
+  //   marginRight: 40,
+  //   marginLeft: 40,
+  //   marginTop: 10,
+  //   padding: 10,
+  //   paddingTop: 10,
+  //   paddingBottom: 10,
+  //   backgroundColor: 'rgb(26,201,141)',
+  //   borderRadius: 10,
+  //   borderWidth: 1
+  // },
+  colorPreview: {
+    marginLeft: 12,
+    marginTop: 12,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 3,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.25
   }
 });
 

@@ -18,9 +18,9 @@ export default class Journal extends React.Component {
       modalVisible: true,
       needPositive: false,
       positiveImage: '',
-      userFirstName: 'Miss Teek',
-      phoneNumbersOfTrustedConfidantes: ['4155181582', '4159854939'],
-      setMessageForSupport: 'has been feeling down lately. Hollaback!',
+      userFirstName: 'Bob',
+      phoneNumbersOfTrustedConfidantes: ['4155181582'],
+      setMessageForSupport: 'has been feeling really down recently and would appreciate your moral support!',
       supportEntriesMinimumRequirement: 5,
       currentLowSentiment: 3
     }
@@ -81,6 +81,7 @@ export default class Journal extends React.Component {
   }
 
   checkIfSupportRequestShouldBeSent () {
+    console.log('sentimentcount', this.state.currentLowSentiment);
     //update later so a patch request is sent to server to update the currentLowSentiment count of the logged in user
     //if currentLowSentiment count has reached the set supportEntriesMinimumRequirement number that user has chosen in Settings then requestSupport gets called
     //for now this is hardcoded so if user reaches 5 entries of low sentiment everyone on their contacts list marked as support will receive a text requesting some moral support for user - need to input user's name, pull contact's numbers for the request and use either default message or customized message that user had inputted in settings and also update the currentLowSentiment count in database
