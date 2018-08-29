@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, Button, Modal, TouchableHighlight, StyleSheet, SafeAreaView, AsyncStorage } from 'react-native';
-import { SearchBar, List, ListItem } from "react-native-elements";
+import { SearchBar, List, ListItem, FormInput, FormLabel, Avatar } from "react-native-elements";
+import { SwipeListView } from "react-native-swipe-list-view";
+
 import {Contacts, Permissions, SMS} from 'expo';
 import { contains } from './ContactsHelpers';
 import _ from 'lodash';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 /**
  * Expo Documentation for getting contacts:
@@ -16,7 +19,9 @@ export default class ContactsScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
+      havenContacts: [],
       filteredContacts: [],
+      query: ''
     }
   }
   
@@ -33,22 +38,29 @@ export default class ContactsScreen extends Component {
     headerTitle: "Contacts",
     headerLeft: (
       <Button
-        onPress={()=>{navigation.goBack()}}
-        title="back button"
+        onPress={()=>{navigation.navigate("Home")}}
+        title="< Back"
+        
       />
     ),
     headerRight: (
+      // <Ionicons
+      //   onPress={()=>{navigation.navigate("AddContactModal")}}
+      //   //title="Add"
+      //   color="green"
+      //   size={28}
+      //   name="ios-add-circle-outline"
+      // /> 
       <Button
-        onPress={()=>{navigation.navigate("AddContactModal")}}
-        title="add "
+        onPress={() => { navigation.navigate("AddContactModal") }}
+        title="Add"
         color="green"
-      />)
+        size={28}
+        
+      />
+    )
     }
   };
-
-
-
-
   getContactsFromStorage = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
@@ -56,9 +68,11 @@ export default class ContactsScreen extends Component {
       for (let key of keys) {
         const value = await AsyncStorage.getItem(key);
         const contact = await Contacts.getContactByIdAsync(value);
-        havenContacts.push(contact)
+        if(contact !== null) {
+          havenContacts.push(contact)
+        }
       }
-      this.setState({havenContacts}, ()=> console.log("state",this.state.havenContacts))
+      this.setState({havenContacts}, () => console.log("state",this.state.havenContacts))
     } catch (error) {
       console.log(error)
     }
@@ -70,16 +84,36 @@ export default class ContactsScreen extends Component {
 
   renderHeader = () => (
      <SearchBar 
-      placeholder="find someone" 
+      placeholder="Search your haven" 
       lightTheme
       round
       onChangeText={this.handleSearch} />
     )
 
+  renderFooter = () => (
+    <View>
+      <FormLabel>Send a message!</FormLabel>
+      <FormInput
+        placeholder='Hello friend!'
+      />
+    </View>
+  )
+
+  renderAvatar = () => (
+    <Avatar
+      size={200}
+      rounded
+      // title="CR"
+      icon={{ name: 'user' }}
+      onPress={() => console.log("Works!")}
+      activeOpacity={0.7}
+    />
+  )
+
   handleSearch = input => {
     const formatQuery = input.toLowerCase()
     console.log("input", input)
-    const filteredContacts = _.filter(this.state.contacts, person => {
+    const filteredContacts = _.filter(this.state.havenContacts, person => {
       return contains(person, formatQuery)
     })
     this.setState({query: input, filteredContacts})
@@ -126,29 +160,35 @@ export default class ContactsScreen extends Component {
       <SafeAreaView>
         <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, marginTop: 0 }}>
           <FlatList
-            data={this.state.havenContacts}
+            useFlatList
+            data={this.state.query.length > 0 ? this.state.filteredContacts: this.state.havenContacts}
             renderItem={({ item }) => (
-              <TouchableHighlight
-                underlaycolor={"green"}
-              >
-                <ListItem
-                  roundAvatar
-                  button onPress={() => {this.handleContactsPress(item.id)}}
-                  title={`${item.name}`}
-                  subtitle={item.phoneNumbers && item.phoneNumbers[0].digits}
-                  //avatar={{ uri: item.picture.thumbnail }}
-                  containerStyle={{ borderBottomWidth: 0 }}
-                  />
-
-              </TouchableHighlight>
+              <ListItem
+                roundAvatar
+                button onPress={() => {this.handleContactsPress(item.id)}}
+                title={`${item.name}`}
+                subtitle={item.phoneNumbers && item.phoneNumbers[0].number}
+                avatar={
+                  <Avatar
+                    size={200}
+                    rounded
+                    icon={{ name: 'sms', color: 'orange' }}
+                    onPress={() => console.log("Works!")}
+                    activeOpacity={0.7}
+                  />}
+                containerStyle={{ borderBottomWidth: 0 }}
+              />
             )}
             ItemSeparatorComponent={this.renderSeparator}
             ListHeaderComponent={this.renderHeader}
+            ListFooterComponent={this.renderFooter}
             keyExtractor={item => item.id}
             automaticallyAdjustContentInsets={false}
             />
         </List>
+
       </SafeAreaView>
+
     )
   }
 }

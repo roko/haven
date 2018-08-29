@@ -37,7 +37,7 @@ class ModalScreen extends React.Component {
           onPress={() => {
             navigation.goBack();
           }}
-          title="back button"
+          title="< Back"
         />
       ),
       headerTitle: "Add to Your Haven"
@@ -109,10 +109,10 @@ class ModalScreen extends React.Component {
   render() {
     return (
       <SafeAreaView>
-        <Button
+        {/* <Button
           onPress={() => this.props.navigation.goBack()}
           title="Dismiss"
-        />
+        /> */}
         <List
           containerStyle={{
             borderTopWidth: 0,
