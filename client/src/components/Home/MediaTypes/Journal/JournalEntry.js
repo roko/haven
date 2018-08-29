@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 
+//alternate coloring so the entries in list show as green, lightcyan, green, lightcyan to differentiate
 const JournalEntry = (props) => {
   if (props.id % 2) {
     return (

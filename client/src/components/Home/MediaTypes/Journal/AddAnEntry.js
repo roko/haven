@@ -19,6 +19,9 @@ export default class AddAnEntry extends React.Component {
         });
       }
 
+    //upon submitting entry:
+      //length of entry is checked as the Microsoft Text Analytics has a limit of 5,000 characters
+      //if entry is not over the limit it is sent to be analyzed for sentiment score
     render() {
       return (
         <View>
@@ -32,7 +35,6 @@ export default class AddAnEntry extends React.Component {
             multiline={true}
             editable = {true}
             onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
-            //   maxLength = {40}
           />
           <View>
          </View>
@@ -63,7 +65,6 @@ export default class AddAnEntry extends React.Component {
             multiline={true}
             editable = {true}
             onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
-            //   maxLength = {40}
           />
           <Text style={{ padding: 1 }}>
           </Text>
