@@ -23,6 +23,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "expo": "^29.0.0",
     "express": "^4.16.3",
     "lodash": "^4.17.10",
@@ -30,8 +31,11 @@
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz",
     "react-native-cli": "^2.0.1",
+    "react-native-dialog": "^5.1.0",
+    "react-native-dialog-input": "^1.0.4",
     "react-native-elements": "^0.19.1",
     "react-native-expo-image-cache": "^3.1.1",
+    "react-native-grid-component": "^1.1.0",
     "react-native-image-overlay": "^0.1.2",
     "react-native-modal": "^6.5.0",
     "react-native-slider": "^0.11.0",
