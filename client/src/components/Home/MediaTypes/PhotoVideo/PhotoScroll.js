@@ -141,3 +141,7 @@ const styles = StyleSheet.create({
     color: "white"
   }
 });
+
+//? = Still Testing
+//! = Urgent / Important
+//* Standard Docs
