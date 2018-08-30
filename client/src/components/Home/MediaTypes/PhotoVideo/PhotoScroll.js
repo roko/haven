@@ -59,7 +59,7 @@ export default class PhotoScroll extends React.Component {
            height={ SCREEN_HEIGHT }
           source={{ uri: p.image }}
          >
-        <View  style={{ marginTop: 140, marginBottom: 215, alignItems: "center" }} >
+        <View style={{ marginTop: 140, marginBottom: 215, alignItems: "center" }} >
             <Button title={ "Add From CameraRoll..." } size={ 90 } color={ "white" } onPress={ () => this.props.addView() } /> 
             <Ionicons color="#1ac98d" size={ 60 } name="ios-add" onPress={() => this.props.addView()} />
         </View>
@@ -96,13 +96,12 @@ export default class PhotoScroll extends React.Component {
            height={ SCREEN_HEIGHT }
           source={{ uri: p.image }}
           >
-        <View style={{ justifyContent: "center", borderRadius: 25, }}>
+        <View style={{borderRadius: 25, marginTop: 120 }}>
         <Ionicons name="ios-book" size={70} color="white"  />
           <Text style={styles.storyText}>{p.story}</Text>
           <Text style={styles.locationText}>{p.location}</Text>
           <View style={{ flexDirection: 'row'}}>
-          <Ionicons color="#1ac98d" size={50} name="ios-arrow-round-back" onPress={() => this.setState({ view: "add"})} />
-          <Text style={styles.locationText}>                             </Text>
+          <Ionicons color="#1ac98d" size={30} name="ios-eye-off-outline" onPress={() => this.offTouch()} alignItems={"center"} marginTop={10} />
           </View>
         </View>
          </ImageOverlay>
@@ -132,12 +131,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   locationText: {
-    fontSize: 45,
-    fontWeight: "bold",
-    color: "white"
+    fontFamily: 'Avenir-Heavy',
+    fontSize: 40,
+    color: 'white',	   
+    // fontWeight: "bold",
   },
   storyText: {
-    fontSize: 45,
+    fontFamily: 'Avenir-BookOblique',
+    fontSize: 40,
     color: "white"
   }
 });
