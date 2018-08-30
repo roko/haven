@@ -11,9 +11,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Recorder, Player} from 'react-native-audio-player-recorder-no-linking';
 import AudioPlaylistEntry from './AudioPlaylistEntry';
-import RecordingPane from './RecordingPane';
 import PLAYLIST from '../../../../assets/sounds/dummy-audio.js';
 import sliderThumb from '../../../../assets/img/thumb-slider.png';
 
