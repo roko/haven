@@ -1,13 +1,6 @@
 import React from "react";
-import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
-  StyleSheet,
-  View,
-  Button
-} from "react-native";
-import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, createTabNavigator } from "react-navigation";
+//import { ActivityIndicator, AsyncStorage, StatusBar, StyleSheet, View, Button } from "react-native";
+import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from "react-navigation";
 
 import LoginScreen from "./client/src/components/Login/Login";
 import HomeScreen from "./client/src/components/Home/HomeScreen.js";
@@ -46,7 +39,6 @@ const ContactsStack = createStackNavigator(
   }
 );
 
-
 /**
  * Creates a "Stack Navigator" for the main functionality of the app, starting at the home screen
  *
@@ -58,21 +50,11 @@ const AppStack = createStackNavigator(
     PhotoVideo,
     ContactsStack: {
       screen: ContactsStack,
-      navigationOptions: {
-        // title: "Contacts",
-        // headerRight: (
-        //   <Button
-        //     onPress={navigation => { navigation.navigate("AddContactModal") }}
-        //     title="Add Contact"
-        //     color="green"
-        //   />),
-          header:null
-        },
-
+      navigationOptions: { header: null },
     },
     Music: {
       screen: Music,
-      navigationOptions: { title: "Music" }
+      navigationOptions: { title: "Music" },
     },
     AudioPlayerlistEntry: {
       screen: navigation => (
@@ -88,29 +70,20 @@ const AppStack = createStackNavigator(
   {
     headerMode: "screen",
     //headerMode: "none"
-
   }
 );
-
-
-
-
 
 /**
  * Creates a "Stack Navigator" pertaining to signup and authorization
  *
  */
-
 const AuthStack = createStackNavigator({ SignIn: LoginScreen });
 
 /**
  * The entry point into the app, creates a "Switch Navigator"
  *
  */
-
-
 const Tabs = createBottomTabNavigator(
-  //list routes
   {
     Settings: Settings,
     Home: AppStack,
@@ -128,8 +101,6 @@ const Tabs = createBottomTabNavigator(
           iconName = `ios-beer${focused ? "" : "-outline"}`;
         }
 
-        // You can return any component that you like here! We usually use an
-        // icon component from react-native-vector-icons
         return <Ionicons name={iconName} size={25} color={tintColor} />;
       },
     }),
@@ -138,9 +109,8 @@ const Tabs = createBottomTabNavigator(
       inactiveTintColor: 'gray',
     },
     initialRouteName: 'Home',
-
   }
-)
+);
 
 const AppNavigator = createSwitchNavigator(
   {
@@ -156,9 +126,9 @@ const AppNavigator = createSwitchNavigator(
 export default class App extends React.Component {
   render() {
     return (
-      //<Provider store={store}>
+      <Provider store={store}>
         <AppNavigator />
-      //</Provider>
+      </Provider>
     )
   }
-}
+};
