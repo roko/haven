@@ -32,7 +32,7 @@ Once the project moves into development, the press release can be used as a touc
   > A mobile application that learns what media helps your mindset, and provides better curation after each use. 
 
 ## Quote from You ##
-  > That last thing you need in a cloud of anxiety is something else to srot through, let us take a little of the work. 
+  > That last thing you need in a cloud of anxiety is something else to sort through, let us take a little of the work. 
 
 ## How to Get Started ##
   > When you write, see or hear something you love - let Haven know, and we'll take care of the rest. 

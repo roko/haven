@@ -25,17 +25,8 @@
 ## Requirements
 
 - Node 8.11.3
-- /config/config.js file containing:
-  - exports
-  - exports
-  - exports
-- for heroku:
-  - NODE_ENV = 'production'
-  - NPM_CONFIG_PRODUCTION = true
-  - (we used ClearDB MySQL :: Database):
-  - DATABASE_URL 
-  - 
-  - 
+- Expo SDK v29.0.0
+- iOS simulator (XCode) or Android Simulator (Android Studio)
 
 ## Development
 
@@ -45,6 +36,8 @@ From within the root directory:
 
 ```sh
 npm install
+npm i -g exp
+npm run ios OR npm run android
 ```
 
 ### Roadmap
