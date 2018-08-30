@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
 import StoryMod from "./StoryMod";
+import DialogInput from 'react-native-dialog-input';
 import { 
   StyleSheet, 
-  Text, 
   View, 
   FlatList,
   Dimensions, 
   Image, 
   CameraRoll,
-  AsyncStorage, 
-  Button,  
   TouchableOpacity  
 } from 'react-native';
 
@@ -23,12 +21,10 @@ const formatData = ( data, numColumn ) => {
     data.push({ key: `blank-${ numberOfElementsLastRow }`, empty: true });
     numberOfElementsLastRow++;
   }
-  
   return data;
 };
 
 const numColumns = 3;
-
 export default class AddPhoto extends React.Component {
   constructor(props) {
     super(props);
@@ -38,7 +34,8 @@ export default class AddPhoto extends React.Component {
       dialogVisible: false,
       storyTime: false
     };
-    // this.savePhoto = this.savePhoto.bind(this);
+    this.storyTime = this.storyTime.bind(this)
+    this.notStoryTime = this.notStoryTime.bind(this)
   }
  
   static navigationOptions = {
@@ -62,15 +59,19 @@ export default class AddPhoto extends React.Component {
   componentDidMount() {
     this.photoGet();
     console.log(this.state.photos)
-  }
+  };
+  
+  storyTime = () => {
+    this.setState({ storytime: true })
+  };
+
+  notStoryTime = () => {
+    this.setState({ storytime: false })
+  };
 
   renderItem = ({ item, index }) => {
 
     item.story = '';
-
-    storyTime = () => {
-      this.setState({ storytime: true })
-    }
 
     if (item.empty === true) {
       return <View key={ index } style={[styles.item, styles.itemInvisible]} />;
@@ -78,8 +79,7 @@ export default class AddPhoto extends React.Component {
     return (
       <TouchableOpacity key={ index } style={ styles.item } 
       onPress={ () => {
-        console.log("item", item),
-        //? this.storyTime,
+        this.storyTime(),
         this.props.savePhotoVid.bind({
           filename: item.node.image.filename, 
           height: item.node.image.height, 
@@ -91,7 +91,8 @@ export default class AddPhoto extends React.Component {
           long: item.node.location.longitude,
           type: item.node.type,
           story: '',
-      })}}>
+      })
+      }}>
           <Image
           style={{
           width: 123,
@@ -105,18 +106,29 @@ export default class AddPhoto extends React.Component {
 
   render() {
     if(this.state.storytime === true) {
-      <StoryMod item={item} />
-    }
-    return (
-      <FlatList
-        data={ formatData( this.state.photos, numColumns ) }
-        style={ styles.container }
-        renderItem={ this.renderItem }
-        numColumns={ numColumns }
-      />
-    );
-  }
-}
+      return(
+        <View>
+      <StoryMod storyOff={() => this.notStoryTime()}  />
+          <FlatList
+          data={ formatData( this.state.photos, numColumns ) }
+          style={ styles.container }
+          renderItem={ this.renderItem }
+          numColumns={ numColumns }
+        />
+        </View>
+      )
+    } else {
+      return (
+        <FlatList
+          data={ formatData( this.state.photos, numColumns ) }
+          style={ styles.container }
+          renderItem={ this.renderItem }
+          numColumns={ numColumns }
+        />
+      );
+    };
+  };
+};
 
 const styles = StyleSheet.create({
   container: {
