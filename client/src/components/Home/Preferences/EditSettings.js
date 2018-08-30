@@ -35,7 +35,7 @@ class EditSettings extends React.Component {
         <View>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => { this.props.changeView('default') }}
+            onPress={() => { this.props.updateColor(tinycolor(this.state.color).toHexString()); this.props.changeView('default') }}
           >
             <Text style={styles.text}>Update to this color!</Text>
           </TouchableOpacity>
