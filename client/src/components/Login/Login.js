@@ -3,7 +3,6 @@ import {AsyncStorage, View, StyleSheet, Text, ImageBackground} from 'react-nativ
 import Expo from "expo";
 import {SocialIcon, Button} from "react-native-elements";
 
-
 export default class LoginScreen extends Component {
 
   constructor(props) {
@@ -11,7 +10,6 @@ export default class LoginScreen extends Component {
     this.state = { signedIn: false, name: "", photoUrl: "" }
   }
   static navigationOptions = {
-    title: "todo: get rid of this bar",
     header: null,
   }
 
@@ -47,13 +45,11 @@ export default class LoginScreen extends Component {
       this.setState({fb: response.json(), signedIn: true},() =>{
         console.log(this.state)
       })
-      this.props.navigation.navigate("App", this.state);
+      this.props.navigation.navigate("App");
     }
   }
 
-
 /**
- * 
  * This uses expo. 
  * {@link https://docs.expo.io/versions/v29.0.0/sdk/google}
  * TODO: abstract out sensitive information, app id, etc.
@@ -78,7 +74,6 @@ export default class LoginScreen extends Component {
           name: result.user.name,
           photoUrl: result.user.photoUrl
         }, () => {
-          console.log(result.accessToken)
           this.props.navigation.navigate("App", this.state);
         });
         //return result.accessToken;
@@ -93,8 +88,6 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <ImageBackground source={require('./assets/splash.png')} style={{ width: '100%', height: '100%' }}>
-
-
         <View style={styles.buttons}>
           <Button title="Google" onPress={this.signInWithGoogle} />
           <Button title="Shortcut login" onPress={this.login} />
@@ -112,8 +105,6 @@ export default class LoginScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-
-  //todo make this not crappy
   buttons: {
     flex: 3,
     alignItems: "center",
@@ -122,5 +113,4 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 120
   },
-
 });

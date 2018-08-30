@@ -36,6 +36,7 @@ From within the root directory:
 
 ```sh
 npm install
+npm i -g exp
 npm run ios OR npm run android
 ```
 
