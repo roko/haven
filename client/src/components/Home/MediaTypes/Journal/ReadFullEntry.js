@@ -1,51 +1,71 @@
 import React from 'react';
-import { TouchableOpacity, Button, Text, View, StyleSheet } from 'react-native';
+import { Dimensions, TouchableOpacity, Button, Text, View, StyleSheet, ImageBackground } from 'react-native';
+import { Ionicons, Entypo } from '@expo/vector-icons';
+
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 
 const ReadFullEntry = (props) => {
   return (
     <View>
-
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.button}
+      <ImageBackground
+        source={require('../../../../../assets/img/gradient-background-image.png')}
+        style={{ width: '100%', height: '100%' }}
+      >
+      <View style={styles.navRow}>
+      <Entypo
+        name="tools"
+        size={30}
+        color="#ffffff"
+        paddingLeft='10'
           onPress={() => { props.changeView('default') }}
-        >
-          <Text>Return to Journal Entries</Text>
-        </TouchableOpacity>
+      />
+      <Entypo
+        name="cross"
+        size={30}
+        color="#ffffff"
+        paddingLeft='10'
+        onPress={() => { props.changeView('default') }}
+      />
       </View>
-
-         <Text style={{ padding: 5 }}>
-          </Text>
-
       <View style={{
-        backgroundColor: 'lightcyan', padding: 10,
+        width: DEVICE_WIDTH - 15,
+        justifyContent: "space-between",
+        alignItems: "flex-end",
+        flexDirection: "row"
+      }}>
+      <View style={styles.container}>
+        <Text style={{ padding: 15 }}>
+        </Text>
+      </View>
+        <Ionicons
+          name="md-star-outline"
+          size={24}
+          color="#ffffff"
+        />
+        <Text style={{ textAlign: "center", color: '#ffffff' }}> {props.entry.title}
+        </Text>
+        <Ionicons
+          name="md-star-outline"
+          size={24}
+          color="#ffffff"
+        />
+        </View>
+      <Text style={{ padding: 0.5 }}> </Text>
+      <View style={{
+        backgroundColor: 'lightcyan',
         textAlignVertical: "center",
         textAlign: "center"
       }}>
-        <View style={{ backgroundColor: 'rgb(26,201,141)'}}>
-          <Text style={{ textAlign: "center", color: '#ffffff'}}> {props.entry.title}
+          <Text style={{ padding: 0.5 }}>
           </Text>
-          <Text style={{ fontSize: 11, textAlign: "center" }}> {props.entry.description}
+            <Text style={{ fontSize: 11, textAlign: "center", color: 'rgb(26, 201, 141)'}}> {props.entry.description}
           </Text>
-        </View>
-        <Text style={{ padding: 2 }}>
-        </Text>
-        <Text> {props.entry.file}
-        </Text>
+          <Text style={{ padding: 0.5 }}>
+          </Text>
       </View>
-
-      <Text style={{ padding: 1}}>
-      </Text>
-
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => { props.changeView('default') }}
-        >
-          <Text>Return to Journal Entries</Text>
-        </TouchableOpacity>
-      </View>
-
+      <Text style={{ padding: 0.5 }}> </Text>
+      <Text style={styles.text}> {props.entry.file} </Text>
+    </ImageBackground>
     </View>
   )
 }
@@ -71,7 +91,16 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     textAlign: 'center',
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
+    fontSize: 16
+  },
+  navRow: {
+    height: 40,
+    width: DEVICE_WIDTH - 15,
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    flexDirection: "row",
+    paddingLeft: 15,
   }
 });
 
