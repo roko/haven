@@ -1,12 +1,14 @@
 import React from "react";
 import Modal from "react-native-modal";
-import { AlertIOS, AsyncStorage, Button, StyleSheet, View, StatusBar, Text, TextInput, FlatList, TouchableOpacity, Image } from "react-native";
+import { Dimensions, AlertIOS, StyleSheet, View, Text, FlatList, TouchableOpacity, Image, ImageBackground } from "react-native";
+import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import JournalEntry from "./JournalEntry";
 import AddAnEntry from "./AddAnEntry";
 import ReadFullEntry from "./ReadFullEntry";
 
 const config = require('./dummyData/dummyConfig');
 
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 
 export default class Journal extends React.Component {
   constructor(props) {
@@ -145,17 +147,21 @@ export default class Journal extends React.Component {
           })
         }
       })
-  }
+    }
 
   closeQuoteModal = () =>
     this.setState({ needPositive: false })
 
   render() {
-    console.log('rerendering');
+
     if (this.state.needPositive) {
       console.log('plz render')
       return (
         <View style={{ flex: 1 }}>
+          <ImageBackground
+            source={require('../../../../../assets/img/gradient-background-image.png')}
+            style={{ width: '100%', height: '100%' }}
+          >
           <TouchableOpacity onPress={this.closeQuoteModal}>
             <Image
             source={{
@@ -170,6 +176,7 @@ export default class Journal extends React.Component {
               </TouchableOpacity>
             </View>
           </Modal>
+          </ImageBackground>
         </View>
       );
     }
@@ -181,26 +188,40 @@ export default class Journal extends React.Component {
     if (this.state.view === 'default') {
       return (
         <View>
-          <View style={styles.container}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => { this.changeView('makeEntry') }}
-            >
-              <Text style={styles.text}>Add some thoughts</Text>
-            </TouchableOpacity>
+          <ImageBackground
+            source={require('../../../../../assets/img/gradient-background-image.png')}
+            style={{ width: '100%', height: '100%' }}
+          >
+          <View style={styles.navRow}>
+            <MaterialIcons
+            name="library-add"
+            size={32}
+            color="#ffffff"
+            onPress={() => { this.changeView('makeEntry') }}
+            />
+            <Ionicons
+              name="ios-home-outline"
+              size={26}
+              color="#ffffff"
+              onPress={() => this.props.navigation.navigate("Home")}
+            />
           </View>
-          <Text> My thoughts </Text>
           <FlatList
             style={styles.flatList}
             data={this.state.data}
             keyExtractor={(item, index) => item.id}
             renderItem={({ item, index }) => (
-              <JournalEntry
-                changeView={this.changeView.bind(this, item)}
-                data={item}
-                id={index}
-              />)}
+              <View>
+                <JournalEntry
+                  entries={this.state.data}
+                  changeView={this.changeView.bind(this, item)}
+                  data={item}
+                  id={index}
+                />
+              </View>
+              )}
           />
+          </ImageBackground>
         </View>
       );
     }
@@ -208,11 +229,16 @@ export default class Journal extends React.Component {
     if (this.state.view === 'makeEntry') {
       return (
         <View>
+          <ImageBackground
+            source={require('../../../../../assets/img/gradient-background-image.png')}
+            style={{ width: '100%', height: '100%' }}
+          >
           <AddAnEntry
             analyzeEntry={this.analyzeEntry}
             changeView={this.changeView}
             getEntries={this.getEntries}
             saveEntry={this.saveEntry.bind(this)} />
+            </ImageBackground>
         </View>
       )
     }
@@ -246,6 +272,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(26,201,141)',
     borderRadius: 10,
     borderWidth: 1
+  },
+  navRow: {
+    height: 40,
+    width: DEVICE_WIDTH - 15,
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    flexDirection: "row",
+    paddingLeft: 15,
   },
   text: {
     color: '#ffffff'

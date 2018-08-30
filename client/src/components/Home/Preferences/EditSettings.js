@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform } from 'react-native';
-import {
-  HueSlider, SaturationSlider, LightnessSlider
-} from 'react-native-color';
+import { HueSlider, SaturationSlider, LightnessSlider } from 'react-native-color';
 import tinycolor from 'tinycolor2';
 
 class EditSettings extends React.Component {
