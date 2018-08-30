@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Slider from 'react-native-slider'; 
 import { Asset, Audio, Font } from 'expo';
-import { MaterialIcons, Ionicons, Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Ionicons, Feather } from '@expo/vector-icons';
 
 class PlaylistItem {
 	constructor(name, uri, image) {
@@ -289,14 +289,14 @@ export default class MusicPlayer extends Component {
         <View style={styles.navRow}>
           {/* this and the associated style should be extracted to a component for reuse */}
           <Ionicons 
-            name="ios-arrow-round-back-outline" 
+            name="ios-arrow-back" 
             size={30}
             color="#ffffff"
             onPress={() => this.props.navigation.goBack()}
           />
-          <Ionicons 
-            name="ios-home-outline" 
-            size={26}
+          <MaterialCommunityIcons 
+            name="home-outline" 
+            size={30}
             color="#ffffff"
             onPress={() => this.props.navigation.navigate("Home")}
           />
@@ -369,22 +369,8 @@ export default class MusicPlayer extends Component {
 							)}
 						</View>
 					</TouchableHighlight>
-					{/* <TouchableHighlight
-						underlayColor={BACKGROUND_COLOR}
-						style={styles.wrapper}
-						onPress={this._onStopPressed}
-						disabled={this.state.isLoading}
-					>
-						<View> // DON'T THINK I WANT A STOP CIRCLE BUT KEEPING IT COMMENTED IN CASE REMOVING IT BREAKS SOMETHING I DONT' YET UNDERSTAND
-							<Feather
-								name="stop-circle"
-								size={40}
-								color="#ffffff"
-							/>
-						</View>
-					</TouchableHighlight> */}
+				
 					<TouchableHighlight
-						// underlayColor={BACKGROUND_COLOR}
 						style={styles.wrapper}
 						onPress={this._onForwardPressed}
 						disabled={this.state.isLoading}

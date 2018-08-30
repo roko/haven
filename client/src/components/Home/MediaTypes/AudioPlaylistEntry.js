@@ -19,18 +19,17 @@ export default class AudioPlaylistEntry extends Component {
 
 
   render() {
-    console.log(this.props.navigate, 'from audioPlaylistEntry');
     return (
       <TouchableOpacity onPress={this._switchToMusicPlayer}>
-      <View style={styles.trackContainer}>
-        <Feather
-          name="play"
-          size={16}
-          color="#ffffff"
-        />
-        <Text style={styles.trackText}>   {this.props.track.name}</Text>
-      </View>
-    </TouchableOpacity>
+        <View style={styles.trackContainer}>
+          <Feather
+            name="play"
+            size={16}
+            color="#ffffff"
+          />
+          <Text style={styles.trackText}>   {this.props.track.name}</Text>
+        </View>
+      </TouchableOpacity>
     )
   }
 }
@@ -43,8 +42,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   trackText: {
-    fontFamily: 'Avenir-Book',
-    fontSize: 16,
+    fontFamily: 'Avenir-Medium',
+    fontSize: 18,
     color: 'white',
   }
 });
