@@ -14,7 +14,7 @@ export default class AudioPlaylistEntry extends Component {
 
 
   _switchToMusicPlayer = () => {
-    this.props.navigate("MusicPlayer")
+    this.props.navigate("MusicPlayer", {index: this.props.index})
   }
 
 
@@ -36,7 +36,7 @@ export default class AudioPlaylistEntry extends Component {
 
 const styles = StyleSheet.create({
   trackContainer: {
-    height: 30,
+    height: 40,
     marginLeft: 20,
     flexDirection: "row",
     justifyContent: "flex-start",

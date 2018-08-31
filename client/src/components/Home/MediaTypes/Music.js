@@ -37,7 +37,7 @@ export default class Music extends Component {
       showSaveRecordingForm: false,
       showNewAudio: false,
       newAudioText: undefined,
-      saveNewAudioText: 'New Audio Title',
+      saveNewAudioText: 'New Recording',
       sliderPosition: 0,
     };
 
@@ -193,7 +193,8 @@ export default class Music extends Component {
           {this.state.showSaveRecordingForm ? (
             <View style={styles.saveRecordingContainer}>
               <TextInput style={styles.addRecordingText}
-                onChangeText={(text) => this.setState({text})}
+                placeholderTextColor='rgba(255,255,255, 0.3)'
+                onChangeText={(text) => this.setState({saveNewAudioText: text})}
                 value={this.state.saveNewAudioText}
               />
               <MaterialIcons style={styles.checkmark}
@@ -221,6 +222,7 @@ export default class Music extends Component {
               <AudioPlaylistEntry
                 key={i + Math.random()} 
                 track={this.state.playlist[i]}
+                index={i}
                 navigate={navigate}
               />
             )}
@@ -243,7 +245,7 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   catalogContainer: {
-    marginTop: 7,
+    marginTop: 18,
     width: DEVICE_WIDTH, 
     justifyContent: 'space-around',
     // flexDirection: 'column-reverse',
@@ -263,10 +265,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   addRecordingContainer: {
-    height: 35,
     marginLeft: 80,
     width: DEVICE_WIDTH - 160,
-    paddingTop: 7,
+    marginTop: 60,
     marginBottom: 7,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -288,7 +289,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   trackContainer: {
-    height: 30,
+    height: 40,
     marginLeft: 20,
     flexDirection: "row",
     justifyContent: "flex-start",
