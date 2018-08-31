@@ -1,7 +1,7 @@
 import React from "react";
 import { AsyncStorage, Button, StyleSheet, View, StatusBar, Animated, ScrollView, CameraRoll, Image, Dimensions, TouchableHighlight, TouchableWithoutFeedback, Text } from "react-native";
 import ImageOverlay from "react-native-image-overlay";
-import photoData from '../photoStock/PhotoLanding';
+import photoData from './PhotoLanding';
 import { MaterialCommunityIcons, Ionicons, Feather, FontAwesome } from '@expo/vector-icons';
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -58,7 +58,7 @@ export default class PhotoScroll extends React.Component {
            titleStyle={{ color: 'white', fontWeight: 'bold' }}
            key={ i }
            height={ SCREEN_HEIGHT }
-          source={{ uri: p.image }}
+             source={p.image}
          >
         <View style={{ marginTop: 140, marginBottom: 215, alignItems: "center" }} >
             <Button title={ "Add From CameraRoll..." } size={ 90 } color={ "white" } onPress={ () => this.props.addView() } /> 
@@ -72,13 +72,13 @@ export default class PhotoScroll extends React.Component {
        return (
         <TouchableHighlight key={ i } onPress={ () => this.onTouch() } >
         <ImageOverlay
-           overlayAlpha={ 0.0 }
-           blurRadius={ 0 }
-           contentPosition={ "center" }
-           titleStyle={{ color: 'white', fontWeight: 'bold' }}
-           key={i}
-           height={ SCREEN_HEIGHT }
-          source={{ uri: p.image }}
+          overlayAlpha={ 0.0 }
+          blurRadius={ 0 }
+          contentPosition={ "center" }
+          titleStyle={{ color: 'white', fontWeight: 'bold' }}
+          key={i}
+          height={ SCREEN_HEIGHT }
+          source={p.image}
          >
         <View style={styles.navRow}>
           {/* this and the associated style should be extracted to a component for reuse */}
@@ -108,7 +108,7 @@ export default class PhotoScroll extends React.Component {
            contentPosition={ "center" }
            key={ i }
            height={ SCREEN_HEIGHT }
-          source={{ uri: p.image }}
+           source={p.image}
           >
         <View style={{borderRadius: 25, marginTop: 120 }}>
         <Ionicons name="ios-book" size={70} color="white"  />

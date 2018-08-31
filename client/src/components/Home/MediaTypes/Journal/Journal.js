@@ -258,8 +258,8 @@ const styles = StyleSheet.create({
   },
   flatList: {
     padding: 10,
-    textAlignVertical: "center",
-    textAlign: "center"
+    //textAlignVertical: "center", //this throws an error, not for this component
+    //textAlign: "center"
   },
   button: {
     alignItems: 'center',
