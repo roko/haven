@@ -1,127 +1,135 @@
 import React from 'react';
-import { Dimensions, View, Button, TouchableOpacity, Text, TextInput, AlertIOS, StyleSheet} from 'react-native';
+import { Dimensions, View, Button, TouchableOpacity, Text, TextInput, AlertIOS, StyleSheet } from 'react-native';
 import { Ionicons, Entypo } from '@expo/vector-icons';
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 
 export default class AddAnEntry extends React.Component {
   constructor(props) {
-      super(props);
-      this.state = {
-        title: '',
-        description: '',
-        file:'',
-        height: 40,
-        characterCount: 0
-      };
-    }
+    super(props);
+    this.state = {
+      title: '',
+      description: '',
+      file: '',
+      height: 40,
+      characterCount: 0
+    };
+  }
 
-    updateSize (height) {
-        this.setState({
-          height
-        });
-      }
+  updateSize(height) {
+    this.setState({
+      height
+    });
+  }
 
-      //upon submitting entry:
-      //length of entry is checked as the Microsoft Text Analytics has a limit of 5,000 characters
-      //if entry is not over the limit it is sent to be analyzed for sentiment score
-      render() {
-      return (
-        <View>
-          <View style={styles.navRow}>
-            <Ionicons
-              name="md-add"
-              size={26}
-              color="#ffffff"
-              onPress={
-                () => {
-                    if (this.state.file.length <= 5000) {
-                        this.props.analyzeEntry(this.state.file);
-                        this.props.saveEntry({ title: this.state.title, description: this.state.description, file: this.state.file })
-                    } else {
-                      AlertIOS.alert(
-                        "Sorry, this entry is over 5,000 characters. Please shorten entry. Thank you!"
-                      )
-                    }
+  //upon submitting entry:
+  //length of entry is checked as the Microsoft Text Analytics has a limit of 5,000 characters
+  //if entry is not over the limit it is sent to be analyzed for sentiment score
+  render() {
+    return (
+      <View>
+        <View style={styles.navRow}>
+          <Ionicons
+            name="md-add"
+            size={26}
+            color="#ffffff"
+            onPress={
+              () => {
+                if (this.state.file.length <= 5000) {
+                  this.props.analyzeEntry(this.state.file);
+                  this.props.saveEntry({ title: this.state.title, description: this.state.description, file: this.state.file })
+                } else {
+                  AlertIOS.alert(
+                    "Sorry, this entry is over 5,000 characters. Please shorten entry. Thank you!"
+                  )
                 }
               }
-            />
-
-            <Entypo
-                name="cross"
-                size={26}
-                color="#ffffff"
-                onPress={() => { this.props.getEntries(); this.props.changeView('default') }}
-            />
-          </View>
-
-          <Text style={{ padding: 3}}>
-          </Text>
-
-          <TextInput
-            style={{ flexWrap: 'wrap', borderColor: 'transparent', borderWidth: 1, padding: 2, paddingLeft: 10, fontSize: 24 }}
-            onChangeText={(title) => this.setState({
-              title})}
-            value={this.state.title}
-            multiline={true}
-            editable = {true}
-            placeholder="Title"
-            onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+            }
           />
 
-          <Text style={{ padding: 3 }}>
-          </Text>
-
-          <TextInput
-            style={{ flexWrap: 'wrap', borderColor: 'transparent', borderWidth: 1, padding: 2, paddingLeft: 10, fontSize: 24}}
-            onChangeText={(description) => this.setState({
-              description})}
-            value={this.state.description}
-            multiline={true}
-            editable = {true}
-            placeholder="Description"
-            onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+          <Entypo
+            name="cross"
+            size={26}
+            color="#ffffff"
+            onPress={() => { this.props.getEntries(); this.props.changeView('default') }}
           />
-
-          <Text style={{ padding: 3 }}>
-          </Text>
-
-          <TextInput
-            style={{flexWrap:'wrap', borderColor: 'transparent', borderWidth: 1, paddingLeft: 10, fontSize: 24}}
-            onChangeText={(file) => this.setState({
-              file})}
-            value={this.state.file}
-            multiline={true}
-            editable = {true}
-            placeholder="Thoughts"
-            onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
-          />
-          <Text style={{ padding: 1 }}>
-          </Text>
-
-          <View style={{
-                width: DEVICE_WIDTH - 15,
-                justifyContent: "space-between",
-                alignItems: "flex-end",
-                flexDirection: "row",
-                paddingLeft: 15}}>
-          <Text style={{fontSize: 14, color: '#ffffff'}}> 5,000 character limit </Text>
-          <Text style={{ fontSize: 14, color: '#ffffff'}}> {5000 - this.state.file.length} characters remaining </Text>
         </View>
 
-       </View>
-      );
-    }
+        <Text style={{ padding: 3 }}>
+        </Text>
+
+        <TextInput
+          style={{ flexWrap: 'wrap', borderColor: 'transparent', borderWidth: 1, padding: 2, paddingLeft: 10, fontSize: 24 }}
+          onChangeText={(title) => this.setState({
+            title
+          })}
+          value={this.state.title}
+          multiline={true}
+          editable={true}
+          placeholderTextColor='#ffffff'
+          placeholder="Title"
+          onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+        />
+
+        <Text style={{ padding: 3 }}>
+        </Text>
+
+        <TextInput
+          style={{ flexWrap: 'wrap', borderColor: 'transparent', borderWidth: 1, padding: 2, paddingLeft: 10, fontSize: 24 }}
+          onChangeText={(description) => this.setState({
+            description
+          })}
+          value={this.state.description}
+          multiline={true}
+          editable={true}
+          placeholderTextColor='#ffffff'
+          placeholder="Description"
+          onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+        />
+
+        <Text style={{ padding: 3 }}>
+        </Text>
+
+        <TextInput
+          style={{ flexWrap: 'wrap', borderColor: 'transparent', borderWidth: 1, paddingLeft: 10, fontSize: 24 }}
+          onChangeText={(file) => this.setState({
+            file
+          })}
+          value={this.state.file}
+          multiline={true}
+          editable={true}
+          placeholderTextColor='#ffffff'
+          placeholder="Thoughts"
+          onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+        />
+        <Text style={{ padding: 1 }}>
+        </Text>
+
+        <View style={{
+          width: DEVICE_WIDTH - 15,
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+          flexDirection: "row",
+          paddingLeft: 15
+        }}>
+          <Text style={{ fontSize: 14, color: '#ffffff' }}> 5,000 character limit </Text>
+          <Text style={{ fontSize: 14, color: '#ffffff' }}> {5000 - this.state.file.length} characters remaining </Text>
+        </View>
+
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   navRow: {
-      height: 40,
-      width: DEVICE_WIDTH - 15,
-      justifyContent: "space-between",
-      alignItems: "flex-end",
-      flexDirection: "row",
-      paddingLeft: 15,
+    height: 40,
+    width: DEVICE_WIDTH - 15,
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    flexDirection: "row",
+    paddingLeft: 15,
+    marginTop: 45,
   },
   button: {
     alignItems: 'center',

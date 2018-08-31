@@ -82,7 +82,7 @@ export default class Journal extends React.Component {
       .done(() => { this.getEntries(); this.changeView('default') });
   }
 
-  checkIfSupportRequestShouldBeSent () {
+  checkIfSupportRequestShouldBeSent() {
     console.log('sentimentcount', this.state.currentLowSentiment);
     //update later so a patch request is sent to server to update the currentLowSentiment count of the logged in user
     //if currentLowSentiment count has reached the set supportEntriesMinimumRequirement number that user has chosen in Settings then requestSupport gets called
@@ -101,10 +101,10 @@ export default class Journal extends React.Component {
   }
 
   //this sends a request to Twilio API so all of the user's contact numbers who are set to Support mode will get a text message
-  requestSupport () {
+  requestSupport() {
     let endpoint = '' + config.journalEndpoint.fetch + ':3000/support/';
 
-    fetch(endpoint, { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ userFirstName: this.state.userFirstName, phoneNumbersOfTrustedConfidantes: this.state.phoneNumbersOfTrustedConfidantes, setMessageForSupport: this.state.setMessageForSupport}) })
+    fetch(endpoint, { method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ userFirstName: this.state.userFirstName, phoneNumbersOfTrustedConfidantes: this.state.phoneNumbersOfTrustedConfidantes, setMessageForSupport: this.state.setMessageForSupport }) })
       .then((responseData) => {
         console.log('some support has been requested!')
       })
@@ -140,14 +140,14 @@ export default class Journal extends React.Component {
             positiveImage: response
           })
         } else {
-          let backupImages = ['https://i.imgur.com/b5Z8WBL.jpg?1', 'https://imgur.com/00Npz5f.jpg', 'https://i.imgur.com/maU9XOM.jpg', 'https://i.imgur.com/8DvrQHt.jpg', 'https://i.imgur.com/bBQiINy.jpg', 'https://i.imgur.com/ukhJJTw.jpg', 'https://i.imgur.com/mj88UAo.jpg', 'https://i.imgur.com/q43BB6y.png', 'https://imgur.com/kzYWksL.jpg', 'https://imgur.com/B0GVCTX.jpg','https://imgur.com/18ANiGe.jpg'];
+          let backupImages = ['https://i.imgur.com/b5Z8WBL.jpg?1', 'https://imgur.com/00Npz5f.jpg', 'https://i.imgur.com/maU9XOM.jpg', 'https://i.imgur.com/8DvrQHt.jpg', 'https://i.imgur.com/bBQiINy.jpg', 'https://i.imgur.com/ukhJJTw.jpg', 'https://i.imgur.com/mj88UAo.jpg', 'https://i.imgur.com/q43BB6y.png', 'https://imgur.com/kzYWksL.jpg', 'https://imgur.com/B0GVCTX.jpg', 'https://imgur.com/18ANiGe.jpg'];
 
           this.setState({
             positiveImage: backupImages[Math.floor(Math.random() * backupImages.length)]
           })
         }
       })
-    }
+  }
 
   closeQuoteModal = () =>
     this.setState({ needPositive: false })
@@ -157,26 +157,29 @@ export default class Journal extends React.Component {
     if (this.state.needPositive) {
       console.log('plz render')
       return (
-        <View style={{ flex: 1 }}>
-          <ImageBackground
-            source={require('../../../../../assets/img/gradient-background-image.png')}
-            style={{ width: '100%', height: '100%' }}
-          >
-          <TouchableOpacity onPress={this.closeQuoteModal}>
-            <Image
-            source={{
-              uri: this.state.positiveImage}}
-            style={{ width: 350, height: 250 }} />
-          </TouchableOpacity>
-          <Modal isVisible={this.state.needPositive}>
-            <View style={{ flex: 1 }}>
-              <Text>Hello!</Text>
+        <View>
+          <View style={styles.navRow}>
+            <ImageBackground
+              source={require('../../../../../assets/img/gradient-background-image.png')}
+              style={{ width: '100%', height: '100%' }}
+            >
               <TouchableOpacity onPress={this.closeQuoteModal}>
-                <Text>Hide me!</Text>
+                <Image
+                  source={{
+                    uri: this.state.positiveImage
+                  }}
+                  style={{ width: 350, height: 250 }} />
               </TouchableOpacity>
-            </View>
-          </Modal>
-          </ImageBackground>
+              <Modal isVisible={this.state.needPositive}>
+                <View style={{ flex: 1 }}>
+                  <Text>Hello!</Text>
+                  <TouchableOpacity onPress={this.closeQuoteModal}>
+                    <Text>Hide me!</Text>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
+            </ImageBackground>
+          </View>
         </View>
       );
     }
@@ -192,35 +195,35 @@ export default class Journal extends React.Component {
             source={require('../../../../../assets/img/gradient-background-image.png')}
             style={{ width: '100%', height: '100%' }}
           >
-          <View style={styles.navRow}>
-            <MaterialIcons
-            name="library-add"
-            size={32}
-            color="#ffffff"
-            onPress={() => { this.changeView('makeEntry') }}
-            />
-            <Ionicons
-              name="ios-home-outline"
-              size={26}
-              color="#ffffff"
-              onPress={() => this.props.navigation.navigate("Home")}
-            />
-          </View>
-          <FlatList
-            style={styles.flatList}
-            data={this.state.data}
-            keyExtractor={(item, index) => item.id}
-            renderItem={({ item, index }) => (
-              <View>
-                <JournalEntry
-                  entries={this.state.data}
-                  changeView={this.changeView.bind(this, item)}
-                  data={item}
-                  id={index}
-                />
-              </View>
+            <View style={styles.navRow}>
+              <MaterialIcons
+                name="library-add"
+                size={32}
+                color="#ffffff"
+                onPress={() => { this.changeView('makeEntry') }}
+              />
+              <Ionicons
+                name="ios-home-outline"
+                size={26}
+                color="#ffffff"
+                onPress={() => this.props.navigation.navigate("Home")}
+              />
+            </View>
+            <FlatList
+              style={styles.flatList}
+              data={this.state.data}
+              keyExtractor={(item, index) => item.id}
+              renderItem={({ item, index }) => (
+                <View>
+                  <JournalEntry
+                    entries={this.state.data}
+                    changeView={this.changeView.bind(this, item)}
+                    data={item}
+                    id={index}
+                  />
+                </View>
               )}
-          />
+            />
           </ImageBackground>
         </View>
       );
@@ -233,12 +236,12 @@ export default class Journal extends React.Component {
             source={require('../../../../../assets/img/gradient-background-image.png')}
             style={{ width: '100%', height: '100%' }}
           >
-          <AddAnEntry
-            analyzeEntry={this.analyzeEntry}
-            changeView={this.changeView}
-            getEntries={this.getEntries}
-            saveEntry={this.saveEntry.bind(this)} />
-            </ImageBackground>
+            <AddAnEntry
+              analyzeEntry={this.analyzeEntry}
+              changeView={this.changeView}
+              getEntries={this.getEntries}
+              saveEntry={this.saveEntry.bind(this)} />
+          </ImageBackground>
         </View>
       )
     }
@@ -257,9 +260,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   flatList: {
-    padding: 10,
-    //textAlignVertical: "center", //this throws an error, not for this component
-    //textAlign: "center"
+    padding: 10
   },
   button: {
     alignItems: 'center',
@@ -280,6 +281,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     flexDirection: "row",
     paddingLeft: 15,
+    marginTop: 45,
   },
   text: {
     color: '#ffffff'
