@@ -35,7 +35,7 @@ const ContactsStack = createStackNavigator(
   },
   {
     initialRouteName: "Contacts",
-    //headerMode: "none"
+    headerMode: "none"
   }
 );
 
