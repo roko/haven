@@ -1,7 +1,8 @@
 import React from "react";
 import Modal from "react-native-modal";
 import { Dimensions, AlertIOS, StyleSheet, View, Text, FlatList, TouchableOpacity, Image, ImageBackground } from "react-native";
-import { MaterialIcons, Ionicons } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons
+} from '@expo/vector-icons';
 import JournalEntry from "./JournalEntry";
 import AddAnEntry from "./AddAnEntry";
 import ReadFullEntry from "./ReadFullEntry";
@@ -202,9 +203,9 @@ export default class Journal extends React.Component {
                 color="#ffffff"
                 onPress={() => { this.changeView('makeEntry') }}
               />
-              <Ionicons
-                name="ios-home-outline"
-                size={26}
+              <MaterialCommunityIcons
+                name="home-outline"
+                size={30}
                 color="#ffffff"
                 onPress={() => this.props.navigation.navigate("Home")}
               />
