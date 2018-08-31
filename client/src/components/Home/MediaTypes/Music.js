@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import {
   Dimensions,
-  Image,
   ImageBackground,
-  StyleSheet,
+  StyleSheet,
   Slider,
   Text,
   TextInput,
@@ -47,7 +46,12 @@ export default class Music extends Component {
     this.onSaveRecordingPress.bind(this);
     this.addAudioMessage.bind(this);
     this.hideRecorder.bind(this);
+    this._switchToHome.bind(this);
   }
+  
+  static navigationOptions = {
+    header: null,
+  };
 
   componentDidUpdate(previousProps, previousState) { 
   }
@@ -116,10 +120,17 @@ export default class Music extends Component {
               name="home-outline" 
               size={30}
               color="#ffffff"
-              onPress={this._switchToHome.bind(this)}  
+              onPress={() => this.props.navigation.goBack()}  
             />
           </TouchableOpacity>
         </View>
+
+        {/* <MaterialCommunityIcons 
+            name="home-outline" 
+            size={30}
+            color="#ffffff"
+            onPress={() => this.props.navigation.navigate("Home")}
+          /> */}
         
         <View style={styles.mainContainer}>
           
@@ -242,6 +253,7 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     justifyContent: "flex-end",
     alignItems: "flex-end",
+    marginTop: 45,
   },
   navRow: {
     height: 40,

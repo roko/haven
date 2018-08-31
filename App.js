@@ -46,6 +46,7 @@ const ContactsStack = createStackNavigator(
 const AppStack = createStackNavigator(
   {
     Home: HomeScreen,
+    Settings,
     Journal,
     PhotoVideo,
     ContactsStack: {
@@ -54,7 +55,6 @@ const AppStack = createStackNavigator(
     },
     Music: {
       screen: Music,
-      navigationOptions: { title: "Music" },
     },
     AudioPlayerlistEntry: {
       screen: navigation => (
@@ -64,12 +64,11 @@ const AppStack = createStackNavigator(
     },
     MusicPlayer: {
       screen: MusicPlayer,
-      navigationOptions: { title: "MusicPlayer" }
     }
   },
   {
-    headerMode: "screen",
-    //headerMode: "none"
+    // headerMode: "screen",
+    headerMode: "none" 
   }
 );
 
@@ -83,6 +82,7 @@ const AuthStack = createStackNavigator({ SignIn: LoginScreen });
  * The entry point into the app, creates a "Switch Navigator"
  *
  */
+
 const Tabs = createBottomTabNavigator(
   {
     Settings: Settings,
@@ -115,7 +115,8 @@ const Tabs = createBottomTabNavigator(
 const AppNavigator = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
-    App: Tabs,
+    // App: Tabs,
+    App: AppStack,
     Auth: AuthStack
   },
   {
