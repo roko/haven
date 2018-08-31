@@ -141,7 +141,7 @@ export default class Journal extends React.Component {
             positiveImage: response
           })
         } else {
-          let backupImages = ['https://i.imgur.com/b5Z8WBL.jpg?1', 'https://imgur.com/00Npz5f.jpg', 'https://i.imgur.com/maU9XOM.jpg', 'https://i.imgur.com/8DvrQHt.jpg', 'https://i.imgur.com/bBQiINy.jpg', 'https://i.imgur.com/ukhJJTw.jpg', 'https://i.imgur.com/mj88UAo.jpg', 'https://i.imgur.com/q43BB6y.png', 'https://imgur.com/kzYWksL.jpg', 'https://imgur.com/B0GVCTX.jpg', 'https://imgur.com/18ANiGe.jpg'];
+          let backupImages = ['http://healthruwords.com/wp-content/uploads/2014/02/inspirational-motivational-image-quotes-quotations-quotes-of-the-day-roxanajones-com-you-are-your-prophecy-300x289.jpg', 'http://healthruwords.com/wp-content/uploads/2016/07/Healthruwords.com_-_Inspirational_Images_-_From-Thoughts-to-Things-300x300.jpg', 'http://healthruwords.com/wp-content/uploads/2014/10/Nov-14-The-Invisible-Bridge-300x300.jpg', 'http://healthruwords.com/wp-content/uploads/2015/08/healthruwords-com_-_inspirational_images_-_-hearts-beliefs-300x300.jpg', 'http://healthruwords.com/wp-content/uploads/2014/10/Oct-16-Present-Peace-300x300.jpg', 'http://healthruwords.com/wp-content/uploads/2016/09/Healthruwords.com_-_Inspirational_Images_-_Imagination-over-Knowledge-300x300.jpg'];
 
           this.setState({
             positiveImage: backupImages[Math.floor(Math.random() * backupImages.length)]
@@ -150,8 +150,15 @@ export default class Journal extends React.Component {
       })
   }
 
-  closeQuoteModal = () =>
+  closeQuoteModal () {
     this.setState({ needPositive: false })
+  }
+
+  clearPositiveImage () {
+    this.setState({
+      positiveImage: ''
+    })
+  }
 
   render() {
 
@@ -159,28 +166,28 @@ export default class Journal extends React.Component {
       console.log('plz render')
       return (
         <View>
-          <View style={styles.navRow}>
-            <ImageBackground
+          <ImageBackground
               source={require('../../../../../assets/img/gradient-background-image.png')}
               style={{ width: '100%', height: '100%' }}
             >
-              <TouchableOpacity onPress={this.closeQuoteModal}>
-                <Image
-                  source={{
-                    uri: this.state.positiveImage
-                  }}
-                  style={{ width: 350, height: 250 }} />
-              </TouchableOpacity>
-              <Modal isVisible={this.state.needPositive}>
-                <View style={{ flex: 1 }}>
-                  <Text>Hello!</Text>
-                  <TouchableOpacity onPress={this.closeQuoteModal}>
-                    <Text>Hide me!</Text>
-                  </TouchableOpacity>
+            <View style={{
+              width: DEVICE_WIDTH - 15,
+              justifyContent: "space-between",
+              flexDirection: "row",
+              paddingLeft: 15,
+              marginTop: 80,}}>
+              <TouchableOpacity onPress={() => {this.closeQuoteModal(); this.clearPositiveImage()}}>
+                <View style={{ justifyContent: 'center'}}>
+
+                  <Image
+                    source={{
+                      uri: this.state.positiveImage
+                    }}
+                    style={{ width: 350, height: 350 }} />
                 </View>
-              </Modal>
-            </ImageBackground>
-          </View>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
         </View>
       );
     }
