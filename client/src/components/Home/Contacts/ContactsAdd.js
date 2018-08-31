@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, Button, Modal, TouchableHighlight, StyleSheet, SafeAreaView, AsyncStorage, ImageBackground } from 'react-native';
+import { Text, View, FlatList, Button, Modal, TouchableOpacity, StyleSheet, SafeAreaView, AsyncStorage, ImageBackground, Dimensions } from 'react-native';
 import { SearchBar, List, ListItem, Avatar } from "react-native-elements";
 import { Contacts, Permissions, SMS } from 'expo';
 import { contains } from './ContactsHelpers';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import _ from 'lodash';
 
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get("window");
 class ModalScreen extends Component {
   constructor(props) {
     super(props);
@@ -19,8 +21,8 @@ class ModalScreen extends Component {
 
   renderHeader = () => (
     <SearchBar
-      placeholder="Search your contacts"
-      placeholderTextColor="white"
+      placeholder="Fill your Haven..."
+      placeholderTextColor="grey"
       round
       containerStyle={{
         backgroundColor: "transparent",
@@ -82,6 +84,19 @@ class ModalScreen extends Component {
     />
   );
 
+  renderNavRow = () => (
+    <View style={styles.navRow}>
+      <TouchableOpacity>
+        <MaterialCommunityIcons
+          name="home-outline"
+          size={30}
+          color="#ffffff"
+          onPress={() => this.props.navigation.goBack()}
+        />
+      </TouchableOpacity>
+    </View>
+  )
+
   handleContactsPress = async id => {
     const contact = await Contacts.getContactByIdAsync(id);
     this.saveContactToStorage(id);
@@ -98,11 +113,12 @@ class ModalScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView>
+      // <SafeAreaView>
         <ImageBackground
           source={require("../../../../assets/img/gradient-background-image.png")}
           style={{ width: "100%", height: "100%" }}
         >
+        {this.renderNavRow()}
           <List
             containerStyle={{
               borderTopWidth: 0,
@@ -144,9 +160,27 @@ class ModalScreen extends Component {
             />
           </List>
         </ImageBackground>
-      </SafeAreaView>
+      // </SafeAreaView>
     );
   }
 }
 
+const styles = StyleSheet.create({
+  homeButtonRow: {
+    height: 40,
+    paddingRight: 15,
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    marginTop: 45
+  },
+  navRow: {
+    height: 40,
+    width: DEVICE_WIDTH - 15,
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    flexDirection: "row",
+    paddingLeft: 15,
+    marginTop: 45
+  }
+});
 export default ModalScreen;

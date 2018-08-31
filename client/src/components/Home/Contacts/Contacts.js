@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, Button, TouchableHighlight, StyleSheet, SafeAreaView, AsyncStorage, ImageBackground } from 'react-native';
-import { SearchBar, List, ListItem, FormInput, FormLabel, Avatar } from "react-native-elements";
+import { Text, View, FlatList, Button, TouchableOpacity, StyleSheet, SafeAreaView, AsyncStorage, ImageBackground, Dimensions } from 'react-native';
+import { SearchBar, List, ListItem, FormInput, FormLabel, Avatar, FormValidationMessage } from "react-native-elements";
 
 import {Contacts, Permissions, SMS} from 'expo';
+import {MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons'
 import { contains } from './ContactsHelpers';
 import _ from 'lodash';
 
@@ -11,6 +12,8 @@ import _ from 'lodash';
  * {@link https://docs.expo.io/versions/v29.0.0/sdk/contacts}
  * 
  */
+const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get("window");
+
 
 export default class ContactsScreen extends Component {
   constructor(props){
@@ -31,21 +34,22 @@ export default class ContactsScreen extends Component {
     const params = navigation.state.params || {};
 
     return {
-      headerTitle: "Contacts",
-      headerLeft: (
-        <Button
-          onPress={()=>{navigation.navigate("Home")}}
-          title="< Back"
-        />
-      ),
-      headerRight: (
-        <Button
-          onPress={() => { navigation.navigate("AddContactModal") }}
-          title="Add"
-          color="green"
-          size={28}
-        />
-      )
+      header: null,
+      // headerTitle: "Contacts",
+      // headerLeft: (
+      //   <Button
+      //     onPress={()=>{navigation.navigate("Home")}}
+      //     title="< Back"
+      //   />
+      // ),
+      // headerRight: (
+      //   <Button
+      //     onPress={() => { navigation.navigate("AddContactModal") }}
+      //     title="Add"
+      //     color="green"
+      //     size={28}
+      //   />
+      // )
     }
   };
 
@@ -72,8 +76,8 @@ export default class ContactsScreen extends Component {
 
   renderHeader = () => (
      <SearchBar 
-      placeholder="Search your haven" 
-      placeholderTextColor='white'
+      placeholder="Search your Haven..." 
+      placeholderTextColor='grey'
       round
       containerStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderTopColor: 'transparent'}}
       inputContainerStyle={{ backgroundColor: 'white',  }}
@@ -96,6 +100,8 @@ export default class ContactsScreen extends Component {
         onChangeText={this.handleMessage}
         inputStyle={{color:'white', fontFamily:'Avenir-Medium' }}
     />
+      {/* <FormValidationMessage>Error message</FormValidationMessage> */}
+
     </View>
   )
 
@@ -120,6 +126,29 @@ export default class ContactsScreen extends Component {
       }}
     />
   );
+
+  renderNavRow = () => (
+    <View style={styles.navRow}>
+      <TouchableOpacity>
+        <MaterialCommunityIcons
+          name="home-outline"
+          size={30}
+          color="#ffffff"
+          onPress={() => this.props.navigation.navigate("Home")}
+        />
+      </TouchableOpacity>
+      
+      <TouchableOpacity>
+        <MaterialIcons
+          name="library-add"
+          size={32}
+          color="#ffffff"
+          onPress={() => { this.props.navigation.navigate("AddContactModal") }}
+        />
+      </TouchableOpacity>
+
+    </View>
+  )
 
   handleSearch = input => {
     const formatQuery = input.toLowerCase()
@@ -150,9 +179,10 @@ export default class ContactsScreen extends Component {
   }
 
   render() {
-    return <SafeAreaView>
+    return <View>
         <ImageBackground source={require("../../../../assets/img/gradient-background-image.png")} style={{ width: "100%", height: "100%" }}>
           <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, marginTop: 0, backgroundColor: 'transparent', }}>
+          {this.renderNavRow()}
             <FlatList 
               data={this.state.query.length ? this.state.filteredContacts : this.state.havenContacts} 
               renderItem={({ item }) => 
@@ -179,6 +209,25 @@ export default class ContactsScreen extends Component {
                   automaticallyAdjustContentInsets={false} />
           </List>
         </ImageBackground>
-      </SafeAreaView>;
+      </View>;
   }
 }
+
+const styles = StyleSheet.create({
+  homeButtonRow: {
+    height: 40,
+    paddingRight: 15,
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    marginTop: 45,
+  },
+  navRow: {
+    height: 40,
+    width: DEVICE_WIDTH - 15,
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    flexDirection: "row",
+    paddingLeft: 15,
+    marginTop: 45,
+  }
+})
