@@ -11,61 +11,59 @@ const ReadFullEntry = (props) => {
         source={require('../../../../../assets/img/gradient-background-image.png')}
         style={{ width: '100%', height: '100%' }}
       >
-      <View style={styles.navRow}>
-      <Entypo
-        name="tools"
-        size={30}
-        color="#ffffff"
-        paddingLeft='10'
-          onPress={() => { props.changeView('default') }}
-      />
-      <Entypo
-        name="cross"
-        size={30}
-        color="#ffffff"
-        paddingLeft='10'
-        onPress={() => { props.changeView('default') }}
-      />
-      </View>
-      <View style={{
-        width: DEVICE_WIDTH - 15,
-        justifyContent: "space-between",
-        alignItems: "flex-end",
-        flexDirection: "row"
-      }}>
-      <View style={styles.container}>
-        <Text style={{ padding: 15 }}>
-        </Text>
-      </View>
-        <Ionicons
-          name="md-star-outline"
-          size={24}
-          color="#ffffff"
-        />
-        <Text style={{ textAlign: "center", color: '#ffffff' }}> {props.entry.title}
-        </Text>
-        <Ionicons
-          name="md-star-outline"
-          size={24}
-          color="#ffffff"
-        />
+        <View style={styles.navRow}>
+          <Entypo
+            name="tools"
+            size={30}
+            color="#ffffff"
+            paddingLeft='10'
+            onPress={() => { props.changeView('default') }}
+          />
+          <Entypo
+            name="cross"
+            size={30}
+            color="#ffffff"
+            paddingLeft='10'
+            onPress={() => { props.changeView('default') }}
+          />
         </View>
-      <Text style={{ padding: 0.5 }}> </Text>
-      <View style={{
-        backgroundColor: 'lightcyan',
-        textAlignVertical: "center",
-        textAlign: "center"
-      }}>
+        <View style={{
+          width: DEVICE_WIDTH - 95,
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+          flexDirection: "row"
+        }}>
+          <View style={styles.container}>
+            <Text style={{ padding: 15 }}>
+            </Text>
+          </View>
+          <Ionicons
+            name="md-star-outline"
+            size={24}
+            color="#ffffff"
+          />
+          <Text style={{ textAlign: "center", color: '#ffffff' }}> {props.entry.title}
+          </Text>
+          <Ionicons
+            name="md-star-outline"
+            size={24}
+            color="#ffffff"
+          />
+        </View>
+        <Text style={{ padding: 0.5 }}> </Text>
+        <View style={{
+          backgroundColor: 'lightcyan'
+        }}>
           <Text style={{ padding: 0.5 }}>
           </Text>
-            <Text style={{ fontSize: 11, textAlign: "center", color: 'rgb(26, 201, 141)'}}> {props.entry.description}
+          <Text style={{ fontSize: 11, textAlign: "center", color: 'rgb(26, 201, 141)' }}> {props.entry.description}
           </Text>
           <Text style={{ padding: 0.5 }}>
           </Text>
-      </View>
-      <Text style={{ padding: 0.5 }}> </Text>
-      <Text style={styles.text}> {props.entry.file} </Text>
-    </ImageBackground>
+        </View>
+        <Text style={{ padding: 0.5 }}> </Text>
+        <Text style={styles.text}> {props.entry.file} </Text>
+      </ImageBackground>
     </View>
   )
 }
@@ -101,6 +99,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     flexDirection: "row",
     paddingLeft: 15,
+    marginTop: 45,
+
   }
 });
 
