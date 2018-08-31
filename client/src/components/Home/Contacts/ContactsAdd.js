@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, Button, Modal, TouchableHighlight, StyleSheet, SafeAreaView, AsyncStorage } from 'react-native';
-import { SearchBar, List, ListItem } from "react-native-elements";
+import { Text, View, FlatList, Button, Modal, TouchableHighlight, StyleSheet, SafeAreaView, AsyncStorage, ImageBackground } from 'react-native';
+import { SearchBar, List, ListItem, Avatar } from "react-native-elements";
 import { Contacts, Permissions, SMS } from 'expo';
 import { contains } from './ContactsHelpers';
 import _ from 'lodash';
@@ -19,9 +19,16 @@ class ModalScreen extends Component {
 
   renderHeader = () => (
     <SearchBar
-      placeholder="find someone"
-      lightTheme
+      placeholder="Search your contacts"
+      placeholderTextColor="white"
       round
+      containerStyle={{
+        backgroundColor: "transparent",
+        borderBottomColor: "transparent",
+        borderTopColor: "transparent"
+      }}
+      inputContainerStyle={{ backgroundColor: "white" }}
+      inputStyle={{ backgroundColor: "white" }}
       onChangeText={this.handleSearch}
     />
   );
@@ -30,12 +37,7 @@ class ModalScreen extends Component {
     const params = navigation.state.params || {};
 
     return {
-      headerLeft: (
-        <Button
-          onPress={() => navigation.goBack()}
-          title = "< Back"
-        />
-      ),
+      headerLeft: <Button onPress={() => navigation.goBack()} title="< Back" />,
       headerTitle: "Add to Your Haven"
     };
   };
@@ -69,7 +71,7 @@ class ModalScreen extends Component {
     this.setState({ query: input, filteredContacts });
   };
 
-  renderSeparator = () => ( 
+  renderSeparator = () => (
     <View
       style={{
         height: 1,
@@ -88,7 +90,7 @@ class ModalScreen extends Component {
   saveContactToStorage = async key => {
     try {
       await AsyncStorage.setItem(key, key);
-      this.props.navigation.goBack()
+      this.props.navigation.goBack();
     } catch (error) {
       console.error(error);
     }
@@ -97,32 +99,51 @@ class ModalScreen extends Component {
   render() {
     return (
       <SafeAreaView>
-        <List
-          containerStyle={{
-            borderTopWidth: 0,
-            borderBottomWidth: 0,
-            marginTop: 0
-          }}
+        <ImageBackground
+          source={require("../../../../assets/img/gradient-background-image.png")}
+          style={{ width: "100%", height: "100%" }}
         >
-          <FlatList
-            data={this.state.filteredContacts}
-            renderItem={({ item }) => (
-              <ListItem
-                roundAvatar
-                button
-                onPress={() => {this.handleContactsPress(item.id)}}
-                title={`${item.name}`}
-                subtitle={item.phoneNumbers && item.phoneNumbers[0].digits}
-                //avatar={{ uri: item.picture.thumbnail }}
-                containerStyle={{ borderBottomWidth: 0 }}
-              />
-            )}
-            ItemSeparatorComponent={this.renderSeparator}
-            ListHeaderComponent={this.renderHeader}
-            keyExtractor={item => item.id}
-            automaticallyAdjustContentInsets={false}
-          />
-        </List>
+          <List
+            containerStyle={{
+              borderTopWidth: 0,
+              borderBottomWidth: 0,
+              marginTop: 0,
+              backgroundColor: "transparent"
+            }}
+          >
+            <FlatList
+              data={this.state.filteredContacts}
+              renderItem={({ item }) => (
+                <ListItem
+                  roundAvatar
+                  button
+                  onPress={() => {
+                    this.handleContactsPress(item.id);
+                  }}
+                  title={`${item.name}`}
+                  titleStyle={{ color: "white", fontFamily: "Avenir-Medium" }}
+                  subtitle={item.phoneNumbers && item.phoneNumbers[0].digits}
+                  subtitleStyle={{
+                    color: "#d3d3d3",
+                    fontFamily: "Avenir-Medium"
+                  }}
+                  containerStyle={{ borderBottomWidth: 0 }}
+                  avatar={<Avatar size={200}
+                    rounded
+                    overlayContainerStyle={{ backgroundColor: 'white' }}
+                    icon={{ name: "plus-one", color: "tomato" }}
+                    onPress={() => console.log("Works!")} activeOpacity={0.7} />
+                  }
+                  
+                />
+              )}
+              ItemSeparatorComponent={this.renderSeparator}
+              ListHeaderComponent={this.renderHeader}
+              keyExtractor={item => item.id}
+              automaticallyAdjustContentInsets={false}
+            />
+          </List>
+        </ImageBackground>
       </SafeAreaView>
     );
   }
