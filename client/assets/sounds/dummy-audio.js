@@ -8,49 +8,49 @@ class PlaylistItem {
 
 const PLAYLIST = [
     new PlaylistItem(
-      'Comfort Fit - “Sorry”',
-      'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3',
-      'https://images.shazam.com/coverart/t55537491-b955650891_s400.jpg'
+      'Tibetan Singing Bowl',
+      'https://res.cloudinary.com/dwysumxzw/video/upload/v1535686335/tibetan-singing-bowl.wav',
+      'https://res.cloudinary.com/dwysumxzw/image/upload/v1535688205/Screen_Shot_2018-08-30_at_9.02.49_PM.png'
+    ),
+    new PlaylistItem(
+      'Breathing Meditation (3m)',
+      'https://res.cloudinary.com/dwysumxzw/video/upload/v1535686321/breathing-meditation-three-min.mp3',
+      'https://res.cloudinary.com/dwysumxzw/image/upload/v1535690050/Screen_Shot_2018-08-30_at_9.33.16_PM.png'
+    ),
+    new PlaylistItem(
+      'Early Morning Songbirds',
+      'https://res.cloudinary.com/dwysumxzw/video/upload/v1535690382/Sound-therapy-morning-birds.mp3',
+      'https://res.cloudinary.com/dwysumxzw/image/upload/v1535690441/Screen_Shot_2018-08-30_at_9.40.10_PM.png'
     ),
     new PlaylistItem(
-      'Mildred Bailey – “All Of Me”',
-      'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3',
-      'https://tinyurl.com/y9u8e437'
+      'Water on Oars',
+      'https://res.cloudinary.com/dwysumxzw/video/upload/v1535686309/rowing-a-boat.mp3',
+      'https://res.cloudinary.com/dwysumxzw/image/upload/v1535688604/Screen_Shot_2018-08-30_at_9.06.48_PM.png'
     ),
     new PlaylistItem(
-      'Podington Bear - “Rubber Robot”',
-      'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3',
-      'https://cdn-img.jamendo.com/albums/s166/166372/covers/1.300.jpg?du=1529657778'
+      'Campfire',
+      'https://res.cloudinary.com/dwysumxzw/video/upload/v1535686325/campfire.mp3',
+      'https://res.cloudinary.com/dwysumxzw/image/upload/v1535688205/Screen_Shot_2018-08-30_at_8.50.30_PM.png'
+    ),
+    new PlaylistItem(
+      'Body Scan Meditation (4m)',
+      'https://res.cloudinary.com/dwysumxzw/video/upload/v1535686318/body-scan-meditation-four-min.mp3',
+      'https://res.cloudinary.com/dwysumxzw/image/upload/v1535688344/Screen_Shot_2018-08-30_at_9.05.19_PM.png'
+    ),
+    new PlaylistItem(
+      'Heavy Rain',
+      'https://res.cloudinary.com/dwysumxzw/video/upload/v1535688106/Heavy-summer-rain-sound-effect.mp3',
+      'https://res.cloudinary.com/dwysumxzw/image/upload/v1535688206/Screen_Shot_2018-08-30_at_9.02.28_PM.png'
     ),
     new PlaylistItem(
-      'Comfort Fit - “Sorry”',
-      'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3',
-      'https://images.shazam.com/coverart/t55537491-b955650891_s400.jpg'
+      'Guided Relaxation Meditation (4m)',
+      'https://res.cloudinary.com/dwysumxzw/video/upload/v1535689506/relax.mp3',
+      'https://res.cloudinary.com/dwysumxzw/image/upload/v1535688344/Screen_Shot_2018-08-30_at_9.05.19_PM.png'
     ),
     new PlaylistItem(
-      'Mildred Bailey – “All Of Me”',
-      'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3',
-      'https://tinyurl.com/y9u8e437'
-    ),
-    new PlaylistItem(
-      'Podington Bear - “Rubber Robot”',
+      'Peter Meows Reggae',
       'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3',
-      'https://cdn-img.jamendo.com/albums/s166/166372/covers/1.300.jpg?du=1529657778'
-    ),
-    new PlaylistItem(
-      'Comfort Fit - “Sorry”',
-      'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3',
-      'https://images.shazam.com/coverart/t55537491-b955650891_s400.jpg'
-    ),
-    new PlaylistItem(
-      'Mildred Bailey – “All Of Me”',
-      'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3',
-      'https://tinyurl.com/y9u8e437'
-    ),
-    new PlaylistItem(
-      'Podington Bear - “Rubber Robot”',
-      'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3',
-      'https://cdn-img.jamendo.com/albums/s166/166372/covers/1.300.jpg?du=1529657778'
+      'https://res.cloudinary.com/dwysumxzw/image/upload/v1535689252/Screen_Shot_2018-08-30_at_9.18.55_PM.png'
     ),
   ];
 
