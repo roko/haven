@@ -9,8 +9,12 @@ import {
   Dimensions, 
   Image, 
   CameraRoll,
-  TouchableOpacity  
+  TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
+import { MaterialCommunityIcons, Ionicons, Feather, FontAwesome } from '@expo/vector-icons';
+
+const SCREEN_WIDTH = Dimensions.get("window").width;
 
 //*Grid Sizing
 const formatData = ( data, numColumn ) => {
@@ -25,6 +29,7 @@ const formatData = ( data, numColumn ) => {
 };
 
 const numColumns = 3;
+
 export default class AddPhoto extends React.Component {
   constructor(props) {
     super(props);
@@ -107,7 +112,12 @@ export default class AddPhoto extends React.Component {
   render() {
     if(this.state.storytime === true) {
       return(
+        
         <View>
+          <ImageBackground
+            source={require('../../../../../assets/img/gradient-background-image.png')}
+            style={{ width: '100%', height: '100%' }}
+          >
       <StoryMod storyOff={() => this.notStoryTime()}  />
           <FlatList
           data={ formatData( this.state.photos, numColumns ) }
@@ -115,16 +125,22 @@ export default class AddPhoto extends React.Component {
           renderItem={ this.renderItem }
           numColumns={ numColumns }
         />
+        </ImageBackground>
         </View>
       )
     } else {
       return (
+        <ImageBackground
+        source={require('../../../../../assets/img/gradient-background-image.png')}
+        style={{ width: '100%', height: '100%' }}
+      >
         <FlatList
           data={ formatData( this.state.photos, numColumns ) }
           style={ styles.container }
           renderItem={ this.renderItem }
           numColumns={ numColumns }
-        />
+          />
+          </ImageBackground>
       );
     };
   };
@@ -133,7 +149,8 @@ export default class AddPhoto extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 20,
+    marginVertical: 45,
+    marginTop: 45
   },
   item: {
     alignItems: 'center',
