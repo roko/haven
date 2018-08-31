@@ -10,7 +10,7 @@ import _ from 'lodash';
 /**
  * Expo Documentation for getting contacts:
  * {@link https://docs.expo.io/versions/v29.0.0/sdk/contacts}
- * 
+ *
  */
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get("window");
 
@@ -25,7 +25,7 @@ export default class ContactsScreen extends Component {
       message: ''
     }
   }
-  
+
   componentDidMount(){
     this.getContactsFromStorage();
   }
@@ -75,22 +75,22 @@ export default class ContactsScreen extends Component {
   }
 
   renderHeader = () => (
-     <SearchBar 
-      placeholder="Search your Haven..." 
+     <SearchBar
+      placeholder="Search your Haven..."
       placeholderTextColor='grey'
       round
       containerStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderTopColor: 'transparent'}}
       inputContainerStyle={{ backgroundColor: 'white',  }}
       inputStyle={{ backgroundColor: 'white' }}
-      onChangeText={this.handleSearch} 
+      onChangeText={this.handleSearch}
     />
     )
 
   renderFooter = () => (
     <View>
       <FormLabel>
-        <Button 
-          title="Send a message!" 
+        <Button
+          title="Send a message!"
           onPress={()=>{console.log('it worked!')}}
         />
       </FormLabel>
@@ -115,7 +115,7 @@ export default class ContactsScreen extends Component {
       activeOpacity={0.7}
     />
   )
-  
+
   renderSeparator = () => (
     <View
       style={{
@@ -129,21 +129,22 @@ export default class ContactsScreen extends Component {
 
   renderNavRow = () => (
     <View style={styles.navRow}>
-      <TouchableOpacity>
-        <MaterialCommunityIcons
-          name="home-outline"
-          size={30}
-          color="#ffffff"
-          onPress={() => this.props.navigation.navigate("Home")}
-        />
-      </TouchableOpacity>
-      
+
       <TouchableOpacity>
         <MaterialIcons
           name="library-add"
           size={32}
           color="#ffffff"
           onPress={() => { this.props.navigation.navigate("AddContactModal") }}
+        />
+      </TouchableOpacity>
+
+      <TouchableOpacity>
+        <MaterialCommunityIcons
+          name="home-outline"
+          size={30}
+          color="#ffffff"
+          onPress={() => this.props.navigation.navigate("Home")}
         />
       </TouchableOpacity>
 
@@ -183,29 +184,29 @@ export default class ContactsScreen extends Component {
         <ImageBackground source={require("../../../../assets/img/gradient-background-image.png")} style={{ width: "100%", height: "100%" }}>
           <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, marginTop: 0, backgroundColor: 'transparent', }}>
           {this.renderNavRow()}
-            <FlatList 
-              data={this.state.query.length ? this.state.filteredContacts : this.state.havenContacts} 
-              renderItem={({ item }) => 
-                <ListItem 
-                  roundAvatar 
+            <FlatList
+              data={this.state.query.length ? this.state.filteredContacts : this.state.havenContacts}
+              renderItem={({ item }) =>
+                <ListItem
+                  roundAvatar
                   button onPress={() => {
                     this.handleContactsPress(item.id, this.state.message);
-                  }} 
+                  }}
                   title={`${item.name}`}
                   titleStyle={{color:'white', fontFamily:'Avenir-Medium'}}
-                  subtitle={item.phoneNumbers && item.phoneNumbers[0].number} 
+                  subtitle={item.phoneNumbers && item.phoneNumbers[0].number}
                   subtitleStyle={{ color: '#d3d3d3', fontFamily:'Avenir-Medium'}}
-                  avatar={<Avatar size={200} 
-                    rounded 
+                  avatar={<Avatar size={200}
+                    rounded
                     overlayContainerStyle={{ backgroundColor: 'white' }}
-                    icon={{ name: "star", color: "tomato" }} 
+                    icon={{ name: "star", color: "tomato" }}
                     onPress={() => console.log("Works!")} activeOpacity={0.7} />
-                  } 
-                  containerStyle={{ borderBottomWidth: 0 }} />} 
-                  ItemSeparatorComponent={this.renderSeparator} 
-                  ListHeaderComponent={this.renderHeader} 
-                  ListFooterComponent={this.renderFooter} 
-                  keyExtractor={item => item.id} 
+                  }
+                  containerStyle={{ borderBottomWidth: 0 }} />}
+                  ItemSeparatorComponent={this.renderSeparator}
+                  ListHeaderComponent={this.renderHeader}
+                  ListFooterComponent={this.renderFooter}
+                  keyExtractor={item => item.id}
                   automaticallyAdjustContentInsets={false} />
           </List>
         </ImageBackground>
