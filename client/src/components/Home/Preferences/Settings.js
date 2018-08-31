@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
 
-import { StyleSheet, View, Text, Button, TextInput, FlatList, SafeAreaView, SectionList, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Button, TextInput, FlatList, SafeAreaView, SectionList, TouchableOpacity, AsyncStorage } from "react-native";
 // import dummyData from "./dummyData/journalData.js";
 import { List, ListItem } from "react-native-elements";
 import EditSettings from './EditSettings';
@@ -37,24 +37,21 @@ class SettingsMain extends Component {
     })
   }
 
+  _signOutAsync = async () => {
+    await AsyncStorage.removeItem("userToken");
+    this.props.navigation.navigate("Auth");
+  };
+
   render() {
     if (this.state.view === 'default') {
       return (
         <View>
           <View style={styles.container}>
             <TouchableOpacity
-              style={{
-                alignItems: 'center',
-                marginRight: 40,
-                marginLeft: 40,
-                marginTop: 10,
-                padding: 10,
-                paddingTop: 10,
-                paddingBottom: 10,
-                backgroundColor: this.state.color,
-                borderRadius: 10,
-                borderWidth: 1
-              }}
+              style={[
+                styles.button,
+                { backgroundColor: this.state.color }
+              ]}
               onPress={() => { this.changeView('edit') }}
               >
               <Text style={styles.text}>Update Haven Color</Text>
@@ -75,18 +72,9 @@ class SettingsMain extends Component {
 
           <View style={styles.container}>
             <TouchableOpacity
-              style={{
-                alignItems: 'center',
-                marginRight: 40,
-                marginLeft: 40,
-                marginTop: 10,
-                padding: 10,
-                paddingTop: 10,
-                paddingBottom: 10,
-                backgroundColor: this.state.color,
-                borderRadius: 10,
-                borderWidth: 1
-              }}
+              style={[
+                styles.button,
+              ]}
               onPress={() => { this.changeView('edit') }}
               >
               <Text style={styles.text}>Change Settings</Text>
@@ -112,6 +100,7 @@ class SettingsMain extends Component {
               />
             </List>
           </SafeAreaView>
+          <Button title="Log Out" onPress={this._signOutAsync}/>
 
         </View>
       )
@@ -125,33 +114,46 @@ class SettingsMain extends Component {
   }
 }
 
+const styleObject = {
+  button: {
+  alignItems: 'center',
+  marginRight: 40,
+  marginLeft: 40,
+  marginTop: 10,
+  padding: 10,
+  paddingTop: 10,
+  paddingBottom: 10,
+  borderRadius: 10,
+  borderWidth: 1
+  }
+}  
+
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "center"
   },
-  // button: {
-  //   alignItems: 'center',
-  //   marginRight: 40,
-  //   marginLeft: 40,
-  //   marginTop: 10,
-  //   padding: 10,
-  //   paddingTop: 10,
-  //   paddingBottom: 10,
-  //   backgroundColor: 'rgb(26,201,141)',
-  //   borderRadius: 10,
-  //   borderWidth: 1
-  // },
+  button: {
+    alignItems: "center",
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+  },
   colorPreview: {
     marginLeft: 12,
     marginTop: 12,
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
+    flexDirection: "column",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: 3,
-    shadowColor: 'black',
+    shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0.25
