@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, Button, TouchableHighlight, StyleSheet, SafeAreaView, AsyncStorage } from 'react-native';
+import { Text, View, FlatList, Button, TouchableHighlight, StyleSheet, SafeAreaView, AsyncStorage, ImageBackground } from 'react-native';
 import { SearchBar, List, ListItem, FormInput, FormLabel, Avatar } from "react-native-elements";
 
 import {Contacts, Permissions, SMS} from 'expo';
@@ -73,9 +73,13 @@ export default class ContactsScreen extends Component {
   renderHeader = () => (
      <SearchBar 
       placeholder="Search your haven" 
-      lightTheme
+      placeholderTextColor='white'
       round
-      onChangeText={this.handleSearch} />
+      containerStyle={{ backgroundColor: 'transparent', borderBottomColor: 'transparent', borderTopColor: 'transparent'}}
+      inputContainerStyle={{ backgroundColor: 'white',  }}
+      inputStyle={{ backgroundColor: 'white' }}
+      onChangeText={this.handleSearch} 
+    />
     )
 
   renderFooter = () => (
@@ -88,8 +92,10 @@ export default class ContactsScreen extends Component {
       </FormLabel>
       <FormInput
         placeholder='Hello friend!'
+        placeholderTextColor='#d3d3d3'
         onChangeText={this.handleMessage}
-      />
+        inputStyle={{color:'white', fontFamily:'Avenir-Medium' }}
+    />
     </View>
   )
 
@@ -144,36 +150,35 @@ export default class ContactsScreen extends Component {
   }
 
   render() {
-    return (
-      <SafeAreaView>
-        <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, marginTop: 0 }}>
-          <FlatList
-            data={this.state.query.length > 0 ? this.state.filteredContacts: this.state.havenContacts}
-            renderItem={({ item }) => (
-              <ListItem
-                roundAvatar
-                button onPress={() => {this.handleContactsPress(item.id, this.state.message)}}
-                title={`${item.name}`}
-                subtitle={item.phoneNumbers && item.phoneNumbers[0].number}
-                avatar={
-                  <Avatar
-                    size={200}
-                    rounded
-                    icon={{ name: 'sms', color: 'orange' }}
-                    onPress={() => console.log("Works!")}
-                    activeOpacity={0.7}
-                  />}
-                containerStyle={{ borderBottomWidth: 0 }}
-              />
-            )}
-            ItemSeparatorComponent={this.renderSeparator}
-            ListHeaderComponent={this.renderHeader}
-            ListFooterComponent={this.renderFooter}
-            keyExtractor={item => item.id}
-            automaticallyAdjustContentInsets={false}
-            />
-        </List>
-      </SafeAreaView>
-    )
+    return <SafeAreaView>
+        <ImageBackground source={require("../../../../assets/img/gradient-background-image.png")} style={{ width: "100%", height: "100%" }}>
+          <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, marginTop: 0, backgroundColor: 'transparent', }}>
+            <FlatList 
+              data={this.state.query.length ? this.state.filteredContacts : this.state.havenContacts} 
+              renderItem={({ item }) => 
+                <ListItem 
+                  roundAvatar 
+                  button onPress={() => {
+                    this.handleContactsPress(item.id, this.state.message);
+                  }} 
+                  title={`${item.name}`}
+                  titleStyle={{color:'white', fontFamily:'Avenir-Medium'}}
+                  subtitle={item.phoneNumbers && item.phoneNumbers[0].number} 
+                  subtitleStyle={{ color: '#d3d3d3', fontFamily:'Avenir-Medium'}}
+                  avatar={<Avatar size={200} 
+                    rounded 
+                    overlayContainerStyle={{ backgroundColor: 'white' }}
+                    icon={{ name: "star", color: "tomato" }} 
+                    onPress={() => console.log("Works!")} activeOpacity={0.7} />
+                  } 
+                  containerStyle={{ borderBottomWidth: 0 }} />} 
+                  ItemSeparatorComponent={this.renderSeparator} 
+                  ListHeaderComponent={this.renderHeader} 
+                  ListFooterComponent={this.renderFooter} 
+                  keyExtractor={item => item.id} 
+                  automaticallyAdjustContentInsets={false} />
+          </List>
+        </ImageBackground>
+      </SafeAreaView>;
   }
 }
