@@ -21,6 +21,7 @@ export default class App extends React.Component {
     };
     this.savePhotoVid = this.savePhotoVid.bind(this);
     this.addView = this.addView.bind(this)
+    this.favoritesView = this.favoritesView.bind(this);
     this._switchToHome.bind(this);
   }
 
@@ -75,7 +76,7 @@ _switchToHome = () => {
   }
   else if(this.state.view === "add") {
     return (
-      <AddPhoto savePhotoVid={ () => this.savePhotoVid.bind(this) } />
+      <AddPhoto scrollView={ this.favoritesView } savePhotoVid={ () => this.savePhotoVid.bind(this) } />
     );
    }
    else if(this.state.view === "home") {
