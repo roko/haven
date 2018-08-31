@@ -13,6 +13,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import { MaterialCommunityIcons, Ionicons, Feather, FontAwesome } from '@expo/vector-icons';
+import { GridData } from "./PhotoLanding"
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -34,7 +35,7 @@ export default class AddPhoto extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      photos: [],
+      photos: GridData,
       favorites: [],
       dialogVisible: false,
       storyTime: false
@@ -47,24 +48,24 @@ export default class AddPhoto extends React.Component {
     title: "All Photos"
   };
 
-  photoGet = () => {
-    CameraRoll.getPhotos({
-      first: 20,
-      assetType: 'Photos',
-    })
-    .then(r => {
-      this.setState({ photos: r.edges });
-      console.log('all photos: ', r.edges)
-    })
-    .catch((err) => {
-       console.log('No Images Found ', err)
-    } );
-  }
+  // photoGet = () => {
+  //   CameraRoll.getPhotos({
+  //     first: 20,
+  //     assetType: 'Photos',
+  //   })
+  //   .then(r => {
+  //     this.setState({ photos: r.edges });
+  //     console.log('all photos: ', r.edges)
+  //   })
+  //   .catch((err) => {
+  //      console.log('No Images Found ', err)
+  //   } );
+  // }
 
-  componentDidMount() {
-    this.photoGet();
-    console.log(this.state.photos)
-  };
+  // componentDidMount() {
+  //   this.photoGet();
+  //   console.log(this.state.photos)
+  // };
   
   storyTime = () => {
     this.setState({ storytime: true })
@@ -83,28 +84,28 @@ export default class AddPhoto extends React.Component {
     }
     return (
       <TouchableOpacity key={ index } style={ styles.item } 
-      onPress={ () => {
-        this.storyTime(),
-        this.props.savePhotoVid.bind({
-          filename: item.node.image.filename, 
-          height: item.node.image.height, 
-          width: item.node.image.width, 
-          isSorted: item.node.image.isSorted,
-          playableDuration: item.node.image.playableDuration,
-          uri: item.node.image.uri,
-          lat: item.node.location.latitude,
-          long: item.node.location.longitude,
-          type: item.node.type,
-          story: '',
-      })
-      }}>
+      onPress={ () => 
+        this.storyTime()
+      //   this.props.savePhotoVid.bind({
+      //     filename: item.node.image.filename, 
+      //     height: item.node.image.height, 
+      //     width: item.node.image.width, 
+      //     isSorted: item.node.image.isSorted,
+      //     playableDuration: item.node.image.playableDuration,
+      //     uri: item.node.image.uri,
+      //     lat: item.node.location.latitude,
+      //     long: item.node.location.longitude,
+      //     type: item.node.type,
+      //     story: '',
+      // })
+      }>
           <Image
           style={{
           width: 123,
           height: Dimensions.get('window').width / numColumns,
           }}
           key={ index }
-          source={{ uri: item.node.image.uri }} />
+          source={ item.image } />
       </TouchableOpacity>
     );
   };

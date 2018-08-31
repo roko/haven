@@ -1,7 +1,7 @@
 import React from "react";
 import { AsyncStorage, Button, StyleSheet, View, StatusBar, Animated, ScrollView, CameraRoll, Image, Dimensions, TouchableHighlight, TouchableWithoutFeedback, Text } from "react-native";
 import ImageOverlay from "react-native-image-overlay";
-import photoData from './PhotoLanding';
+import { photoData } from './PhotoLanding';
 import { MaterialCommunityIcons, Ionicons, Feather, FontAwesome } from '@expo/vector-icons';
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
