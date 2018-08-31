@@ -9,21 +9,14 @@ import {
   StyleSheet,
   View
 } from "react-native";
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { EvilIcons, Ionicons } from '@expo/vector-icons';
 
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "Haven",
-    // headerStyle: {
-    //   backgroundColor: '#f4511e',
-    // },
-    headerTintColor: 'green',
-    // headerTitleStyle: {
-    //   fontWeight: 'bold',
-    // },
+    headerTransparent: true,
   };
 
   _switchToMusic = () => {
@@ -72,6 +65,11 @@ export default class HomeScreen extends React.Component {
               <Ionicons name="ios-contacts-outline" size={130} color="white" />
             </TouchableOpacity>
           </View>
+          <View style={styles.settingsIconContainer}>
+            <TouchableOpacity onPress={this._switchToSettings}>
+                <EvilIcons name="gear" size={48} color="white" />
+            </TouchableOpacity>
+          </View>
         </View>
       </ImageBackground>
     )
@@ -82,6 +80,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
+    height: DEVICE_HEIGHT,
     // backgroundColor: "rgb(26,201,141)",
   },
   iconsContainerTopRow: {
@@ -100,5 +99,11 @@ const styles = StyleSheet.create({
     paddingRight: 55,
     paddingTop: 25,
     justifyContent: "space-between",
+  },
+  settingsIconContainer: {
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    marginBottom: 30,
+    marginRight: 25,
   }
 });

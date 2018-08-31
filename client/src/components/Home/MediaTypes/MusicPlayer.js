@@ -3,7 +3,8 @@ import {
 	Dimensions,
   Image,
   ImageBackground,
-	StyleSheet,
+  SafeAreaView,
+  StyleSheet,
 	Text,
 	TouchableHighlight,
 	View,
@@ -66,7 +67,11 @@ export default class MusicPlayer extends Component {
 			rate: 1.0,
 			portrait: undefined,
 		};
-	}
+  }
+  
+  static navigationOptions = {
+    header: null,
+  };
 
 	componentDidMount() {
 		Audio.setAudioModeAsync({
@@ -278,7 +283,6 @@ export default class MusicPlayer extends Component {
 
 	render() {
     const { navigate } = this.props.navigation;
-    console.log(navigate)
 		return !this.state.fontLoaded ? (
 			<View />
 		) : (
@@ -286,6 +290,7 @@ export default class MusicPlayer extends Component {
         source={require('../../../../assets/img/gradient-background-image.png')} 
         style={{ width: '100%', height: '100%' }}
       >
+      {/* <SafeAreaView> */}
         <View style={styles.navRow}>
           {/* this and the associated style should be extracted to a component for reuse */}
           <Ionicons 
@@ -445,6 +450,7 @@ export default class MusicPlayer extends Component {
 
 				</View>
 			</View>
+      {/* </SafeAreaView> */}
       </ImageBackground>
 		);
 	}
@@ -536,6 +542,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     flexDirection: "row",
     paddingLeft: 15,
+    marginTop: 45,
   },
 });
 
