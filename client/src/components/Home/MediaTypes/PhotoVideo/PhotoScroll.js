@@ -7,10 +7,6 @@ import { MaterialCommunityIcons, Ionicons, Feather, FontAwesome } from '@expo/ve
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 
-_switchToAddPhoto = () => {
-  this.props.navigation.navigate("AddPhoto");
-};
-
 export default class PhotoScroll extends React.Component {
     constructor(props) {
         super(props);
@@ -21,9 +17,9 @@ export default class PhotoScroll extends React.Component {
         };
     }
 
-  static navigationOptions = {
-    title: "Haven Photos"
-  };
+    static navigationOptions = {
+      header: null,
+    };
 
   optionsToggle = () => {
       this.setState({ options: !this.state.options })
@@ -35,8 +31,6 @@ export default class PhotoScroll extends React.Component {
   offTouch = () => {
     this.setState({ touched: false, options: false })
   }
-
-  
 
   render() {
     console.log(this.state.photos)
@@ -62,7 +56,7 @@ export default class PhotoScroll extends React.Component {
          >
         <View style={{ marginTop: 140, marginBottom: 215, alignItems: "center" }} >
             <Button title={ "Add From CameraRoll..." } size={ 90 } color={ "white" } onPress={ () => this.props.addView() } /> 
-            <Ionicons color="#1ac98d" size={ 60 } name="ios-add" onPress={ () => this.props.addView() } />
+            <Ionicons color="#1ac98d" size={ 60 } name="md-add" onPress={ () => this.props.addView() } />
         </View>
           </ImageOverlay>
       </TouchableHighlight>
@@ -82,18 +76,12 @@ export default class PhotoScroll extends React.Component {
          >
         <View style={styles.navRow}>
           {/* this and the associated style should be extracted to a component for reuse */}
-          <Ionicons 
-            name="ios-arrow-back" 
-            size={30}
-            color="#ffffff"
-            onPress={() => this.props.navigation.goBack()}
-          />
           <Ionicons color="white" size={ 35 } name="ios-images" onPress={() => this.optionsToggle()} />
           <MaterialCommunityIcons 
             name="home-outline" 
             size={30}
             color="#ffffff"
-            onPress={() => this.props.navigation.navigate("Home")}
+            onPress={ () => this.props._switchToHome() }
           />
         </View>
         </ImageOverlay>
@@ -114,8 +102,8 @@ export default class PhotoScroll extends React.Component {
         <Ionicons name="ios-book" size={70} color="white"  />
           <Text style={ styles.storyText }>{ p.story }</Text>
           <Text style={ styles.locationText }>{ p.location }</Text>
-          <View style={{ flexDirection: 'row'}}>
-          <Ionicons color="#1ac98d" size={ 30 } name="ios-eye-off-outline" onPress={ () => this.offTouch() } alignItems={ "center" } marginTop={ 10 } />
+          <View style={{ flexDirection: 'row' }}>
+          <Ionicons color="#1ac98d" size={ 30 } name="md-eye-off" onPress={ () => this.offTouch() } alignItems={ "center" } marginTop={ 10 } />
           </View>
         </View>
          </ImageOverlay>
